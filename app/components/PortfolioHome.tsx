@@ -35,9 +35,21 @@ export function PortfolioHome() {
       { threshold: 0.12 },
     );
     items.forEach((item) => observer.observe(item));
+
+    const hideAppDeployOverlay = () => {
+      document
+        .querySelectorAll<HTMLElement>(".appdeploy-overlay, #appdeploy-overlay, [data-appdeploy-overlay]")
+        .forEach((overlay) => overlay.style.setProperty("display", "none", "important"));
+    };
+    hideAppDeployOverlay();
+    window.postMessage("appdeploy:hideOverlay", window.location.origin);
+    const appDeployObserver = new MutationObserver(hideAppDeployOverlay);
+    appDeployObserver.observe(document.body, { childList: true, subtree: true });
+
     return () => {
       document.body.classList.remove("js-reveal");
       observer.disconnect();
+      appDeployObserver.disconnect();
     };
   }, []);
 
@@ -105,6 +117,7 @@ export function PortfolioHome() {
             {visibleProjects.map((project, index) => (
               <article className={`project-card reveal ${index % 2 === 1 ? "project-card-offset" : ""}`} key={project.slug}>
                 <div className={`project-card-visual visual-${project.accent}`}>
+                  <Image src={project.image.src} alt={project.image.alt} fill sizes="(max-width: 620px) calc(100vw - 40px), 46vw" />
                   <div className="visual-meta"><span>0{index + 1}</span><span>{project.kind}</span></div>
                   <ProjectGlyph accent={project.accent} />
                   <span className="visual-word">{project.shortTitle}</span>

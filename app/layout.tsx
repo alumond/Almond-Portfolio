@@ -1,19 +1,6 @@
 import type { Metadata } from "next";
-import { EB_Garamond, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { profile } from "./data";
-
-const ebGaramond = EB_Garamond({
-  variable: "--font-eb-garamond",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Almond Owolabi — Data Scientist & AI Engineer",
@@ -51,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ebGaramond.variable} ${geistMono.variable} antialiased`}
+        className="antialiased"
       >
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         {children}

@@ -12,6 +12,10 @@ export type Project = {
   github: string;
   featured: boolean;
   accent: "brick" | "blue" | "lichen" | "ink";
+  image: {
+    src: string;
+    alt: string;
+  };
   outcomes: string[];
   sections: Array<{
     title: string;
@@ -117,6 +121,10 @@ export const projects: Project[] = [
     github: "https://github.com/alumond/Monitoring-and-Evaluation-Agent",
     featured: true,
     accent: "brick",
+    image: {
+      src: "/images/project-me-intelligence.jpg",
+      alt: "Hands working on a laptop with a detailed spreadsheet open in an office",
+    },
     outcomes: ["Full workbook analysis", "Donor-grade PDF output", "Separate escalation workflow"],
     sections: [
       { title: "The premise", body: "Programme data should not end as a static spreadsheet. This system treats a workbook as an operational surface: it classifies sheets, normalizes project state, detects performance gaps, and decides whether the next action is a report, alert, escalation, recommendation, or a recorded no-op." },
@@ -136,6 +144,10 @@ export const projects: Project[] = [
     github: "https://github.com/alumond/Health-Access-for-PWDs",
     featured: true,
     accent: "lichen",
+    image: {
+      src: "/images/project-health-access.jpg",
+      alt: "A stethoscope beside a laptop, representing digital health access analysis",
+    },
     outcomes: ["Filterable by state and disability group", "Target-aware KPI cards", "Donor-ready action framing"],
     sections: [
       { title: "The question", body: "Where are access barriers most visible, which groups face the highest exposure, and which service-readiness gaps need attention first? The dashboard is structured around the decisions a programme manager or M&E lead actually needs to make." },
@@ -155,6 +167,10 @@ export const projects: Project[] = [
     github: "https://github.com/alumond/HR-Analytics-Nexus",
     featured: true,
     accent: "blue",
+    image: {
+      src: "/images/project-hr-analytics.jpg",
+      alt: "A workplace team gathered around a laptop during an analytics discussion",
+    },
     outcomes: ["22,000+ employee records", "967 invalid ages excluded", "1,599 future dates excluded"],
     sections: [
       { title: "The brief", body: "Make workforce patterns legible across gender, race, age, location, department, job title, tenure, and turnover. The work combines SQL cleaning and analysis with a dashboard layer designed for decision makers rather than database specialists." },
@@ -174,6 +190,10 @@ export const projects: Project[] = [
     github: "https://github.com/alumond/RAG",
     featured: true,
     accent: "ink",
+    image: {
+      src: "/images/project-rag-api.jpg",
+      alt: "Code displayed on a development workstation for an API system",
+    },
     outcomes: ["Local model runtime", "Vector retrieval layer", "Flask API surface"],
     sections: [
       { title: "The point", body: "RAG is most useful when it reduces the gap between a language model and a trusted body of information. This project focuses on the plumbing that makes that possible: local inference, retrieval, context assembly, and a service endpoint." },
@@ -193,6 +213,10 @@ export const projects: Project[] = [
     github: "https://github.com/alumond/loan-Prediction-App",
     featured: true,
     accent: "blue",
+    image: {
+      src: "/images/project-loan-prediction.jpg",
+      alt: "Financial paperwork and calculator used for loan and approval analysis",
+    },
     outcomes: ["Interactive input surface", "Trained ML pipeline", "Probability-led output"],
     sections: [
       { title: "The translation", body: "The project moves beyond a notebook by giving a model a user-facing interface. Financial and demographic inputs become a structured request, the pipeline transforms them, and the app returns a result that a non-technical user can understand." },
@@ -212,6 +236,10 @@ export const projects: Project[] = [
     github: "https://github.com/alumond/Indicators",
     featured: true,
     accent: "lichen",
+    image: {
+      src: "/images/project-development-indicators.jpg",
+      alt: "Aerial view of Lagos roads and urban infrastructure",
+    },
     outcomes: ["Nigeria-focused indicator selection", "GDP and GNI modelling", "Trade variable exploration"],
     sections: [
       { title: "The frame", body: "Development datasets become useful when the selection is intentional. This project narrows a broad World Bank indicator set into a Nigeria-focused exploration and creates a path from descriptive analysis to prediction." },
