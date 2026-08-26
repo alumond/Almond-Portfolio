@@ -4,23 +4,24 @@ import { useEffect } from "react";
 
 export function AppDeployOverlayGuard() {
   useEffect(() => {
+    const selector = "[id^='appdeploy-overlay-'], .appdeploy-overlay, #appdeploy-overlay, [data-appdeploy-overlay], [class*='appdeploy-overlay']";
     const removeInjectedToolbar = () => {
       document
-        .querySelectorAll<HTMLElement>("[id^='appdeploy-overlay-'], .appdeploy-overlay, #appdeploy-overlay, [data-appdeploy-overlay]")
-        .forEach((overlay) => {
-          if (overlay.id.startsWith("appdeploy-overlay-")) {
-            overlay.remove();
-            return;
-          }
-          overlay.style.setProperty("display", "none", "important");
-        });
+        .querySelectorAll<HTMLElement>(selector)
+        .forEach((overlay) => overlay.remove());
     };
 
     removeInjectedToolbar();
     const observer = new MutationObserver(removeInjectedToolbar);
     observer.observe(document.documentElement, { childList: true, subtree: true });
+    const interval = window.setInterval(removeInjectedToolbar, 400);
+    window.addEventListener("load", removeInjectedToolbar);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      window.clearInterval(interval);
+      window.removeEventListener("load", removeInjectedToolbar);
+    };
   }, []);
 
   return null;

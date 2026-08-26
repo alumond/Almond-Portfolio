@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { archiveRepos, certifications, experience, profile, projects, services, skills } from "../data";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
@@ -27,13 +27,69 @@ function ProjectGlyph({ accent }: { accent: string }) {
 
 function MiniChart({ kind }: { kind: "line" | "bars" | "points" }) {
   return (
-    <svg className={`mini-chart mini-chart-${kind}`} viewBox="0 0 150 38" preserveAspectRatio="none" aria-hidden="true">
-      <path className="mini-chart-axis" d="M1 36.5H149" />
-      {kind === "line" && <path className="mini-chart-line" d="M3 31 24 27 42 29 63 18 84 21 105 10 126 14 147 4" />}
-      {kind === "bars" && <><path className="mini-chart-bars-path" d="M10 36V26M32 36V18M54 36V22M76 36V9M98 36V15M120 36V5M142 36V11" /><path className="mini-chart-guide" d="M1 14H149" /></>}
-      {kind === "points" && <><circle cx="12" cy="27" r="2" /><circle cx="36" cy="22" r="2" /><circle cx="61" cy="25" r="2" /><circle cx="86" cy="13" r="2" /><circle cx="111" cy="17" r="2" /><circle cx="140" cy="6" r="2" /><path className="mini-chart-guide" d="M12 27 36 22 61 25 86 13 111 17 140 6" /></>}
+    <svg className={`mini-chart mini-chart-${kind}`} viewBox="0 0 180 62" preserveAspectRatio="none" aria-hidden="true">
+      <path className="mini-chart-axis" d="M1 59.5H179" />
+      <path className="mini-chart-grid" d="M1 39.5H179M1 19.5H179" />
+      {kind === "line" && <><path className="mini-chart-area" d="M3 52 28 45 52 47 76 32 101 36 126 19 151 25 177 8V59H3Z" /><path className="mini-chart-line" d="M3 52 28 45 52 47 76 32 101 36 126 19 151 25 177 8" /></>}
+      {kind === "bars" && <><path className="mini-chart-bars-path" d="M13 59V43M38 59V31M63 59V38M88 59V20M113 59V28M138 59V11M163 59V18" /><path className="mini-chart-guide" d="M1 26H179" /></>}
+      {kind === "points" && <><path className="mini-chart-guide" d="M14 49 43 41 72 45 101 25 130 31 166 12" /><circle cx="14" cy="49" r="3" /><circle cx="43" cy="41" r="3" /><circle cx="72" cy="45" r="3" /><circle cx="101" cy="25" r="3" /><circle cx="130" cy="31" r="3" /><circle cx="166" cy="12" r="3" /></>}
     </svg>
   );
+}
+
+function AnimatedMetric({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const [display, setDisplay] = useState(0);
+  const metricRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const metric = metricRef.current;
+    if (!metric) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      const startedAt = performance.now();
+      const duration = 1100;
+      const update = (now: number) => {
+        const progress = Math.min((now - startedAt) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setDisplay(Math.round(value * eased));
+        if (progress < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+      observer.disconnect();
+    }, { threshold: 0.65 });
+
+    observer.observe(metric);
+    return () => observer.disconnect();
+  }, [value]);
+
+  return <strong ref={metricRef}><span>{display}</span>{suffix && <sup>{suffix}</sup>}</strong>;
+}
+
+function ScrollProgress() {
+  const fillRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = height > 0 ? Math.min(window.scrollY / height, 1) : 0;
+        fillRef.current?.style.setProperty("transform", `scaleY(${progress})`);
+      });
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return <div className="scroll-progress" aria-hidden="true"><span ref={fillRef} /></div>;
 }
 
 function DataField() {
@@ -48,7 +104,7 @@ export function PortfolioHome() {
     const items = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")),
-      { threshold: 0.12 },
+      { threshold: 0.16, rootMargin: "0px 0px -8% 0px" },
     );
     items.forEach((item) => observer.observe(item));
 
@@ -66,6 +122,7 @@ export function PortfolioHome() {
   return (
     <>
       <SiteHeader />
+      <ScrollProgress />
       <main>
         <section className="hero section-frame" aria-labelledby="hero-title">
           <div className="hero-index reveal">01 <span>/</span> portfolio</div>
@@ -88,10 +145,6 @@ export function PortfolioHome() {
               <span>03° 22′ N / 06° 31′ E</span>
             </div>
           </div>
-          <div className="hero-side-note reveal reveal-delay-2">
-            <span className="side-note-dot" />
-            <span>Turning evidence into decisions across analytics, AI, and development impact.</span>
-          </div>
           <div className="hero-scroll reveal reveal-delay-2"><span>Scroll to explore</span><span className="scroll-line" /></div>
         </section>
 
@@ -99,10 +152,25 @@ export function PortfolioHome() {
           <div className="intro-band-label reveal"><span>02</span><span>What I bring</span></div>
           <div className="intro-band-copy reveal reveal-delay-1">
             <p className="display-copy">Four years across analytics, visualization, statistical modelling, pipelines, and applied machine learning—grounded in the questions that matter to people, programmes, and businesses.</p>
-            <div className="stat-row">
-              <div><strong>25</strong><span>public repos</span><MiniChart kind="bars" /></div>
-              <div><strong>30%</strong><span>pipeline time reduced</span><MiniChart kind="line" /></div>
-              <div><strong>4+</strong><span>years in data</span><MiniChart kind="points" /></div>
+            <div className="stat-row" aria-label="Selected professional metrics">
+              <article className="stat-card reveal">
+                <div className="stat-card-top"><AnimatedMetric value={25} /><span className="stat-index">01</span></div>
+                <span className="stat-label">Public repositories</span>
+                <p>Open-source work across analytics, M&amp;E and applied AI.</p>
+                <MiniChart kind="bars" />
+              </article>
+              <article className="stat-card reveal reveal-delay-1">
+                <div className="stat-card-top"><AnimatedMetric value={30} suffix="%" /><span className="stat-index">02</span></div>
+                <span className="stat-label">Pipeline time reduced</span>
+                <p>Less manual preparation. More time for interpretation.</p>
+                <MiniChart kind="line" />
+              </article>
+              <article className="stat-card reveal reveal-delay-2">
+                <div className="stat-card-top"><AnimatedMetric value={4} suffix="+" /><span className="stat-index">03</span></div>
+                <span className="stat-label">Years in data</span>
+                <p>From field evidence to models and decision rooms.</p>
+                <MiniChart kind="points" />
+              </article>
             </div>
           </div>
         </section>
