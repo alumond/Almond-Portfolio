@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { profile } from "../data";
+import { ArrowIcon } from "./ArrowIcon";
 
 const links = [
   ["Work", "/#work"],
@@ -39,10 +40,9 @@ export function SiteHeader() {
           </Link>
         ))}
         <Link className="nav-cta" href="/contact" onClick={() => setOpen(false)}>
-          Let&apos;s talk <span aria-hidden="true">↗</span>
+          Let&apos;s talk <ArrowIcon />
         </Link>
       </nav>
     </header>
   );
 }
-

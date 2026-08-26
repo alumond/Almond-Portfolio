@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { profile, projects } from "../../data";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteHeader } from "../../components/SiteHeader";
+import { ArrowIcon } from "../../components/ArrowIcon";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -40,9 +41,14 @@ export default async function CaseStudyPage({ params }: Props) {
               <p className="eyebrow">{project.kicker}</p>
               <h1>{project.title}</h1>
               <p className="case-lede">{project.longDescription}</p>
-              <div className="case-actions"><a className="button button-dark" href={project.github} target="_blank" rel="noreferrer">Open repository ↗</a><Link className="text-link" href="/contact">Discuss a similar problem <span className="arrow">↗</span></Link></div>
+              <div className="case-actions"><a className="button button-dark" href={project.github} target="_blank" rel="noreferrer">Open repository <ArrowIcon /></a><Link className="text-link" href="/contact">Discuss a similar problem <ArrowIcon /></Link></div>
             </div>
-            <div className="case-mark" aria-hidden="true"><span>{project.kind}</span><strong>{project.shortTitle}</strong><i /><i /><i /></div>
+            <div className="case-mark case-mark-image">
+              <Image src={project.image.src} alt={project.image.alt} fill priority sizes="(max-width: 620px) 70vw, 28vw" />
+              <span className="case-mark-shade" aria-hidden="true" />
+              <span className="case-mark-label">{project.kind}</span>
+              <strong>{project.shortTitle}</strong>
+            </div>
           </div>
         </section>
 
@@ -62,11 +68,10 @@ export default async function CaseStudyPage({ params }: Props) {
 
         <section className="case-endcap section-frame">
           <div className="case-endcap-image"><Image src={profile.portraitMono} alt="Almond Owolabi, data scientist and AI engineer" fill sizes="(max-width: 720px) 86vw, 32vw" /></div>
-          <div><p className="eyebrow">Keep going</p><h2>Good work leaves a clearer path behind it.</h2><Link className="button button-dark" href="/#work">Explore more work ↗</Link></div>
+          <div><p className="eyebrow">Keep going</p><h2>Good work leaves a clearer path behind it.</h2><Link className="button button-dark" href="/#work">Explore more work <ArrowIcon /></Link></div>
         </section>
       </main>
       <SiteFooter />
     </>
   );
 }
-

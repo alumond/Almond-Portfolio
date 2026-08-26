@@ -6,11 +6,12 @@ import { useEffect, useMemo, useState } from "react";
 import { archiveRepos, certifications, experience, profile, projects, services, skills } from "../data";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
+import { ArrowIcon } from "./ArrowIcon";
 
 const filters = ["All", "M&E", "Analytics", "Machine learning", "AI systems", "Dashboards"] as const;
 
 function Arrow() {
-  return <span className="arrow" aria-hidden="true">↗</span>;
+  return <ArrowIcon />;
 }
 
 function ProjectGlyph({ accent }: { accent: string }) {
@@ -22,6 +23,21 @@ function ProjectGlyph({ accent }: { accent: string }) {
       <b />
     </span>
   );
+}
+
+function MiniChart({ kind }: { kind: "line" | "bars" | "points" }) {
+  return (
+    <svg className={`mini-chart mini-chart-${kind}`} viewBox="0 0 150 38" preserveAspectRatio="none" aria-hidden="true">
+      <path className="mini-chart-axis" d="M1 36.5H149" />
+      {kind === "line" && <path className="mini-chart-line" d="M3 31 24 27 42 29 63 18 84 21 105 10 126 14 147 4" />}
+      {kind === "bars" && <><path className="mini-chart-bars-path" d="M10 36V26M32 36V18M54 36V22M76 36V9M98 36V15M120 36V5M142 36V11" /><path className="mini-chart-guide" d="M1 14H149" /></>}
+      {kind === "points" && <><circle cx="12" cy="27" r="2" /><circle cx="36" cy="22" r="2" /><circle cx="61" cy="25" r="2" /><circle cx="86" cy="13" r="2" /><circle cx="111" cy="17" r="2" /><circle cx="140" cy="6" r="2" /><path className="mini-chart-guide" d="M12 27 36 22 61 25 86 13 111 17 140 6" /></>}
+    </svg>
+  );
+}
+
+function DataField() {
+  return <div className="experience-data-field" aria-hidden="true"><i /><i /><i /><i /><i /><span /></div>;
 }
 
 export function PortfolioHome() {
@@ -95,9 +111,9 @@ export function PortfolioHome() {
           <div className="intro-band-copy reveal reveal-delay-1">
             <p className="display-copy">Four years across analytics, visualization, statistical modelling, pipelines, and applied machine learning—grounded in the questions that matter to people, programmes, and businesses.</p>
             <div className="stat-row">
-              <div><strong>25</strong><span>public repos</span></div>
-              <div><strong>30%</strong><span>pipeline time reduced</span></div>
-              <div><strong>4+</strong><span>years in data</span></div>
+              <div><strong>25</strong><span>public repos</span><MiniChart kind="bars" /></div>
+              <div><strong>30%</strong><span>pipeline time reduced</span><MiniChart kind="line" /></div>
+              <div><strong>4+</strong><span>years in data</span><MiniChart kind="points" /></div>
             </div>
           </div>
         </section>
@@ -154,6 +170,7 @@ export function PortfolioHome() {
         </section>
 
         <section className="experience-section section-frame" id="about" aria-labelledby="experience-title">
+          <DataField />
           <div className="section-heading reveal">
             <div><span className="section-number">05 /</span><p className="eyebrow">Experience</p></div>
             <h2 id="experience-title">Close to the work.</h2>
@@ -184,7 +201,7 @@ export function PortfolioHome() {
           <div className="section-heading reveal"><div><span className="section-number">07 /</span><p className="eyebrow">Open archive</p></div><h2 id="archive-title">Every repository has a trace.</h2><p>Twenty-five public repositories across analytics, dashboards, machine learning, M&E, and AI systems.</p></div>
           <div className="archive-table reveal">
             <div className="archive-head"><span>Repository</span><span>Focus</span><span>Open</span></div>
-            {archiveRepos.map(([repo, description, kind], index) => <a className="archive-row" href={`https://github.com/alumond/${repo}`} target="_blank" rel="noreferrer" key={repo}><span><b>{String(index + 1).padStart(2, "0")}</b>{repo}</span><span>{description}</span><span className="archive-kind">{kind} ↗</span></a>)}
+            {archiveRepos.map(([repo, description, kind], index) => <a className="archive-row" href={`https://github.com/alumond/${repo}`} target="_blank" rel="noreferrer" key={repo}><span><b>{String(index + 1).padStart(2, "0")}</b>{repo}</span><span>{description}</span><span className="archive-kind">{kind} <ArrowIcon /></span></a>)}
           </div>
         </section>
 
@@ -196,7 +213,7 @@ export function PortfolioHome() {
         <section className="contact-banner section-frame" id="contact" aria-labelledby="contact-title">
           <div className="contact-art" aria-hidden="true"><span>AO</span><i /><i /><i /></div>
           <div className="contact-copy reveal"><span className="section-number">09 /</span><p className="eyebrow">Start a conversation</p><h2 id="contact-title">Have a difficult dataset, a consequential decision, or a system that needs to grow up?</h2><Link className="button button-light" href="/contact">Let&apos;s work on it <Arrow /></Link></div>
-          <div className="contact-details reveal reveal-delay-1"><a href={`mailto:${profile.email}`}>{profile.email}</a><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a><a href={profile.github} target="_blank" rel="noreferrer">GitHub ↗</a></div>
+          <div className="contact-details reveal reveal-delay-1"><a href={`mailto:${profile.email}`}>{profile.email}</a><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowIcon /></a><a href={profile.github} target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a></div>
         </section>
       </main>
       <SiteFooter />

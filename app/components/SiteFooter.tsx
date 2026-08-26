@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { profile } from "../data";
+import { ArrowIcon } from "./ArrowIcon";
 
 export function SiteFooter() {
   return (
@@ -15,14 +16,13 @@ export function SiteFooter() {
           <p className="footer-note">Data scientist, AI engineer, and builder of evidence-led systems.</p>
         </div>
         <div className="footer-links">
-          <Link href={profile.github}>GitHub ↗</Link>
-          <Link href={profile.linkedin}>LinkedIn ↗</Link>
-          <Link href={`mailto:${profile.email}`}>Email ↗</Link>
-          <Link href={profile.resume}>Resume ↗</Link>
+          <Link href={profile.github}>GitHub <ArrowIcon /></Link>
+          <Link href={profile.linkedin}>LinkedIn <ArrowIcon /></Link>
+          <Link href={`mailto:${profile.email}`}>Email <ArrowIcon /></Link>
+          <Link href={profile.resume}>Resume <ArrowIcon /></Link>
         </div>
         <p className="footer-copyright">© {new Date().getFullYear()} Almond Owolabi</p>
       </div>
     </footer>
   );
 }
-
