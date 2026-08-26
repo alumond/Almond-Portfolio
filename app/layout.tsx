@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   description:
     "Almond Owolabi is a data scientist and AI engineer building analytics, machine learning, M&E intelligence, and data products.",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: [{ url: "/favicon-ao.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon-ao.svg",
   },
   metadataBase: new URL(siteUrl),
   openGraph: {
