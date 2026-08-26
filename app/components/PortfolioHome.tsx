@@ -27,13 +27,22 @@ function ProjectGlyph({ accent }: { accent: string }) {
 
 function MiniChart({ kind }: { kind: "line" | "bars" | "points" }) {
   return (
-    <svg className={`mini-chart mini-chart-${kind}`} viewBox="0 0 180 62" preserveAspectRatio="none" aria-hidden="true">
-      <path className="mini-chart-axis" d="M1 59.5H179" />
-      <path className="mini-chart-grid" d="M1 39.5H179M1 19.5H179" />
-      {kind === "line" && <><path className="mini-chart-area" d="M3 52 28 45 52 47 76 32 101 36 126 19 151 25 177 8V59H3Z" /><path className="mini-chart-line" d="M3 52 28 45 52 47 76 32 101 36 126 19 151 25 177 8" /></>}
-      {kind === "bars" && <><path className="mini-chart-bars-path" d="M13 59V43M38 59V31M63 59V38M88 59V20M113 59V28M138 59V11M163 59V18" /><path className="mini-chart-guide" d="M1 26H179" /></>}
-      {kind === "points" && <><path className="mini-chart-guide" d="M14 49 43 41 72 45 101 25 130 31 166 12" /><circle cx="14" cy="49" r="3" /><circle cx="43" cy="41" r="3" /><circle cx="72" cy="45" r="3" /><circle cx="101" cy="25" r="3" /><circle cx="130" cy="31" r="3" /><circle cx="166" cy="12" r="3" /></>}
-    </svg>
+    <div className={`chart-module chart-module-${kind}`}>
+      <svg className={`mini-chart mini-chart-${kind}`} viewBox="0 0 180 62" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id={`chart-fill-${kind}`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="currentColor" stopOpacity="0.16" />
+            <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path className="mini-chart-axis" d="M1 59.5H179" />
+        <path className="mini-chart-grid" d="M1 39.5H179M1 19.5H179" />
+        {kind === "line" && <><path className="mini-chart-area" style={{ fill: `url(#chart-fill-${kind})` }} d="M3 52 28 45 52 47 76 32 101 36 126 19 151 25 177 8V59H3Z" /><path className="mini-chart-line" d="M3 52 28 45 52 47 76 32 101 36 126 19 151 25 177 8" /><circle className="mini-chart-endpoint" cx="177" cy="8" r="3" /></>}
+        {kind === "bars" && <><g className="mini-chart-bars"><line x1="13" y1="59" x2="13" y2="43" /><line x1="38" y1="59" x2="38" y2="31" /><line x1="63" y1="59" x2="63" y2="38" /><line x1="88" y1="59" x2="88" y2="20" /><line x1="113" y1="59" x2="113" y2="28" /><line x1="138" y1="59" x2="138" y2="11" /><line x1="163" y1="59" x2="163" y2="18" /></g><path className="mini-chart-guide" d="M1 26H179" /></>}
+        {kind === "points" && <><path className="mini-chart-guide" d="M14 49 43 41 72 45 101 25 130 31 166 12" /><circle cx="14" cy="49" r="3" /><circle cx="43" cy="41" r="3" /><circle cx="72" cy="45" r="3" /><circle cx="101" cy="25" r="3" /><circle cx="130" cy="31" r="3" /><circle cx="166" cy="12" r="3" /></>}
+      </svg>
+      <div className="chart-scale"><span>Baseline</span><i /><span>Current</span></div>
+    </div>
   );
 }
 
