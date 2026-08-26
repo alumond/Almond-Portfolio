@@ -6,13 +6,24 @@ export function PortfolioLoader() {
   const [phase, setPhase] = useState<"visible" | "leaving" | "hidden">("visible");
 
   useEffect(() => {
-    const hasWelcomed = window.sessionStorage.getItem("almond-portfolio-welcomed");
+    let hasWelcomed = false;
+
+    try {
+      hasWelcomed = window.sessionStorage.getItem("almond-portfolio-welcomed") === "true";
+    } catch {
+      // The CSS fail-safe still dismisses the introduction if storage is unavailable.
+    }
+
     if (hasWelcomed) {
       const hideSeenTimer = window.setTimeout(() => setPhase("hidden"), 0);
       return () => window.clearTimeout(hideSeenTimer);
     }
 
-    window.sessionStorage.setItem("almond-portfolio-welcomed", "true");
+    try {
+      window.sessionStorage.setItem("almond-portfolio-welcomed", "true");
+    } catch {
+      // Continue normally when private browsing blocks session storage.
+    }
     const leaveTimer = window.setTimeout(() => setPhase("leaving"), 1050);
     const hideTimer = window.setTimeout(() => setPhase("hidden"), 1550);
     return () => {

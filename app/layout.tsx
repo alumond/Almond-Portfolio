@@ -2,21 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { profile } from "./data";
 import { PortfolioLoader } from "./components/PortfolioLoader";
-import { AppDeployOverlayGuard } from "./components/AppDeployOverlayGuard";
-
-const overlayGuardScript = `(() => {
-  const selector = "[id^='appdeploy-overlay-'],.appdeploy-overlay,#appdeploy-overlay,[data-appdeploy-overlay],[class*='appdeploy-overlay']";
-  const remove = () => {
-    document.querySelectorAll(selector).forEach((node) => node.remove());
-    Array.from(document.documentElement.children)
-      .filter((node) => node.tagName.toLowerCase().startsWith('appdeploy-overlay-'))
-      .forEach((node) => node.remove());
-  };
-  const observer = new MutationObserver(remove);
-  observer.observe(document.documentElement, { childList: true, subtree: true });
-  window.addEventListener('DOMContentLoaded', remove, { once: true });
-  window.setInterval(remove, 400);
-})();`;
 
 export const metadata: Metadata = {
   title: "Almond Owolabi — Data Scientist & AI Engineer",
@@ -53,14 +38,10 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: overlayGuardScript }} />
-      </head>
       <body
         className="antialiased"
       >
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-        <AppDeployOverlayGuard />
         <PortfolioLoader />
         {children}
       </body>

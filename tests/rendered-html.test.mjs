@@ -21,6 +21,7 @@ test("server-renders the complete portfolio homepage", async () => {
   assert.match(html, /project-me-intelligence\.jpg/i);
   assert.match(html, /project-health-access\.jpg/i);
   assert.match(html, /application\/ld\+json/i);
+  assert.doesNotMatch(html, /new MutationObserver|setInterval\(remove/i);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|Building your site/i);
 });
 

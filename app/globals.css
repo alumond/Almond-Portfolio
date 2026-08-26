@@ -59,7 +59,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; }
 img { object-fit: cover; }
 
-.portfolio-loader { align-items: center; background: var(--ink); color: var(--bone); display: flex; inset: 0; justify-content: center; opacity: 1; overflow: hidden; position: fixed; transition: opacity .5s ease, visibility .5s ease; visibility: visible; z-index: 1000; }
+.portfolio-loader { align-items: center; animation: loader-failsafe .01s 2.4s forwards; background: var(--ink); color: var(--bone); display: flex; inset: 0; justify-content: center; opacity: 1; overflow: hidden; position: fixed; transition: opacity .5s ease, visibility .5s ease; visibility: visible; z-index: 1000; }
 .portfolio-loader.is-leaving { opacity: 0; visibility: hidden; }
 .loader-grid { background-image: linear-gradient(rgba(244,239,228,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(244,239,228,.06) 1px, transparent 1px); background-size: 48px 48px; inset: 0; mask-image: radial-gradient(circle at center, #000 5%, transparent 68%); position: absolute; }
 .loader-content { align-items: center; display: flex; flex-direction: column; padding: 32px; position: relative; text-align: center; width: min(680px, 90vw); }
@@ -71,6 +71,7 @@ img { object-fit: cover; }
 .loader-progress span { animation: loader-progress 1.05s cubic-bezier(.2,.7,.2,1) forwards; background: var(--brick); display: block; height: 100%; transform: translateX(-100%); width: 100%; }
 .loader-caption { color: rgba(244,239,228,.58); font-size: 8px; }
 @keyframes loader-progress { to { transform: translateX(0); } }
+@keyframes loader-failsafe { to { opacity: 0; pointer-events: none; visibility: hidden; } }
 
 .section-frame { width: min(100% - 64px, 1380px); margin: 0 auto; }
 .site-header {
