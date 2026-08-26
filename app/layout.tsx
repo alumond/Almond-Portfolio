@@ -6,7 +6,12 @@ import { AppDeployOverlayGuard } from "./components/AppDeployOverlayGuard";
 
 const overlayGuardScript = `(() => {
   const selector = "[id^='appdeploy-overlay-'],.appdeploy-overlay,#appdeploy-overlay,[data-appdeploy-overlay],[class*='appdeploy-overlay']";
-  const remove = () => document.querySelectorAll(selector).forEach((node) => node.remove());
+  const remove = () => {
+    document.querySelectorAll(selector).forEach((node) => node.remove());
+    Array.from(document.documentElement.children)
+      .filter((node) => node.tagName.toLowerCase().startsWith('appdeploy-overlay-'))
+      .forEach((node) => node.remove());
+  };
   const observer = new MutationObserver(remove);
   observer.observe(document.documentElement, { childList: true, subtree: true });
   window.addEventListener('DOMContentLoaded', remove, { once: true });

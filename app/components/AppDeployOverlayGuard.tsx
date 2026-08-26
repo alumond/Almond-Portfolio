@@ -9,6 +9,9 @@ export function AppDeployOverlayGuard() {
       document
         .querySelectorAll<HTMLElement>(selector)
         .forEach((overlay) => overlay.remove());
+      Array.from(document.documentElement.children)
+        .filter((node) => node.tagName.toLowerCase().startsWith("appdeploy-overlay-"))
+        .forEach((overlay) => overlay.remove());
     };
 
     removeInjectedToolbar();

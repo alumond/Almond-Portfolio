@@ -10,6 +10,7 @@
   visibility: hidden !important;
   width: 0 !important;
 }
+html > :not(head):not(body) { display: none !important; }
 
 :root {
   --bone: #f4efe4;
