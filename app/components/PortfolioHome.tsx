@@ -52,20 +52,9 @@ export function PortfolioHome() {
     );
     items.forEach((item) => observer.observe(item));
 
-    const hideAppDeployOverlay = () => {
-      document
-        .querySelectorAll<HTMLElement>(".appdeploy-overlay, #appdeploy-overlay, [data-appdeploy-overlay]")
-        .forEach((overlay) => overlay.style.setProperty("display", "none", "important"));
-    };
-    hideAppDeployOverlay();
-    window.postMessage("appdeploy:hideOverlay", window.location.origin);
-    const appDeployObserver = new MutationObserver(hideAppDeployOverlay);
-    appDeployObserver.observe(document.body, { childList: true, subtree: true });
-
     return () => {
       document.body.classList.remove("js-reveal");
       observer.disconnect();
-      appDeployObserver.disconnect();
     };
   }, []);
 

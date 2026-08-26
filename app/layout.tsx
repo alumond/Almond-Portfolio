@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { profile } from "./data";
 import { PortfolioLoader } from "./components/PortfolioLoader";
+import { AppDeployOverlayGuard } from "./components/AppDeployOverlayGuard";
 
 export const metadata: Metadata = {
   title: "Almond Owolabi — Data Scientist & AI Engineer",
@@ -42,6 +43,7 @@ export default function RootLayout({
         className="antialiased"
       >
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+        <AppDeployOverlayGuard />
         <PortfolioLoader />
         {children}
       </body>
