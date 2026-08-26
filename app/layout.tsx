@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { profile } from "./data";
 import { PortfolioLoader } from "./components/PortfolioLoader";
+import { getSiteUrl } from "./site-url";
+
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   title: "Almond Owolabi — Data Scientist & AI Engineer",
@@ -11,7 +14,7 @@ export const metadata: Metadata = {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://almond-owolabi.pages.dev"),
+  metadataBase: new URL(siteUrl),
   openGraph: {
     siteName: "Almond Owolabi",
     locale: "en_NG",
@@ -31,7 +34,7 @@ export default function RootLayout({
     jobTitle: profile.role,
     email: `mailto:${profile.email}`,
     telephone: profile.phone,
-    url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://almond-owolabi.pages.dev",
+    url: siteUrl,
     sameAs: [profile.github, profile.linkedin],
     knowsAbout: ["Data science", "Data analytics", "Machine learning", "M&E intelligence", "AI engineering", "Power BI", "Python"],
   };

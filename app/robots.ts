@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
+import { getSiteUrl } from "./site-url";
 
 export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://almond-owolabi.pages.dev";
+  const base = getSiteUrl();
   return { rules: [{ userAgent: "*", allow: "/" }], sitemap: `${base}/sitemap.xml` };
 }
