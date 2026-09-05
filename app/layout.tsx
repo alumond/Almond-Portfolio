@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { profile } from "./data";
-import { PortfolioLoader } from "./components/PortfolioLoader";
+import { PortfolioMotion } from "./components/PortfolioMotion";
 import { getSiteUrl } from "./site-url";
 
 const siteUrl = getSiteUrl();
@@ -19,7 +19,11 @@ export const metadata: Metadata = {
     siteName: "Almond Owolabi",
     locale: "en_NG",
     type: "website",
+    title: "Almond Owolabi — Data Scientist & AI Engineer",
+    description: "Data into clarity. Ideas into impact. Analytics, AI engineering, and development impact by Almond Owolabi.",
+    images: [{ url: "/og.png", alt: "Almond Owolabi — Data into clarity. Ideas into impact." }],
   },
+  twitter: { card: "summary_large_image", title: "Almond Owolabi — Data Scientist & AI Engineer", description: "Data into clarity. Ideas into impact.", images: ["/og.png"] },
 };
 
 export default function RootLayout({
@@ -45,7 +49,8 @@ export default function RootLayout({
         className="antialiased"
       >
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-        <PortfolioLoader />
+        <a className="skip-link" href="#main-content">Skip to content</a>
+        <PortfolioMotion />
         {children}
       </body>
     </html>

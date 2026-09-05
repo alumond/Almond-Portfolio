@@ -1,13 +1,14 @@
 /** Cloudflare Worker entry point for the vinext-starter template. */
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
+import { redirectUnoptimizedImage } from "./image-fallback.mjs";
 import handler from "vinext/server/app-router-entry";
 
 interface Env {
-  ASSETS: {
+  ASSETS?: {
     fetch(request: Request): Promise<Response>;
   };
   DB: D1Database;
-  IMAGES: {
+  IMAGES?: {
     input(stream: ReadableStream): {
       transform(options: Record<string, unknown>): {
         output(options: { format: string; quality: number }): Promise<{ response(): Response }>;
@@ -32,11 +33,16 @@ const worker = {
     const url = new URL(request.url);
 
     if (url.pathname === "/_vinext/image") {
+      // Local Vite previews do not supply the optional ASSETS / IMAGES bindings.
+      // This static portfolio deliberately serves its original, already-sized images.
+      const assets = env.ASSETS;
+      const images = env.IMAGES;
+      if (!assets || !images) return redirectUnoptimizedImage(request);
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
       return handleImageOptimization(request, {
-        fetchAsset: (path) => env.ASSETS.fetch(new Request(new URL(path, request.url))),
+        fetchAsset: (path) => assets.fetch(new Request(new URL(path, request.url))),
         transformImage: async (body, { width, format, quality }) => {
-          const result = await env.IMAGES.input(body).transform(width > 0 ? { width } : {}).output({ format, quality });
+          const result = await images.input(body).transform(width > 0 ? { width } : {}).output({ format, quality });
           return result.response();
         },
       }, allowedWidths);

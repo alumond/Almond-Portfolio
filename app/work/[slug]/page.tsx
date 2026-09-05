@@ -5,6 +5,10 @@ import { notFound } from "next/navigation";
 import { profile, projects } from "../../data";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteHeader } from "../../components/SiteHeader";
+import { AnalyticsShowcase } from "../../components/AnalyticsShowcase";
+import { ProjectGallery } from "../../components/ProjectGallery";
+import { SystemWorkflow } from "../../components/SystemWorkflow";
+import { ResumeLink } from "../../components/ResumeLink";
 import { ArrowIcon } from "../../components/ArrowIcon";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -21,7 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${project.title} · ${profile.name}`,
     description: project.longDescription,
     keywords: [project.kind, ...project.stack, "Almond Owolabi", "data scientist", "AI engineer"],
-    openGraph: { title: `${project.title} · ${profile.name}`, description: project.longDescription, type: "article" },
+    alternates: { canonical: `/work/${project.slug}/` },
+    openGraph: { title: `${project.title} · ${profile.name}`, description: project.longDescription, type: "article", images: [{ url: project.image.src, alt: project.image.alt }] },
+    twitter: { card: "summary_large_image", title: `${project.title} · ${profile.name}`, description: project.longDescription, images: [project.image.src] },
   };
 }
 
@@ -33,7 +39,7 @@ export default async function CaseStudyPage({ params }: Props) {
   return (
     <>
       <SiteHeader />
-      <main className="case-study-page">
+      <main id="main-content" className="case-study-page">
         <section className={`case-hero case-${project.accent} section-frame`}>
           <Link className="back-link" href="/#work">← Back to selected work</Link>
           <div className="case-hero-grid">
@@ -41,10 +47,11 @@ export default async function CaseStudyPage({ params }: Props) {
               <p className="eyebrow">{project.kicker}</p>
               <h1>{project.title}</h1>
               <p className="case-lede">{project.longDescription}</p>
+              {project.provenance && <p className="provenance">{project.provenance}. See the upstream attribution in the repository.</p>}
               <div className="case-actions"><a className="button button-dark" href={project.github} target="_blank" rel="noreferrer">Open repository <ArrowIcon /></a><Link className="text-link" href="/contact">Discuss a similar problem <ArrowIcon /></Link></div>
             </div>
             <div className="case-mark case-mark-image">
-              <Image src={project.image.src} alt={project.image.alt} fill priority sizes="(max-width: 620px) 70vw, 28vw" />
+              <Image unoptimized src={project.image.src} alt={project.image.alt} fill priority sizes="(max-width: 620px) 70vw, 28vw" />
               <span className="case-mark-shade" aria-hidden="true" />
               <span className="case-mark-label">{project.kind}</span>
               <strong>{project.shortTitle}</strong>
@@ -57,6 +64,10 @@ export default async function CaseStudyPage({ params }: Props) {
           <div className="case-overview-copy"><p className="display-copy">{project.description}</p><div className="case-stack"><span>Stack</span><div>{project.stack.map((item) => <b key={item}>{item}</b>)}</div></div></div>
         </section>
 
+        <SystemWorkflow slug={project.slug} />
+        {project.slug === "retail-revenue-command-center" && <AnalyticsShowcase embedded />}
+        {(project.slug === "retail-revenue-command-center" || project.slug === "health-access-for-pwds") && <ProjectGallery title="The dashboard, in detail." images={[{ ...project.image, caption: project.slug === "retail-revenue-command-center" ? "Retail Revenue Leakage Review. Portfolio demonstration using synthetic data." : "Healthcare access dashboard. Respondent-sample diagnostics, not population estimates." }]} />}
+        {project.slug === "linkedin-ai-agent" && <ProjectGallery title="Visuals prepared for the publishing workflow." images={[{ src: "/images/project-linkedin-output.png", alt: "Raw CSV to clean KPI to action content visual", caption: "A prepared content visual connecting data preparation to decisions." }, { src: "/images/project-escalation-story.png", alt: "Dashboard escalation rule content visual", caption: "A second prepared visual: turning dashboard signals into escalation rules." }]} />}
         <section className="case-sections section-frame">
           {project.sections.map((section, index) => <article className="case-section" key={section.title}><span className="section-number">0{index + 1} /</span><div><h2>{section.title}</h2><p>{section.body}</p></div></article>)}
         </section>
@@ -67,8 +78,8 @@ export default async function CaseStudyPage({ params }: Props) {
         </section>
 
         <section className="case-endcap section-frame">
-          <div className="case-endcap-image"><Image src={profile.portraitMono} alt="Almond Owolabi, data scientist and AI engineer" fill sizes="(max-width: 720px) 86vw, 32vw" /></div>
-          <div><p className="eyebrow">Keep going</p><h2>Good work leaves a clearer path behind it.</h2><Link className="button button-dark" href="/#work">Explore more work <ArrowIcon /></Link></div>
+          <div className="case-endcap-image"><Image unoptimized src={profile.portraitMono} alt="Almond Owolabi, data scientist and AI engineer" fill sizes="(max-width: 720px) 86vw, 32vw" /></div>
+          <div><p className="eyebrow">Keep going</p><h2>Good work leaves a clearer path behind it.</h2><div className="case-actions"><Link className="button button-dark" href="/#work">Explore more work <ArrowIcon /></Link><ResumeLink /></div></div>
         </section>
       </main>
       <SiteFooter />

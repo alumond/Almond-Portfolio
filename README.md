@@ -1,98 +1,59 @@
-# vinext-starter
+# Almond Owolabi — Portfolio
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+A responsive Next.js portfolio for data science, AI engineering, analytics, and monitoring & evaluation work.
 
-## Prerequisites
+## Run locally
 
-- Node.js `>=22.13.0`
-
-## Quick Start
-
-```bash
+```sh
 npm install
 npm run dev
-npm run build
 ```
 
-This starter does not use `wrangler.jsonc`.
+## Validate
 
-## Included Shape
-
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
-
-## Workspace Auth Headers
-
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
-
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+```sh
+npm run lint
+npm test
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+`npm test` builds the static site and checks rendered routes, new projects, source attribution, social metadata, résumé downloads, chart accessibility, and the image-serving fallback. `tests/tests.txt` contains optional manual browser checks; these are separate from the automated suite.
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+## Content
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+`app/data.ts` holds the profile, experience, case studies, and repository archive. Public GitHub metadata and project READMEs were reviewed on 5 September 2026. This is an editorial snapshot, not a live GitHub sync.
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+Featured work:
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
+- Retail Revenue & Operations Command Center
+- LinkedIn AI Agent
+- AfriMedQA Fine-Tuning & Chatbot
+- M&E Intelligence Engine
+- Health Access for Persons with Disabilities
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
+The Job Application Agent and other projects remain available through All projects and the searchable repository archive. Forked repositories carry explicit attribution. Retail figures are synthetic; the AfriMedQA training pipeline is separate from its Gemini-powered chatbot interfaces.
 
-## Useful Commands
+## Project structure
 
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
+- `app/components/PortfolioHome.tsx`: homepage, project filters, searchable archive
+- `app/globals.css`: shared responsive visual system
+- `app/work/[slug]/page.tsx`: generated case studies and record-specific social metadata
+- `public/images/`: portraits and project visuals
+- `public/og.png`: portfolio social sharing card
 
-## Learn More
+## Build and deployment
 
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+- `npm run build:vercel` creates the Next.js static export used by Vercel.
+- `npm run build` also copies the static output to `dist/` for the existing alternate hosting workflow.
+- `vercel.json` retains the existing Next.js deployment configuration.
+- `.openai/hosting.json` retains the existing Sites project and declares `out/` as its static output.
+- Set `NEXT_PUBLIC_SITE_URL` to override the canonical origin; otherwise Vercel's production domain is used, falling back to the existing Vercel portfolio URL.
+
+Publishing is separate from building. No automatic repository synchronization or deployment is performed by the application.
+
+## Interactive presentation
+
+The homepage includes metric and month controls for the retail dataset, animated revenue/profit traces, category contribution bars, an accessible data table, and downloadable chart data. `scripts/prepare-retail-data.py` regenerates the compact chart snapshot from the public source CSV; data is explicitly synthetic.
+
+Both supplied portraits remain in use. Case studies include expandable dashboard and content galleries and system architecture panels. Motion progressively enhances visible content and respects reduced-motion preferences. Résumé links use the browser download attribute; email links and clipboard copying provide complementary ways to get in touch.
+
+Image components explicitly serve original public assets. The alternate vinext worker also redirects valid local image requests when optional Cloudflare image bindings are absent, preventing the local `env.ASSETS.fetch` crash.

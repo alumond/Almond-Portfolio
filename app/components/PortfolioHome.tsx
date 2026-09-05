@@ -2,287 +2,67 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { archiveRepos, certifications, experience, profile, projects, services, skills } from "../data";
+import { useState } from "react";
+import { archiveRepos, experience, githubSnapshot, profile, projects, services } from "../data";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 import { ArrowIcon } from "./ArrowIcon";
+import { AnalyticsShowcase, HeroSignal } from "./AnalyticsShowcase";
+import { ResumeLink } from "./ResumeLink";
+import { ContactActions } from "./ContactActions";
 
-const filters = ["All", "M&E", "Analytics", "Machine learning", "AI systems", "Dashboards"] as const;
-
-function Arrow() {
-  return <ArrowIcon />;
-}
-
-function ProjectGlyph({ accent }: { accent: string }) {
-  return (
-    <span className={`project-glyph glyph-${accent}`} aria-hidden="true">
-      <i />
-      <i />
-      <i />
-      <b />
-    </span>
-  );
-}
-
-function MiniChart({ kind }: { kind: "line" | "bars" | "points" }) {
-  return (
-    <div className={`chart-module chart-module-${kind}`}>
-      <svg className={`mini-chart mini-chart-${kind}`} viewBox="0 0 180 62" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <linearGradient id={`chart-fill-${kind}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="currentColor" stopOpacity="0.16" />
-            <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path className="mini-chart-axis" d="M1 59.5H179" />
-        <path className="mini-chart-grid" d="M1 39.5H179M1 19.5H179" />
-        {kind === "line" && <><path className="mini-chart-area" style={{ fill: `url(#chart-fill-${kind})` }} d="M3 52 28 45 52 47 76 32 101 36 126 19 151 25 177 8V59H3Z" /><path className="mini-chart-line" d="M3 52 28 45 52 47 76 32 101 36 126 19 151 25 177 8" /><circle className="mini-chart-endpoint" cx="177" cy="8" r="3" /></>}
-        {kind === "bars" && <><g className="mini-chart-bars"><line x1="13" y1="59" x2="13" y2="43" /><line x1="38" y1="59" x2="38" y2="31" /><line x1="63" y1="59" x2="63" y2="38" /><line x1="88" y1="59" x2="88" y2="20" /><line x1="113" y1="59" x2="113" y2="28" /><line x1="138" y1="59" x2="138" y2="11" /><line x1="163" y1="59" x2="163" y2="18" /></g><path className="mini-chart-guide" d="M1 26H179" /></>}
-        {kind === "points" && <><path className="mini-chart-guide" d="M14 49 43 41 72 45 101 25 130 31 166 12" /><circle cx="14" cy="49" r="3" /><circle cx="43" cy="41" r="3" /><circle cx="72" cy="45" r="3" /><circle cx="101" cy="25" r="3" /><circle cx="130" cy="31" r="3" /><circle cx="166" cy="12" r="3" /></>}
-      </svg>
-      <div className="chart-scale"><span>Baseline</span><i /><span>Current</span></div>
-    </div>
-  );
-}
-
-function AnimatedMetric({ value, suffix = "" }: { value: number; suffix?: string }) {
-  const [display, setDisplay] = useState(0);
-  const metricRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const metric = metricRef.current;
-    if (!metric) return;
-
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      const startedAt = performance.now();
-      const duration = 1100;
-      const update = (now: number) => {
-        const progress = Math.min((now - startedAt) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        setDisplay(Math.round(value * eased));
-        if (progress < 1) requestAnimationFrame(update);
-      };
-      requestAnimationFrame(update);
-      observer.disconnect();
-    }, { threshold: 0.65 });
-
-    observer.observe(metric);
-    return () => observer.disconnect();
-  }, [value]);
-
-  return <strong ref={metricRef}><span>{display}</span>{suffix && <sup>{suffix}</sup>}</strong>;
-}
-
-function ScrollProgress() {
-  const fillRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const height = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = height > 0 ? Math.min(window.scrollY / height, 1) : 0;
-        fillRef.current?.style.setProperty("transform", `scaleY(${progress})`);
-      });
-    };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, []);
-
-  return <div className="scroll-progress" aria-hidden="true"><span ref={fillRef} /></div>;
-}
-
-function DataField() {
-  return <div className="experience-data-field" aria-hidden="true"><i /><i /><i /><i /><i /><span /></div>;
-}
+const filters = ["Featured", "All projects", "AI systems", "Analytics", "M&E", "Machine learning", "Dashboards"] as const;
 
 export function PortfolioHome() {
-  const [filter, setFilter] = useState<(typeof filters)[number]>("All");
-
-  useEffect(() => {
-    document.body.classList.add("js-reveal");
-    const items = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")),
-      { threshold: 0.16, rootMargin: "0px 0px -8% 0px" },
-    );
-    items.forEach((item) => observer.observe(item));
-
-    return () => {
-      document.body.classList.remove("js-reveal");
-      observer.disconnect();
-    };
-  }, []);
-
-  const visibleProjects = useMemo(
-    () => filter === "All" ? projects : projects.filter((project) => project.kind === filter),
-    [filter],
-  );
-
-  return (
-    <>
-      <SiteHeader />
-      <ScrollProgress />
-      <main>
-        <section className="hero section-frame" aria-labelledby="hero-title">
-          <div className="hero-index reveal">01 <span>/</span> portfolio</div>
-          <div className="hero-copy reveal">
-            <p className="eyebrow">Data scientist · AI engineer · M&E specialist</p>
-            <h1 id="hero-title">I make complex information <em>legible.</em></h1>
-            <p className="hero-intro">I build data products, predictive systems, and evidence workflows that help people move from raw information to confident action.</p>
-            <div className="hero-actions">
-              <Link className="button button-dark" href="#work">See selected work <Arrow /></Link>
-              <Link className="text-link" href="/contact">Work with me <Arrow /></Link>
-            </div>
+  const [filter, setFilter] = useState<(typeof filters)[number]>("Featured");
+  const [query, setQuery] = useState("");
+  const visibleProjects = projects.filter(p => filter === "Featured" ? p.featured : filter === "All projects" || p.kind === filter);
+  const repositories = archiveRepos.filter(r => `${r.name} ${r.description} ${r.language}`.toLowerCase().includes(query.toLowerCase()));
+  return <>
+    <SiteHeader />
+    <main id="main-content">
+      <section className="hero section-frame" aria-labelledby="hero-title">
+        <HeroSignal />
+        <div className="hero-topline"><span><i className="status-dot" /> Data scientist & AI engineer</span><span>Based in Nigeria · Working globally</span></div>
+        <div className="hero-layout">
+          <div className="hero-copy">
+            <p className="eyebrow">Almond Owolabi / Portfolio 2026</p>
+            <h1 id="hero-title">Data into clarity.<br />Ideas into <em>impact.</em></h1>
+            <p className="hero-intro">I build intelligent systems that connect complex data to better decisions. Across analytics, applied AI, and development impact.</p>
+            <div className="hero-actions"><Link className="button button-lime" href="#work">Explore my work <ArrowIcon /></Link><Link className="hero-text-link" href="/about">A little about me <ArrowIcon /></Link></div>
+            <div className="hero-utility"><ResumeLink /><a href={`mailto:${profile.email}`}>Get in touch <ArrowIcon /></a></div>
+            <div className="hero-signoff"><span className="hero-signature">Almond.</span><span>Analytical by training.<br />A builder by instinct.</span></div>
           </div>
-          <div className="hero-portrait reveal reveal-delay-1">
-            <div className="portrait-frame">
-              <Image src={profile.portrait} alt="Almond Owolabi working at a laptop" fill priority sizes="(max-width: 720px) 86vw, 38vw" />
-              <span className="portrait-stamp">AO / 01</span>
-            </div>
-            <div className="portrait-caption">
-              <span>Profile study</span>
-              <span>03° 22′ N / 06° 31′ E</span>
-            </div>
+          <div className="hero-portrait">
+            <Image unoptimized src={profile.portrait} alt="Almond Owolabi working at his laptop" fill priority sizes="(max-width: 760px) 90vw, 38vw" />
+            <div className="portrait-caption"><span>THE PERSON BEHIND THE SYSTEMS</span><strong>Curiosity. Context. Craft.</strong></div>
+            <a className="portrait-link" href={profile.github} target="_blank" rel="noreferrer" aria-label="Visit Almond's GitHub"><ArrowIcon /></a>
           </div>
-          <div className="hero-scroll reveal reveal-delay-2"><span>Scroll to explore</span><span className="scroll-line" /></div>
-        </section>
-
-        <section className="intro-band section-frame" aria-label="Profile summary">
-          <div className="intro-band-label reveal"><span>02</span><span>What I bring</span></div>
-          <div className="intro-band-copy reveal reveal-delay-1">
-            <p className="display-copy">Four years across analytics, visualization, statistical modelling, pipelines, and applied machine learning—grounded in the questions that matter to people, programmes, and businesses.</p>
-            <div className="stat-row" aria-label="Selected professional metrics">
-              <article className="stat-card reveal">
-                <div className="stat-card-top"><AnimatedMetric value={25} /><span className="stat-index">01</span></div>
-                <span className="stat-label">Public repositories</span>
-                <p>Open-source work across analytics, M&amp;E and applied AI.</p>
-                <MiniChart kind="bars" />
-              </article>
-              <article className="stat-card reveal reveal-delay-1">
-                <div className="stat-card-top"><AnimatedMetric value={30} suffix="%" /><span className="stat-index">02</span></div>
-                <span className="stat-label">Pipeline time reduced</span>
-                <p>Less manual preparation. More time for interpretation.</p>
-                <MiniChart kind="line" />
-              </article>
-              <article className="stat-card reveal reveal-delay-2">
-                <div className="stat-card-top"><AnimatedMetric value={4} suffix="+" /><span className="stat-index">03</span></div>
-                <span className="stat-label">Years in data</span>
-                <p>From field evidence to models and decision rooms.</p>
-                <MiniChart kind="points" />
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section className="work-section section-frame" id="work" aria-labelledby="work-title">
-          <div className="section-heading reveal">
-            <div><span className="section-number">03 /</span><p className="eyebrow">Selected work</p></div>
-            <h2 id="work-title">Proof, in public.</h2>
-            <p>Systems that make a case for clarity—from donor-grade programme intelligence to local retrieval workflows.</p>
-          </div>
-          <div className="filter-bar reveal" role="tablist" aria-label="Filter selected work">
-            {filters.map((item) => (
-              <button key={item} className={filter === item ? "is-active" : ""} type="button" role="tab" aria-selected={filter === item} onClick={() => setFilter(item)}>{item}</button>
-            ))}
-          </div>
-          <div className="project-grid">
-            {visibleProjects.map((project, index) => (
-              <article className={`project-card reveal ${index % 2 === 1 ? "project-card-offset" : ""}`} key={project.slug}>
-                <div className={`project-card-visual visual-${project.accent}`}>
-                  <Image src={project.image.src} alt={project.image.alt} fill sizes="(max-width: 620px) calc(100vw - 40px), 46vw" />
-                  <div className="visual-meta"><span>0{index + 1}</span><span>{project.kind}</span></div>
-                  <ProjectGlyph accent={project.accent} />
-                  <span className="visual-word">{project.shortTitle}</span>
-                </div>
-                <div className="project-card-body">
-                  <p className="eyebrow">{project.kicker}</p>
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="tag-row">{project.stack.slice(0, 4).map((tag) => <span key={tag}>{tag}</span>)}</div>
-                  <Link className="project-link" href={`/work/${project.slug}`}>Read case study <Arrow /></Link>
-                </div>
-              </article>
-            ))}
-          </div>
-          <div className="archive-prompt reveal"><span>See the full body of work</span><Link className="button button-outline" href="#archive">Open repository archive <Arrow /></Link></div>
-        </section>
-
-        <section className="practice-section section-frame" id="practice" aria-labelledby="practice-title">
-          <div className="section-heading section-heading-wide reveal">
-            <div><span className="section-number">04 /</span><p className="eyebrow">Ways of working</p></div>
-            <h2 id="practice-title">Useful systems over impressive theatre.</h2>
-            <p>Whether the work is a dashboard, model, report, or API, the measure is the same: does it help the right person make a better decision?</p>
-          </div>
-          <div className="services-list">
-            {services.map((service) => (
-              <article className="service-row reveal" key={service.number}>
-                <span className="service-number">{service.number}</span>
-                <h3>{service.title}</h3>
-                <p>{service.body}</p>
-                <div className="service-tags">{service.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="experience-section section-frame" id="about" aria-labelledby="experience-title">
-          <DataField />
-          <div className="section-heading reveal">
-            <div><span className="section-number">05 /</span><p className="eyebrow">Experience</p></div>
-            <h2 id="experience-title">Close to the work.</h2>
-            <p>My practice sits between the spreadsheet, the model, and the meeting where something has to change.</p>
-          </div>
-          <div className="experience-layout">
-            <div className="experience-portrait reveal">
-              <Image src={profile.portraitMono} alt="Portrait of Almond Owolabi" fill sizes="(max-width: 720px) 86vw, 36vw" />
-              <span>Evidence, carefully handled.</span>
-            </div>
-            <div className="timeline">
-              {experience.map((item) => (
-                <article className="timeline-item reveal" key={`${item.company}-${item.role}`}>
-                  <div className="timeline-meta"><span>{item.period}</span><span>{item.place}</span></div>
-                  <div><h3>{item.role}<small>{item.company}</small></h3><p>{item.body}</p></div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="capability-section section-frame" aria-labelledby="capability-title">
-          <div className="capability-copy reveal"><span className="section-number">06 /</span><p className="eyebrow">Technical range</p><h2 id="capability-title">A wide lens. A careful hand.</h2><p>From data collection in low-connectivity environments to APIs, models, dashboards, and board-level reporting.</p></div>
-          <div className="capability-list reveal reveal-delay-1">{skills.map((skill, index) => <span key={skill}><b>{String(index + 1).padStart(2, "0")}</b>{skill}</span>)}</div>
-        </section>
-
-        <section className="archive-section section-frame" id="archive" aria-labelledby="archive-title">
-          <div className="section-heading reveal"><div><span className="section-number">07 /</span><p className="eyebrow">Open archive</p></div><h2 id="archive-title">Every repository has a trace.</h2><p>Twenty-five public repositories across analytics, dashboards, machine learning, M&E, and AI systems.</p></div>
-          <div className="archive-table reveal">
-            <div className="archive-head"><span>Repository</span><span>Focus</span><span>Open</span></div>
-            {archiveRepos.map(([repo, description, kind], index) => <a className="archive-row" href={`https://github.com/alumond/${repo}`} target="_blank" rel="noreferrer" key={repo}><span><b>{String(index + 1).padStart(2, "0")}</b>{repo}</span><span>{description}</span><span className="archive-kind">{kind} <ArrowIcon /></span></a>)}
-          </div>
-        </section>
-
-        <section className="credentials-section section-frame" aria-labelledby="credentials-title">
-          <div className="credentials-copy reveal"><span className="section-number">08 /</span><p className="eyebrow">Credentials</p><h2 id="credentials-title">The work is the credential. The study is the habit.</h2></div>
-          <div className="credential-grid reveal reveal-delay-1">{certifications.map((item, index) => <div key={item}><span>0{index + 1}</span><p>{item}</p></div>)}</div>
-        </section>
-
-        <section className="contact-banner section-frame" id="contact" aria-labelledby="contact-title">
-          <div className="contact-art" aria-hidden="true"><span>AO</span><i /><i /><i /></div>
-          <div className="contact-copy reveal"><span className="section-number">09 /</span><p className="eyebrow">Start a conversation</p><h2 id="contact-title">Have a difficult dataset, a consequential decision, or a system that needs to grow up?</h2><Link className="button button-light" href="/contact">Let&apos;s work on it <Arrow /></Link></div>
-          <div className="contact-details reveal reveal-delay-1"><a href={`mailto:${profile.email}`}>{profile.email}</a><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowIcon /></a><a href={profile.github} target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a></div>
-        </section>
-      </main>
-      <SiteFooter />
-    </>
-  );
+        </div>
+        <div className="hero-bottomline"><span>ANALYTICS <b>/</b> AI ENGINEERING <b>/</b> M&E</span><a href="#work">Discover selected work <span aria-hidden="true">↓</span></a></div>
+      </section>
+      <div className="expertise-strip section-frame" aria-label="Core tools"><span>THE TOOLKIT</span>{['Python','SQL','Power BI','FastAPI','Gemini','Scikit-learn'].map(x=><strong key={x}>{x}</strong>)}</div>
+      <section className="work-section section-frame" id="work" aria-labelledby="work-title">
+        <div className="section-heading"><div><p className="eyebrow">01 / Selected work</p><h2 id="work-title">Built with purpose.<br /><em>Open to explore.</em></h2></div><p>A selection of original builds, from executive dashboards to AI agents. Explore the problem, the approach, and the code behind each one.</p></div>
+        <div className="work-toolbar"><div className="filter-bar" role="group" aria-label="Filter projects">{filters.map(item=><button key={item} type="button" aria-pressed={filter===item} className={filter===item?'is-active':''} onClick={()=>setFilter(item)}>{item}</button>)}</div><span className="project-count" aria-live="polite">{String(visibleProjects.length).padStart(2,'0')} projects</span></div>
+        <div className="project-grid" key={filter}>
+          {visibleProjects.map((p,index)=><article className={`project-card project-${p.slug} ${index===0 && filter==='Featured'?'project-card-flagship':''}`} key={p.slug}>
+            <Link href={`/work/${p.slug}`} className={`project-card-visual visual-${p.accent}`} aria-label={`Explore ${p.title}`}>
+              <Image unoptimized src={p.image.src} alt={p.image.alt} fill sizes={index===0&&filter==='Featured'?'(max-width: 760px) 90vw, 65vw':'(max-width: 760px) 90vw, 45vw'} />
+              <div className="visual-meta"><span>{index===0&&filter==='Featured'?'Featured case study':p.kind}</span><span className="round-arrow"><ArrowIcon /></span></div>
+              {p.slug!=='retail-revenue-command-center'&&p.slug!=='health-access-for-pwds'&&p.slug!=='linkedin-ai-agent'&&<span className="visual-title">{p.shortTitle}</span>}
+            </Link>
+            <div className="project-card-body"><p className="eyebrow">{p.kicker}</p><h3><Link href={`/work/${p.slug}`}>{p.title}</Link></h3><p>{p.description}</p>{p.provenance&&<p className="provenance">{p.provenance}</p>}<div className="tag-row">{p.stack.slice(0,4).map(t=><span key={t}>{t}</span>)}</div><Link className="project-link" href={`/work/${p.slug}`}>Explore project <ArrowIcon /></Link></div>
+          </article>)}
+        </div>
+        <div className="work-bottom"><p>Every build starts with a question worth answering.</p><a className="text-link" href={profile.github} target="_blank" rel="noreferrer">More on GitHub <ArrowIcon /></a></div>
+      </section>
+      <AnalyticsShowcase />
+      <section className="practice-section" id="practice" aria-labelledby="practice-title"><div className="section-frame"><div className="section-heading"><div><p className="eyebrow">02 / How I can help</p><h2 id="practice-title">The right data.<br /><em>A clearer direction.</em></h2></div><p>I work across the full path from a difficult question to a useful system. Always with the people using it in mind.</p></div><div className="services-list">{services.map(s=><Link className="service-row" href="/services" key={s.number}><span className="service-number">{s.number}</span><h3>{s.title}</h3><p>{s.body}</p><span className="round-arrow"><ArrowIcon /></span></Link>)}</div></div></section>
+      <section className="about-section section-frame" id="about" aria-labelledby="about-title"><div className="about-photo"><Image unoptimized src={profile.portraitMono} alt="Portrait of Almond Owolabi" fill sizes="(max-width:760px) 90vw, 35vw"/><span>Lagos / Abuja, Nigeria</span></div><div className="about-intro"><p className="eyebrow">03 / The person behind the work</p><h2 id="about-title">A technical mind.<br /><em>A human perspective.</em></h2><p>My work lives between data, technology, and the people they serve. From disability inclusion and programme evidence to commercial analytics, I care about making information useful in the real world.</p><div className="compact-timeline">{experience.map(e=><div key={e.company}><span>{e.period}</span><strong>{e.company}<small>{e.role}</small></strong></div>)}</div><Link className="text-link" href="/about">More about my journey <ArrowIcon /></Link></div></section>
+      <section className="resume-feature section-frame" id="resume" aria-labelledby="resume-title"><div className="resume-card"><div className="resume-card-top"><Image unoptimized src={profile.portraitMono} alt="Almond Owolabi" width={66} height={82}/><span>ALMOND<br/>OWOLABI</span><span className="resume-format">PDF ↗</span></div><p>Data Scientist &amp; AI Engineer</p><div className="resume-card-rule"/><div className="resume-card-details"><span>EXPERIENCE</span><strong>Analytics. Systems.<br/>Development impact.</strong><span>CORE PRACTICE</span><p>Python / SQL / Machine learning<br/>Dashboards / AI workflows / M&amp;E</p></div><a className="resume-preview-link" href={profile.resume} target="_blank" rel="noreferrer">Open résumé <ArrowIcon/></a></div><div className="resume-feature-copy"><p className="eyebrow">The professional picture</p><h2 id="resume-title">The work is here.<br/><em>Take the story with you.</em></h2><p>A closer look at my experience, technical background, and the work that shaped my approach. Ready to download and share with your team.</p><div className="resume-actions"><ResumeLink className="button button-dark"/><a className="text-link" href={profile.resume} target="_blank" rel="noreferrer">Preview PDF <ArrowIcon/></a></div><span className="resume-note">PDF document · Opens on any device</span></div></section>
+      <section className="archive-section section-frame" id="archive" aria-labelledby="archive-title"><div className="section-heading"><div><p className="eyebrow">04 / The wider collection</p><h2 id="archive-title">Always <em>building.</em></h2></div><p>{githubSnapshot.publicRepos} public repositories. Original projects, collaborations, and learning in the open. Updated September 2026.</p></div><details className="archive-disclosure"><summary><span>Explore the repository archive <b>{githubSnapshot.publicRepos}</b></span><span className="archive-plus" aria-hidden="true">+</span></summary><div className="archive-content"><label className="archive-search">Find a repository<input type="search" placeholder="Search projects, tools, or topics…" value={query} onChange={e=>setQuery(e.target.value)}/></label><p className="search-count" role="status">{repositories.length} repositories</p><div className="archive-table">{repositories.map(r=><a className="archive-row" href={r.github} target="_blank" rel="noreferrer" key={r.name}><span><strong>{r.name}</strong><small>{r.description}</small></span><span className="archive-kind">{r.fork?'Fork / study':r.language}<ArrowIcon /></span></a>)}</div>{repositories.length===0&&<p className="empty-state">No repositories match “{query}”. Try another project name or tool.</p>}</div></details></section>
+      <section className="contact-banner section-frame" id="contact" aria-labelledby="contact-title"><div className="contact-top"><p className="eyebrow">Have something in mind?</p><span><i className="status-dot"/> Let’s start a conversation</span></div><h2 id="contact-title">Good questions.<br /><em>Better possibilities.</em></h2><div className="contact-bottom"><ContactActions /><a className="contact-address" href={`mailto:${profile.email}`}>{profile.email}<ArrowIcon /></a></div><div className="contact-socials"><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowIcon /></a><a href={profile.github} target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a><a href={`tel:${profile.phone.replace(/\s/g, "")}`}>Call Almond <ArrowIcon /></a><ResumeLink /></div></section>
+    </main><SiteFooter />
+  </>;
 }

@@ -1,0 +1,691 @@
+{
+  "source": "https://github.com/alumond/linkedin-AI-Agent/tree/main/projects/retail-revenue-command-center",
+  "synthetic": true,
+  "records": 2160,
+  "months": [
+    {
+      "month": "2025-01",
+      "revenue": 1849686000,
+      "profit": 504531386,
+      "orders": 39311,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 652654000,
+          "profit": 152986690
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 315640000,
+          "profit": 96083000
+        },
+        {
+          "name": "Beauty",
+          "revenue": 133266000,
+          "profit": 51628092
+        },
+        {
+          "name": "Fashion",
+          "revenue": 236504000,
+          "profit": 78378704
+        },
+        {
+          "name": "Grocery",
+          "revenue": 156806000,
+          "profit": 28445748
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 354816000,
+          "profit": 97009152
+        }
+      ]
+    },
+    {
+      "month": "2025-02",
+      "revenue": 1984252005,
+      "profit": 543714837,
+      "orders": 42377,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 697751540,
+          "profit": 163558064
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 337412400,
+          "profit": 102710950
+        },
+        {
+          "name": "Beauty",
+          "revenue": 153848586,
+          "profit": 59601963
+        },
+        {
+          "name": "Fashion",
+          "revenue": 273084736,
+          "profit": 90501869
+        },
+        {
+          "name": "Grocery",
+          "revenue": 167592055,
+          "profit": 30402222
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 354562688,
+          "profit": 96939769
+        }
+      ]
+    },
+    {
+      "month": "2025-03",
+      "revenue": 2276801142,
+      "profit": 621009905,
+      "orders": 47973,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 813662168,
+          "profit": 190728454
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 393417024,
+          "profit": 119758542
+        },
+        {
+          "name": "Beauty",
+          "revenue": 166129920,
+          "profit": 64360002
+        },
+        {
+          "name": "Fashion",
+          "revenue": 294738928,
+          "profit": 97678807
+        },
+        {
+          "name": "Grocery",
+          "revenue": 195438958,
+          "profit": 35453965
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 413414144,
+          "profit": 113030135
+        }
+      ]
+    },
+    {
+      "month": "2025-04",
+      "revenue": 2191839512,
+      "profit": 597854695,
+      "orders": 45760,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 773399032,
+          "profit": 181290723
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 373939904,
+          "profit": 113829977
+        },
+        {
+          "name": "Beauty",
+          "revenue": 157946772,
+          "profit": 61189577
+        },
+        {
+          "name": "Fashion",
+          "revenue": 280218752,
+          "profit": 92866626
+        },
+        {
+          "name": "Grocery",
+          "revenue": 185844044,
+          "profit": 33713178
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 420491008,
+          "profit": 114964614
+        }
+      ]
+    },
+    {
+      "month": "2025-05",
+      "revenue": 2268079616,
+      "profit": 621508795,
+      "orders": 47591,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 797331456,
+          "profit": 186900163
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 385622016,
+          "profit": 117385961
+        },
+        {
+          "name": "Beauty",
+          "revenue": 175979520,
+          "profit": 68175694
+        },
+        {
+          "name": "Fashion",
+          "revenue": 312160256,
+          "profit": 103451846
+        },
+        {
+          "name": "Grocery",
+          "revenue": 191580672,
+          "profit": 34754095
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 405405696,
+          "profit": 110841036
+        }
+      ]
+    },
+    {
+      "month": "2025-06",
+      "revenue": 2502839230,
+      "profit": 682679700,
+      "orders": 51817,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 894215100,
+          "profit": 209610130
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 432443440,
+          "profit": 131638376
+        },
+        {
+          "name": "Beauty",
+          "revenue": 182676165,
+          "profit": 70769738
+        },
+        {
+          "name": "Fashion",
+          "revenue": 324075080,
+          "profit": 107400878
+        },
+        {
+          "name": "Grocery",
+          "revenue": 214845125,
+          "profit": 38974220
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 454584320,
+          "profit": 124286358
+        }
+      ]
+    },
+    {
+      "month": "2025-07",
+      "revenue": 2333448068,
+      "profit": 636482826,
+      "orders": 47867,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 823247040,
+          "profit": 192974453
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 398060208,
+          "profit": 121172617
+        },
+        {
+          "name": "Beauty",
+          "revenue": 168121044,
+          "profit": 65131403
+        },
+        {
+          "name": "Fashion",
+          "revenue": 298276832,
+          "profit": 98850945
+        },
+        {
+          "name": "Grocery",
+          "revenue": 197793120,
+          "profit": 35880901
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 447949824,
+          "profit": 122472507
+        }
+      ]
+    },
+    {
+      "month": "2025-08",
+      "revenue": 2374177723,
+      "profit": 650556467,
+      "orders": 48953,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 834915004,
+          "profit": 195709650
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 403616616,
+          "profit": 122864007
+        },
+        {
+          "name": "Beauty",
+          "revenue": 184121400,
+          "profit": 71329819
+        },
+        {
+          "name": "Fashion",
+          "revenue": 326717016,
+          "profit": 108275763
+        },
+        {
+          "name": "Grocery",
+          "revenue": 200538631,
+          "profit": 36379053
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 424269056,
+          "profit": 115998175
+        }
+      ]
+    },
+    {
+      "month": "2025-09",
+      "revenue": 2627625772,
+      "profit": 716708992,
+      "orders": 53464,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 938863376,
+          "profit": 220075901
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 454006176,
+          "profit": 138202672
+        },
+        {
+          "name": "Beauty",
+          "revenue": 191752560,
+          "profit": 74286135
+        },
+        {
+          "name": "Fashion",
+          "revenue": 340178704,
+          "profit": 112737227
+        },
+        {
+          "name": "Grocery",
+          "revenue": 225540604,
+          "profit": 40914456
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 477284352,
+          "profit": 130492601
+        }
+      ]
+    },
+    {
+      "month": "2025-10",
+      "revenue": 2504408346,
+      "profit": 683113335,
+      "orders": 50494,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 883688356,
+          "profit": 207142116
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 427228360,
+          "profit": 130051216
+        },
+        {
+          "name": "Beauty",
+          "revenue": 180414234,
+          "profit": 69893783
+        },
+        {
+          "name": "Fashion",
+          "revenue": 320158824,
+          "profit": 106102514
+        },
+        {
+          "name": "Grocery",
+          "revenue": 212227116,
+          "profit": 38499448
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 480691456,
+          "profit": 131424258
+        }
+      ]
+    },
+    {
+      "month": "2025-11",
+      "revenue": 3611279020,
+      "profit": 985011768,
+      "orders": 72646,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 1290369800,
+          "profit": 302470792
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 624013520,
+          "profit": 189953936
+        },
+        {
+          "name": "Beauty",
+          "revenue": 263552040,
+          "profit": 102101825
+        },
+        {
+          "name": "Fashion",
+          "revenue": 467510880,
+          "profit": 154936107
+        },
+        {
+          "name": "Grocery",
+          "revenue": 309955660,
+          "profit": 56227909
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 655877120,
+          "profit": 179321199
+        }
+      ]
+    },
+    {
+      "month": "2025-12",
+      "revenue": 3817631688,
+      "profit": 1041313730,
+      "orders": 76365,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 1363955528,
+          "profit": 319719866
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 659807096,
+          "profit": 200849593
+        },
+        {
+          "name": "Beauty",
+          "revenue": 278624151,
+          "profit": 107940654
+        },
+        {
+          "name": "Fashion",
+          "revenue": 494259428,
+          "profit": 163800991
+        },
+        {
+          "name": "Grocery",
+          "revenue": 327624973,
+          "profit": 59433372
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 693360512,
+          "profit": 189569254
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "revenue": 2937029152,
+      "profit": 801127626,
+      "orders": 58225,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 1036330272,
+          "profit": 242922877
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 501027072,
+          "profit": 152515807
+        },
+        {
+          "name": "Beauty",
+          "revenue": 211694808,
+          "profit": 82011833
+        },
+        {
+          "name": "Fashion",
+          "revenue": 375450848,
+          "profit": 124426764
+        },
+        {
+          "name": "Grocery",
+          "revenue": 248911432,
+          "profit": 45154171
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 563614720,
+          "profit": 154096174
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "revenue": 3099511415,
+      "profit": 849323440,
+      "orders": 61776,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 1089875248,
+          "profit": 255473210
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 526982456,
+          "profit": 160416855
+        },
+        {
+          "name": "Beauty",
+          "revenue": 240438198,
+          "profit": 93147711
+        },
+        {
+          "name": "Fashion",
+          "revenue": 426555976,
+          "profit": 141363392
+        },
+        {
+          "name": "Grocery",
+          "revenue": 261791761,
+          "profit": 47490626
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 553867776,
+          "profit": 151431646
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "revenue": 3488875138,
+      "profit": 951624149,
+      "orders": 68628,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 1246684552,
+          "profit": 292230670
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 602799392,
+          "profit": 183495766
+        },
+        {
+          "name": "Beauty",
+          "revenue": 254597454,
+          "profit": 98632678
+        },
+        {
+          "name": "Fashion",
+          "revenue": 451707136,
+          "profit": 149698455
+        },
+        {
+          "name": "Grocery",
+          "revenue": 299406220,
+          "profit": 54314174
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 633680384,
+          "profit": 173252406
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "revenue": 3293555990,
+      "profit": 898363030,
+      "orders": 64214,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 1162188520,
+          "profit": 272423623
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 562038880,
+          "profit": 171088581
+        },
+        {
+          "name": "Beauty",
+          "revenue": 237181275,
+          "profit": 91885547
+        },
+        {
+          "name": "Fashion",
+          "revenue": 421186900,
+          "profit": 139583970
+        },
+        {
+          "name": "Grocery",
+          "revenue": 279144095,
+          "profit": 50638389
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 631816320,
+          "profit": 172742920
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "revenue": 3348613732,
+      "profit": 917578853,
+      "orders": 65642,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 1177445952,
+          "profit": 276000799
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 569407072,
+          "profit": 173331307
+        },
+        {
+          "name": "Beauty",
+          "revenue": 259696104,
+          "profit": 100608156
+        },
+        {
+          "name": "Fashion",
+          "revenue": 460806624,
+          "profit": 152713982
+        },
+        {
+          "name": "Grocery",
+          "revenue": 282789372,
+          "profit": 51299700
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 598468608,
+          "profit": 163624909
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "revenue": 3643419727,
+      "profit": 993793747,
+      "orders": 70502,
+      "categories": [
+        {
+          "name": "Electronics",
+          "revenue": 1301598648,
+          "profit": 305103859
+        },
+        {
+          "name": "Home & Living",
+          "revenue": 629770960,
+          "profit": 191706063
+        },
+        {
+          "name": "Beauty",
+          "revenue": 265860255,
+          "profit": 102995991
+        },
+        {
+          "name": "Fashion",
+          "revenue": 471759588,
+          "profit": 156343920
+        },
+        {
+          "name": "Grocery",
+          "revenue": 312736580,
+          "profit": 56732538
+        },
+        {
+          "name": "Business Supplies",
+          "revenue": 661693696,
+          "profit": 180911376
+        }
+      ]
+    }
+  ]
+}

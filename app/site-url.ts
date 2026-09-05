@@ -1,4 +1,4 @@
-const fallbackSiteUrl = "https://almond-owolabi.pages.dev";
+const fallbackSiteUrl = "https://almond-owolabi-portfolio.vercel.app";
 
 function normalizeSiteUrl(value: string) {
   const url = value.startsWith("http://") || value.startsWith("https://") ? value : `https://${value}`;

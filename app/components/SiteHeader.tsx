@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { profile } from "../data";
+import { ResumeLink } from "./ResumeLink";
 import { ArrowIcon } from "./ArrowIcon";
 
 const links = [
@@ -14,6 +15,12 @@ const links = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape" && open) { setOpen(false); toggle.current?.focus(); } };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
     <header className="site-header">
@@ -23,6 +30,7 @@ export function SiteHeader() {
       </Link>
 
       <button
+        ref={toggle}
         className="menu-toggle"
         type="button"
         aria-expanded={open}
@@ -39,6 +47,7 @@ export function SiteHeader() {
             {label}
           </Link>
         ))}
+        <ResumeLink className="nav-resume" label="Résumé" />
         <Link className="nav-cta" href="/contact" onClick={() => setOpen(false)}>
           Let&apos;s talk <ArrowIcon />
         </Link>

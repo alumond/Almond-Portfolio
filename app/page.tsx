@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: `${profile.name} — Data Scientist & AI Engineer`,
     description: "Analytics, machine learning, M&E intelligence, and AI data products by Almond Owolabi.",
     type: "website",
-    images: [{ url: "/og.png", width: 1600, height: 900, alt: "Almond Owolabi — Data Scientist and AI Engineer" }],
+    images: [{ url: "/og.png", alt: "Almond Owolabi — Data Scientist and AI Engineer" }],
   },
   twitter: { card: "summary_large_image", title: `${profile.name} — Data Scientist & AI Engineer`, description: "Turning evidence into action across analytics, AI, and development impact.", images: ["/og.png"] },
 };

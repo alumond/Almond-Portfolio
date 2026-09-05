@@ -1,35 +1,12 @@
-# Tests
+# Manual interaction checks (not yet run)
 
-## Test 1 - Portfolio introduction and primary work path [sanity]
-Viewport: desktop
-Covers: welcome introduction, hero layout, primary call to action, scroll motion system
-Description: Confirms the portfolio opens with its branded introduction and gives visitors a clear path into selected work without overlapping content.
+1. At desktop and mobile sizes, follow Explore my work; verify project filters show the correct category and count.
+2. Open the mobile menu, follow a link, and dismiss with Escape; focus should return to Menu.
+3. Expand the repository archive; search for AfriMedQA and an unmatched phrase; verify results and the empty state.
+4. Open retail, health-access, and AfriMedQA case studies; verify readable imagery, source links, and data-boundary labels.
+5. Navigate using a keyboard, including Skip to content, filters, archive disclosure, and contact links.
 
-Steps:
-1. Open the portfolio in a fresh tab
-2. Wait for the welcome introduction to finish
-3. Select "See selected work"
-
-Expected: The selected-work section becomes visible, the hero copy and controls do not overlap, and page sections reveal as the page scrolls.
-
-## Test 2 - Professional metrics and data visualization
-Viewport: desktop
-Covers: animated metrics, data charts, responsive statistics layout
-Description: Confirms the portfolio presents professional evidence metrics with legible supporting context and animated charts.
-
-Steps:
-1. Scroll to "What I bring"
-2. Review all three metric cards
-
-Expected: The values 25, 30%, and 4+ are clearly visible with distinct labels, supporting text, and charts contained inside their cards.
-
-## Test 3 - Loan prediction case study and clean presentation
-Viewport: mobile
-Covers: nested project route, project imagery, responsive layout, AppDeploy overlay suppression
-Description: Confirms a flagship case study works on a smaller viewport without injected controls covering the portfolio.
-
-Steps:
-1. Open the Loan Approval Prediction App case study
-2. Scroll through the page
-
-Expected: The project image loads, the page remains readable without overlap, and no AppDeploy floating toolbar is visible.
+6. Switch revenue/gross profit and select months using dropdown and range keyboard arrows; confirm KPI labels, bars, and table agree.
+7. Open and close case-study image dialogs using the button and Escape; ensure focus returns to the gallery trigger.
+8. Download the résumé PDF from header, hero, footer, and contact. Check email, phone, LinkedIn, GitHub, and copy-email controls.
+9. Enable reduced motion; confirm content and charts remain visible with no entrance animation.

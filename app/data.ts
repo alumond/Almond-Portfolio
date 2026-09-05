@@ -11,6 +11,8 @@ export type Project = {
   stack: string[];
   github: string;
   featured: boolean;
+  provenance?: string;
+  live?: string;
   accent: "brick" | "blue" | "lichen" | "ink";
   image: {
     src: string;
@@ -109,13 +111,178 @@ export const skills = [
 ];
 
 export const projects: Project[] = [
+{
+  "slug": "retail-revenue-command-center",
+  "title": "Retail Revenue & Operations Command Center",
+  "shortTitle": "Retail command centre",
+  "kind": "Analytics",
+  "kicker": "Business intelligence · 2026",
+  "description": "A commercial command centre connecting revenue, customer retention, margin pressure, and the decisions that follow.",
+  "longDescription": "A Python-generated executive dashboard that brings revenue quality, product performance, customer retention, and operational risk into one view. Built on a clearly labelled synthetic retail dataset.",
+  "stack": [
+    "Python",
+    "HTML / CSS",
+    "CSV / JSON",
+    "Excel"
+  ],
+  "github": "https://github.com/alumond/linkedin-AI-Agent/tree/main/projects/retail-revenue-command-center",
+  "featured": true,
+  "accent": "lichen",
+  "image": {
+    "src": "/images/project-retail.png",
+    "alt": "Retail revenue dashboard with commercial KPIs, trends, and margin analysis"
+  },
+  "outcomes": [
+    "2,160 synthetic records",
+    "18 months of operational data",
+    "5 regions · 4 sales channels"
+  ],
+  "sections": [
+    {
+      "title": "The business question",
+      "body": "Is revenue growth supported by healthy profit? The dashboard connects category and channel performance to retention, returns, fulfillment delays, and stockout risk so leaders can identify where to investigate next."
+    },
+    {
+      "title": "From dataset to decision",
+      "body": "A reproducible Python workflow generates the dataset and dashboard outputs. The executive view includes KPI cards, revenue and gross-profit trends, category rankings, channel mix, regional performance, and recommended management actions."
+    },
+    {
+      "title": "A transparent demonstration",
+      "body": "The 2,160 rows are synthetic, spanning 18 months, five regions, four channels, and six product categories. This is a portfolio demonstration of analytical design and business reasoning; the figures do not represent client results."
+    }
+  ]
+},
+{
+  "slug": "linkedin-ai-agent",
+  "title": "LinkedIn AI Agent",
+  "shortTitle": "LinkedIn AI Agent",
+  "kind": "AI systems",
+  "kicker": "Research & content automation · 2026",
+  "description": "From sourced research to a reviewable post: an AI publishing workflow with grounding, visual checks, and publication history.",
+  "longDescription": "A Python agent that researches Data and AI topics using Gemini Search grounding, drafts sourced LinkedIn posts, pairs them with topic-specific visuals, and supports staged review and scheduled publishing.",
+  "stack": [
+    "Python",
+    "Gemini",
+    "LinkedIn API",
+    "GitHub Actions"
+  ],
+  "github": "https://github.com/alumond/linkedin-AI-Agent",
+  "featured": true,
+  "accent": "blue",
+  "image": {
+    "src": "/images/project-linkedin-output.png",
+    "alt": "Example decision-storytelling visual prepared for the LinkedIn AI Agent"
+  },
+  "outcomes": [
+    "Search-grounded research",
+    "Exact-preview publishing",
+    "Source, image & duplication checks"
+  ],
+  "sections": [
+    {
+      "title": "A complete publishing workflow",
+      "body": "The agent connects current-topic research, source-grounded writing, visual validation, and LinkedIn publishing. A scheduled GitHub Actions workflow supports weekday runs and keeps a publication history."
+    },
+    {
+      "title": "Review the exact output",
+      "body": "Preview mode stages the exact text and image for review. The publish-preview command publishes that staged version without regenerating it. An independent dry-run path prepares and validates content without contacting publishing endpoints."
+    },
+    {
+      "title": "Checks before publication",
+      "body": "The workflow skips publication when sources are missing, topic confidence is low, a topic was recently covered, the visual fails validation, or the LinkedIn token has expired. The default image workflow uses prepared, topic-specific assets."
+    }
+  ]
+},
+{
+  "slug": "afrimedqa-fine-tuning",
+  "title": "AfriMedQA Fine-Tuning & Chatbot",
+  "shortTitle": "AfriMedQA",
+  "kind": "Machine learning",
+  "kicker": "Applied language models · 2026",
+  "description": "A Colab-first QLoRA training pipeline, with separate Gemini-powered Streamlit and Telegram interfaces.",
+  "longDescription": "An AfriMedQA model-training workflow that turns a notebook into a reusable fine-tuning pipeline, alongside Gemini-powered conversational demonstrations for web and Telegram.",
+  "stack": [
+    "Python",
+    "QLoRA",
+    "Streamlit",
+    "Gemini",
+    "Telegram"
+  ],
+  "github": "https://github.com/alumond/Activity-1",
+  "featured": true,
+  "accent": "brick",
+  "image": {
+    "src": "/images/project-health-access.jpg",
+    "alt": "Stethoscope and laptop representing the medical question-answering research domain"
+  },
+  "outcomes": [
+    "Data preview & training commands",
+    "LoRA adapter export",
+    "Web & Telegram demonstrations"
+  ],
+  "sections": [
+    {
+      "title": "From notebook to pipeline",
+      "body": "The repository separates training from the interface. A Colab-oriented pipeline provides dataset previews, a small training smoke test, and full QLoRA fine-tuning with an exported LoRA adapter."
+    },
+    {
+      "title": "Two distinct model paths",
+      "body": "The Streamlit chatbot and Telegram webhook call Gemini directly. They do not serve the fine-tuned Llama adapter. This distinction keeps the training experiment and the deployed demonstration accurately documented."
+    },
+    {
+      "title": "Designed as a demonstration",
+      "body": "The chatbot is a research and decision-support demonstration, not a clinically validated service. The Telegram integration supports optional recent-message memory with a seven-day expiry when a compatible key-value store is configured."
+    }
+  ]
+},
+{
+  "slug": "job-application-agent",
+  "title": "Job Application Agent",
+  "shortTitle": "Job Application Agent",
+  "kind": "AI systems",
+  "kicker": "Workflow automation · 2026",
+  "description": "A role-discovery and application workflow that ranks opportunities, prepares tailored packets, and keeps submission under human review.",
+  "longDescription": "A Python application agent that searches public job sources, scores role fit, produces tailored application materials, and tracks approvals and submission outcomes.",
+  "stack": [
+    "Python",
+    "Job APIs",
+    "Gmail API",
+    "PDF"
+  ],
+  "github": "https://github.com/alumond/Job-Agent",
+  "featured": false,
+  "accent": "ink",
+  "image": {
+    "src": "/images/project-hr-analytics.jpg",
+    "alt": "Team discussing work around a laptop"
+  },
+  "outcomes": [
+    "Ranked roles with rationale",
+    "Tailored resume & cover letter packets",
+    "Per-role approval & submission tracking"
+  ],
+  "sections": [
+    {
+      "title": "Discovery to preparation",
+      "body": "The agent searches job sources, ranks opportunities against a configured profile, and generates ATS-oriented resume drafts, recruiter-ready PDFs, cover letters, and application briefs."
+    },
+    {
+      "title": "Human review remains central",
+      "body": "Each role enters a review queue. Preparation for submission and email sending require a role-specific approval and configured consent. Duplicate-send checks and a submission tracker record what has already been sent."
+    },
+    {
+      "title": "An expanded outreach workflow",
+      "body": "The repository also includes prospect discovery, relevance scoring, personalized outreach packets, and a daily scheduler. These share the same review-first approach, with approval required before sending."
+    }
+  ]
+},
   {
     slug: "monitoring-and-evaluation-agent",
     title: "M&E Intelligence Engine",
     shortTitle: "M&E Intelligence Engine",
     kind: "M&E",
     kicker: "Operational intelligence · 2026",
-    description: "A production-ready backend that turns programme workbooks into donor-grade reports, decisions, and escalations.",
+    description: "An intelligence backend that turns programme workbooks into donor-ready reports, decisions, and escalations.",
     longDescription: "A monitoring and evaluation intelligence platform that connects to Google Sheets, normalizes programme state, computes deterministic analytics, and generates an accountable next action for the people who need it.",
     stack: ["Python", "FastAPI", "Google Sheets", "Gemini", "SQLite", "SMTP"],
     github: "https://github.com/alumond/Monitoring-and-Evaluation-Agent",
@@ -145,8 +312,8 @@ export const projects: Project[] = [
     featured: true,
     accent: "lichen",
     image: {
-      src: "/images/project-health-access.jpg",
-      alt: "A stethoscope beside a laptop, representing digital health access analysis",
+      src: "/images/project-health-dashboard.png",
+      alt: "Healthcare access dashboard showing survey indicators, barriers, and recommendations",
     },
     outcomes: ["Filterable by state and disability group", "Target-aware KPI cards", "Donor-ready action framing"],
     sections: [
@@ -165,7 +332,8 @@ export const projects: Project[] = [
     longDescription: "An HR analytics project built around more than 22,000 rows, cleaned and analyzed in MySQL Workbench, then turned into a Power BI narrative for strategic people decisions.",
     stack: ["MySQL", "Power BI", "Data cleaning", "Turnover analysis"],
     github: "https://github.com/alumond/HR-Analytics-Nexus",
-    featured: true,
+    featured: false,
+    provenance: "Forked repository · learning & exploration",
     accent: "blue",
     image: {
       src: "/images/project-hr-analytics.jpg",
@@ -183,12 +351,13 @@ export const projects: Project[] = [
     title: "Local RAG API",
     shortTitle: "Local RAG API",
     kind: "AI systems",
-    kicker: "Retrieval-augmented generation · 2025",
+    kicker: "Retrieval-augmented generation · 2024",
     description: "A local-first retrieval workflow that pairs Llama 3 with LangChain, ChromaDB, Ollama, and a Flask API.",
     longDescription: "A practical RAG implementation that keeps the model workflow close to the data: retrieve relevant context, compose a grounded response, and expose the experience through an API surface.",
     stack: ["Python", "Llama 3", "LangChain", "Ollama", "ChromaDB", "Flask"],
     github: "https://github.com/alumond/RAG",
-    featured: true,
+    featured: false,
+    provenance: "Forked repository · learning & exploration",
     accent: "ink",
     image: {
       src: "/images/project-rag-api.jpg",
@@ -206,12 +375,12 @@ export const projects: Project[] = [
     title: "Loan Approval Prediction App",
     shortTitle: "Loan prediction app",
     kind: "Machine learning",
-    kicker: "Applied modelling · 2024",
+    kicker: "Applied modelling · 2026",
     description: "A Streamlit interface that wraps a scikit-learn model into an interpretable loan approval probability workflow.",
     longDescription: "A small but complete applied machine-learning product: accept financial and demographic inputs, pass them through a trained scikit-learn pipeline, and return a probability-oriented decision surface.",
     stack: ["Python", "Scikit-learn", "Streamlit", "Feature engineering"],
     github: "https://github.com/alumond/loan-Prediction-App",
-    featured: true,
+    featured: false,
     accent: "blue",
     image: {
       src: "/images/project-loan-prediction.jpg",
@@ -234,7 +403,7 @@ export const projects: Project[] = [
     longDescription: "A development-data project that selects and explores country indicators, then tests predictive modelling against macroeconomic variables including GDP, GNI, and trade flows.",
     stack: ["Python", "World Bank data", "Regression", "Exploratory analysis"],
     github: "https://github.com/alumond/Indicators",
-    featured: true,
+    featured: false,
     accent: "lichen",
     image: {
       src: "/images/project-development-indicators.jpg",
@@ -249,33 +418,226 @@ export const projects: Project[] = [
   },
 ];
 
+export const githubSnapshot = { checked: "2026-09-05", publicRepos: 27 };
+
 export const archiveRepos = [
-  ["Activity-1", "Data science activity repository", "Analytics"],
-  ["Agent", "Agent building experiments", "AI systems"],
-  ["Almond-Owolabi-Hamoye-111", "Logistic regression and linear classification", "Machine learning"],
-  ["Almond-Owolabi-Hamoye-Activity-1", "Python for data science code", "Analytics"],
-  ["Almond-Owolabi-Hamoye-Activity-2", "Machine learning regression", "Machine learning"],
-  ["Almond-Projects", "A central archive of projects by Almond Owolabi", "Analytics"],
-  ["Data-Analysis-Dashboard", "Dashboard archive for analysis and visualisation", "Dashboards"],
-  ["Fastapi", "FastAPI experiments and service work", "AI systems"],
-  ["HR-Analytics-Nexus", "MySQL and Power BI workforce analysis", "Analytics"],
-  ["HSDC-Hamoye-Anaconda-", "Hamoye data science contribution", "Analytics"],
-  ["HSDC-Hamoye-Group", "Hamoye group contribution", "Analytics"],
-  ["Hacey", "HACEY data science work", "Analytics"],
-  ["Hamoye", "Time series analysis project", "Machine learning"],
-  ["Hamoye-Data-Science-Internship", "Internship quiz and practice codes", "Analytics"],
-  ["Health-Access-for-PWDs", "Disability-inclusive healthcare access dashboard", "Dashboards"],
-  ["Indicators", "World Bank development indicators for Nigeria", "Analytics"],
-  ["Job-Agent", "Job search automation experiments", "AI systems"],
-  ["Job-Search-Agent", "Job search agent", "AI systems"],
-  ["Monitoring-and-Evaluation-Agent", "Automated M&E intelligence and escalation", "M&E"],
-  ["Power-bi-challenge", "Power BI challenge work", "Dashboards"],
-  ["RAG", "Local retrieval-augmented generation API", "AI systems"],
-  ["dsj", "Data science journal and exercises", "Analytics"],
-  ["health-chat", "Health chat experiments", "AI systems"],
-  ["loan-Prediction-App", "Streamlit loan approval prediction app", "Machine learning"],
-  ["rag-tutorial-v2", "Improved LangChain RAG tutorial", "AI systems"],
-] as const;
+  {
+    "name": "linkedin-AI-Agent",
+    "description": "Grounded publishing agent & retail analytics",
+    "github": "https://github.com/alumond/linkedin-AI-Agent",
+    "fork": false,
+    "language": "Python",
+    "updated": "2026-09-04"
+  },
+  {
+    "name": "Almond-Portfolio",
+    "description": "Almond Portfolio",
+    "github": "https://github.com/alumond/Almond-Portfolio",
+    "fork": false,
+    "language": "TypeScript",
+    "updated": "2026-08-26"
+  },
+  {
+    "name": "Activity-1",
+    "description": "AfriMedQA fine-tuning pipeline & Gemini chatbot",
+    "github": "https://github.com/alumond/Activity-1",
+    "fork": false,
+    "language": "Jupyter Notebook",
+    "updated": "2026-08-11"
+  },
+  {
+    "name": "Job-Agent",
+    "description": "Job discovery, tailored applications & review workflow",
+    "github": "https://github.com/alumond/Job-Agent",
+    "fork": false,
+    "language": "Python",
+    "updated": "2026-07-25"
+  },
+  {
+    "name": "Job-Search-Agent",
+    "description": "Job search Agent",
+    "github": "https://github.com/alumond/Job-Search-Agent",
+    "fork": false,
+    "language": "Project files",
+    "updated": "2026-07-22"
+  },
+  {
+    "name": "Health-Access-for-PWDs",
+    "description": "Dashboard",
+    "github": "https://github.com/alumond/Health-Access-for-PWDs",
+    "fork": false,
+    "language": "JavaScript",
+    "updated": "2026-05-31"
+  },
+  {
+    "name": "Monitoring-and-Evaluation-Agent",
+    "description": "Monitors programme indicators, detects when targets are being missed, determines root cause, recommends corrective actions, and escalates to the right person automatically. It also provides monthly report",
+    "github": "https://github.com/alumond/Monitoring-and-Evaluation-Agent",
+    "fork": false,
+    "language": "Python",
+    "updated": "2026-05-24"
+  },
+  {
+    "name": "Agent",
+    "description": "Agent Building",
+    "github": "https://github.com/alumond/Agent",
+    "fork": false,
+    "language": "Python",
+    "updated": "2026-05-18"
+  },
+  {
+    "name": "loan-Prediction-App",
+    "description": "Loan Approval Prediction App built with Streamlit and a Machine Learning pipeline. The app takes user financial and demographic inputs and predicts loan approval probability using a trained scikit-learn model.",
+    "github": "https://github.com/alumond/loan-Prediction-App",
+    "fork": false,
+    "language": "Python",
+    "updated": "2026-04-14"
+  },
+  {
+    "name": "Data-Analysis-Dashboard",
+    "description": "This repository contains a Data Analysis Dashboard built to support data exploration and decision-making. It integrates data cleaning, analysis, and visualization to present insights through dynamic charts and summary metrics. The project demonstrates practical applications of data analysis workflows and dashboard design.",
+    "github": "https://github.com/alumond/Data-Analysis-Dashboard",
+    "fork": false,
+    "language": "Project files",
+    "updated": "2026-01-19"
+  },
+  {
+    "name": "health-chat",
+    "description": "health chat",
+    "github": "https://github.com/alumond/health-chat",
+    "fork": true,
+    "language": "Project files",
+    "updated": "2024-10-26"
+  },
+  {
+    "name": "rag-tutorial-v2",
+    "description": "An Improved Langchain RAG Tutorial (v2) with local LLMs, database updates, and testing.",
+    "github": "https://github.com/alumond/rag-tutorial-v2",
+    "fork": true,
+    "language": "Project files",
+    "updated": "2024-08-03"
+  },
+  {
+    "name": "RAG",
+    "description": "Rag (Retreival Augmented Generation) Python solution with llama3, LangChain, Ollama and ChromaDB in a Flask API based solution",
+    "github": "https://github.com/alumond/RAG",
+    "fork": true,
+    "language": "Project files",
+    "updated": "2024-06-03"
+  },
+  {
+    "name": "HR-Analytics-Nexus",
+    "description": "Experience the synergy of MySQL and PowerBI in our HR Analytics Nexus. Streamline HR processes with dynamic dashboards, actionable insights, and strategic decision-making. Elevate your HR game today!",
+    "github": "https://github.com/alumond/HR-Analytics-Nexus",
+    "fork": true,
+    "language": "Project files",
+    "updated": "2024-02-09"
+  },
+  {
+    "name": "Indicators",
+    "description": "A data set from world bank storing different world development Indicators. I made a selection for Nigeria and selected a few other indicators. I also built a model to predict GDP and GNI of the country and also amount spent on goods (Import and Export)",
+    "github": "https://github.com/alumond/Indicators",
+    "fork": false,
+    "language": "Jupyter Notebook",
+    "updated": "2023-08-27"
+  },
+  {
+    "name": "Power-bi-challenge",
+    "description": "Power bi challenge",
+    "github": "https://github.com/alumond/Power-bi-challenge",
+    "fork": false,
+    "language": "Project files",
+    "updated": "2023-02-02"
+  },
+  {
+    "name": "Hacey",
+    "description": "Hacey",
+    "github": "https://github.com/alumond/Hacey",
+    "fork": false,
+    "language": "Project files",
+    "updated": "2022-12-22"
+  },
+  {
+    "name": "Fastapi",
+    "description": "Fastapi",
+    "github": "https://github.com/alumond/Fastapi",
+    "fork": false,
+    "language": "Python",
+    "updated": "2022-12-02"
+  },
+  {
+    "name": "Hamoye",
+    "description": "Hamoye Project E, Time series Analysis",
+    "github": "https://github.com/alumond/Hamoye",
+    "fork": false,
+    "language": "Jupyter Notebook",
+    "updated": "2022-10-13"
+  },
+  {
+    "name": "HSDC-Hamoye-Group",
+    "description": "Almond contribution",
+    "github": "https://github.com/alumond/HSDC-Hamoye-Group",
+    "fork": false,
+    "language": "Jupyter Notebook",
+    "updated": "2022-10-09"
+  },
+  {
+    "name": "HSDC-Hamoye-Anaconda-",
+    "description": "Almond contribution",
+    "github": "https://github.com/alumond/HSDC-Hamoye-Anaconda-",
+    "fork": false,
+    "language": "Project files",
+    "updated": "2022-10-09"
+  },
+  {
+    "name": "dsj",
+    "description": "kew",
+    "github": "https://github.com/alumond/dsj",
+    "fork": false,
+    "language": "Jupyter Notebook",
+    "updated": "2022-09-20"
+  },
+  {
+    "name": "Almond-Owolabi-Hamoye-111",
+    "description": "Project C, Logistic Regression and Linear Classification",
+    "github": "https://github.com/alumond/Almond-Owolabi-Hamoye-111",
+    "fork": false,
+    "language": "Jupyter Notebook",
+    "updated": "2022-09-06"
+  },
+  {
+    "name": "Almond-Owolabi-Hamoye-Activity-2",
+    "description": "machine learning regression",
+    "github": "https://github.com/alumond/Almond-Owolabi-Hamoye-Activity-2",
+    "fork": false,
+    "language": "Jupyter Notebook",
+    "updated": "2022-08-13"
+  },
+  {
+    "name": "Almond-Owolabi-Hamoye-Activity-1",
+    "description": "Python for data science code",
+    "github": "https://github.com/alumond/Almond-Owolabi-Hamoye-Activity-1",
+    "fork": false,
+    "language": "Jupyter Notebook",
+    "updated": "2022-08-01"
+  },
+  {
+    "name": "Almond-Projects",
+    "description": "Projects done by Owolabi almond",
+    "github": "https://github.com/alumond/Almond-Projects",
+    "fork": false,
+    "language": "Project files",
+    "updated": "2022-07-03"
+  },
+  {
+    "name": "Hamoye-Data-Science-Internship",
+    "description": "Quiz Codes",
+    "github": "https://github.com/alumond/Hamoye-Data-Science-Internship",
+    "fork": true,
+    "language": "Project files",
+    "updated": "2020-10-13"
+  }
+];
 
 export const certifications = [
   "IBM Data Science Specialization",
