@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { profile } from "./data";
+import { DataBackdrop } from "./components/DataBackdrop";
 import { PortfolioMotion } from "./components/PortfolioMotion";
 import { getSiteUrl } from "./site-url";
 
@@ -50,6 +51,7 @@ export default function RootLayout({
       >
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <a className="skip-link" href="#main-content">Skip to content</a>
+        <DataBackdrop />
         <PortfolioMotion />
         {children}
       </body>
