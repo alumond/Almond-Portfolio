@@ -1,22 +1,12 @@
-import type { Metadata } from "next";
 import { PortfolioHome } from "./components/PortfolioHome";
-import { profile } from "./data";
+import { pageMetadata } from "./seo";
 
-export const metadata: Metadata = {
-  title: `${profile.name} — Data Scientist & AI Engineer`,
-  description: "Almond Owolabi builds analytics, machine learning, M&E intelligence, and AI data products that turn evidence into action.",
-  keywords: ["data scientist Nigeria", "AI engineer Nigeria", "data analyst", "machine learning", "M&E intelligence", "Power BI consultant", "Python data science"],
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: `${profile.name} — Data Scientist & AI Engineer`,
-    description: "Analytics, machine learning, M&E intelligence, and AI data products by Almond Owolabi.",
-    type: "website",
-    images: [{ url: "/og.png", alt: "Almond Owolabi — Data Scientist and AI Engineer" }],
-  },
-  twitter: { card: "summary_large_image", title: `${profile.name} — Data Scientist & AI Engineer`, description: "Turning evidence into action across analytics, AI, and development impact.", images: ["/og.png"] },
-};
+export const metadata = pageMetadata(
+  "Almond Owolabi — Data Scientist & AI Engineer in Nigeria",
+  "Explore Almond Owolabi’s work in data science, AI engineering, dashboards and M&E automation. Based in Nigeria. View projects, download a résumé or get in touch.",
+  "/",
+);
 
 export default function Home() {
   return <PortfolioHome />;
 }
-

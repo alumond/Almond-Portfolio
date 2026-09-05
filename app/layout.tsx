@@ -3,9 +3,10 @@ import "./globals.css";
 import { profile } from "./data";
 import { DataBackdrop } from "./components/DataBackdrop";
 import { PortfolioMotion } from "./components/PortfolioMotion";
-import { getSiteUrl } from "./site-url";
+import { personSchema, personId, websiteId, siteOrigin } from "./seo";
+import { StructuredData } from "./components/StructuredData";
 
-const siteUrl = getSiteUrl();
+const siteUrl = siteOrigin;
 
 export const metadata: Metadata = {
   title: "Almond Owolabi — Data Scientist & AI Engineer",
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
     shortcut: "/favicon-ao.svg",
   },
   metadataBase: new URL(siteUrl),
+  verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
   openGraph: {
     siteName: "Almond Owolabi",
     locale: "en_NG",
@@ -34,14 +36,15 @@ export default function RootLayout({
 }>) {
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: profile.name,
-    jobTitle: profile.role,
-    email: `mailto:${profile.email}`,
-    telephone: profile.phone,
-    url: siteUrl,
-    sameAs: [profile.github, profile.linkedin],
-    knowsAbout: ["Data science", "Data analytics", "Machine learning", "M&E intelligence", "AI engineering", "Power BI", "Python"],
+    "@graph": [personSchema, {
+      "@type": "WebSite",
+      "@id": websiteId,
+      name: profile.name,
+      url: `${siteOrigin}/`,
+      description: "The professional portfolio of Almond Owolabi: data science, AI engineering, analytics, and monitoring and evaluation.",
+      publisher: { "@id": personId },
+      inLanguage: "en",
+    }],
   };
 
   return (
@@ -49,7 +52,7 @@ export default function RootLayout({
       <body
         className="antialiased"
       >
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+        <StructuredData data={structuredData} />
         <a className="skip-link" href="#main-content">Skip to content</a>
         <DataBackdrop />
         <PortfolioMotion />

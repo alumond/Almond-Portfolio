@@ -13,7 +13,7 @@ async function readDist(path = "/") {
 
 test("server-renders the complete portfolio homepage", async () => {
   const html = await readDist();
-  assert.match(html, /<title>Almond Owolabi — Data Scientist &amp; AI Engineer<\/title>/i);
+  assert.match(html, /<title>Almond Owolabi — Data Scientist &amp; AI Engineer in Nigeria<\/title>/i);
   assert.match(html, /Data into clarity/i);
   assert.match(html, /M&amp;E Intelligence Engine/i);
   assert.match(html, /Health Access for Persons with Disabilities/i);
@@ -76,4 +76,26 @@ test("serves portraits, charts, resume download and contact access without an op
   const linkedin = await readDist("/work/linkedin-ai-agent");
   assert.match(linkedin, /<dialog/);
   assert.match(linkedin, /project-escalation-story.png/);
+});
+
+
+test("SEO metadata identifies each core page and uses stable canonical URLs", async () => {
+  for (const path of ["/", "/about", "/services", "/contact"]) {
+    const html = await readDist(path);
+    const canonical = `https://almond-owolabi-portfolio.vercel.app${path === "/" ? "/" : `${path}/`}`;
+    assert.ok(html.includes(`rel="canonical" href="${canonical}"`), path);
+    assert.ok(html.includes(`property="og:url" content="${canonical}"`), path);
+  }
+  const home = await readDist();
+  assert.match(home, /Data Scientist &amp; AI Engineer in Nigeria/);
+  const about = await readDist("/about");
+  assert.match(about, /"@type":"ProfilePage"/);
+  assert.match(about, /"mainEntity":\{"@type":"Person"/);
+  const service = await readDist("/services");
+  assert.match(service, /Explore the retail analytics dashboard/);
+  const project = await readDist("/work/linkedin-ai-agent");
+  assert.match(project, /"@type":"BreadcrumbList"/);
+  const sitemap = await readFile(join(distRoot, "sitemap.xml"), "utf8");
+  assert.match(sitemap, /\/about\/<\/loc>/);
+  assert.doesNotMatch(sitemap, /<lastmod>[^<]*T/);
 });

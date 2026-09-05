@@ -41,13 +41,13 @@ export const profile = {
 export const services = [
   {
     number: "01",
-    title: "Decision systems",
+    title: "M&E reporting & intelligence",
     body: "Turn fragmented operational data into clear reporting, accountable performance, and decisions that can move this week.",
     tags: ["M&E intelligence", "KPI systems", "Donor reporting"],
   },
   {
     number: "02",
-    title: "Analytics products",
+    title: "Data analytics & dashboards",
     body: "Design dashboards, data models, and analytical workflows that make complex evidence understandable to technical and non-technical teams.",
     tags: ["Power BI", "Tableau", "SQL", "Python"],
   },
@@ -59,7 +59,7 @@ export const services = [
   },
   {
     number: "04",
-    title: "AI & data workflows",
+    title: "AI workflow automation",
     body: "Connect APIs, language models, databases, and reporting layers into useful automation—not demos that stop at the notebook.",
     tags: ["RAG", "FastAPI", "LLM workflows", "Automation"],
   },

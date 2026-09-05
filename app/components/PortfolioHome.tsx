@@ -28,7 +28,7 @@ export function PortfolioHome() {
           <div className="hero-copy">
             <p className="eyebrow">Almond Owolabi / Portfolio 2026</p>
             <h1 id="hero-title">Data into clarity.<br />Ideas into <em>impact.</em></h1>
-            <p className="hero-intro">I build intelligent systems that connect complex data to better decisions. Across analytics, applied AI, and development impact.</p>
+            <p className="hero-intro">I’m Almond Owolabi, a data scientist and AI engineer based in Nigeria. I build analytics, AI, and M&E systems that connect complex data to better decisions.</p>
             <div className="hero-actions"><Link className="button button-lime" href="#work">Explore my work <ArrowIcon /></Link><Link className="hero-text-link" href="/about">A little about me <ArrowIcon /></Link></div>
             <div className="hero-utility"><ResumeLink /><a href={`mailto:${profile.email}`}>Get in touch <ArrowIcon /></a></div>
             <div className="hero-signoff"><span className="hero-signature">Almond.</span><span>Analytical by training.<br />A builder by instinct.</span></div>

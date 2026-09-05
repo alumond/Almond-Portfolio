@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { StructuredData } from "../../components/StructuredData";
+import { siteOrigin } from "../../seo";
 import { notFound } from "next/navigation";
 import { profile, projects } from "../../data";
 import { SiteFooter } from "../../components/SiteFooter";
@@ -26,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: project.longDescription,
     keywords: [project.kind, ...project.stack, "Almond Owolabi", "data scientist", "AI engineer"],
     alternates: { canonical: `/work/${project.slug}/` },
-    openGraph: { title: `${project.title} · ${profile.name}`, description: project.longDescription, type: "article", images: [{ url: project.image.src, alt: project.image.alt }] },
+    openGraph: { title: `${project.title} · ${profile.name}`, description: project.longDescription, type: "article", url: `/work/${project.slug}/`, images: [{ url: project.image.src, alt: project.image.alt }] },
     twitter: { card: "summary_large_image", title: `${project.title} · ${profile.name}`, description: project.longDescription, images: [project.image.src] },
   };
 }
@@ -38,6 +40,14 @@ export default async function CaseStudyPage({ params }: Props) {
 
   return (
     <>
+      <StructuredData data={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Almond Owolabi", item: `${siteOrigin}/` },
+          { "@type": "ListItem", position: 2, name: project.title, item: `${siteOrigin}/work/${project.slug}/` },
+        ],
+      }} />
       <SiteHeader />
       <main id="main-content" className="case-study-page">
         <section className={`case-hero case-${project.accent} section-frame`}>
