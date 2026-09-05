@@ -10,13 +10,13 @@ Primary audiences: employers hiring data and AI specialists, and clients seeking
 - Sitemap dates reflect content updates, not every build; update `contentUpdatedAt` in `app/seo.ts` when content materially changes.
 - Linked Person and WebSite structured data; ProfilePage on About; project breadcrumbs.
 - Services link directly to relevant case studies.
-- Optional Google verification metadata through `GOOGLE_SITE_VERIFICATION`.
+- The owner-supplied Google Search Console HTML verification tag is included in `app/layout.tsx`. Keep it in place after verification.
 
 ## Next: Google Search Console
 
 1. Sign in at https://search.google.com/search-console/ using the account that will manage the portfolio.
 2. Add a URL-prefix property for `https://almond-owolabi-portfolio.vercel.app/`.
-3. Choose HTML-tag verification. Set its `content` value as the Vercel production variable `GOOGLE_SITE_VERIFICATION`, redeploy, then complete verification in Search Console. An HTML verification file is also an alternative.
+3. The supplied HTML-tag verification code is now configured in the site metadata. After deployment, return to Search Console and click Verify. Keep the tag deployed to preserve ownership verification.
 4. Submit `https://almond-owolabi-portfolio.vercel.app/sitemap.xml` in Sitemaps.
 5. Inspect the homepage and important case-study URLs and request indexing.
 6. Review indexing and Search Performance weekly: queries, impressions, clicks, and average position. Filter by country and query group where useful.

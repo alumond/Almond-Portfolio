@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     shortcut: "/favicon-ao.svg",
   },
   metadataBase: new URL(siteUrl),
-  verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
+  verification: { google: "PWu5cQntdLsHoX0humPNhNL4o2AGEYdxKmzKmcvrJi4" },
   openGraph: {
     siteName: "Almond Owolabi",
     locale: "en_NG",
