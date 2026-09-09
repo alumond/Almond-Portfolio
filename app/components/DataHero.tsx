@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./data-hero.module.css";
-import { ProgrammeDecision } from "./ProgrammeDecision";
+import { AppliedDataDemo } from "./AppliedDataDemo";
 
 const stages = ["Raw data", "Find the signal", "Make it matter"];
 
@@ -133,7 +133,7 @@ export function DataHero({ preview = true }: { preview?: boolean }) {
           <div className={styles.actions}><Link href="/#work" className={styles.primary}>Explore my work <span>↗</span></Link><Link href="/contact/" className={styles.secondary}>Work with me <span>↗</span></Link></div>
           <div className={styles.disciplines}><span>DATA SCIENCE</span><i /><span>AI ENGINEERING</span><i /><span>M&E INTELLIGENCE</span></div>
         </div>
-        {stage === 2 ? <div className={`${styles.visual} ${styles.applicationVisual}`}><ProgrammeDecision /></div> : <div className={styles.visual} role="img" aria-label={`Animated illustrative data surface. Stage: ${stages[stage]}. Synthetic observations transform into patterns.`}>
+        {stage === 2 ? <div className={`${styles.visual} ${styles.applicationVisual}`}><AppliedDataDemo /></div> : <div className={styles.visual} role="img" aria-label={`Animated illustrative data surface. Stage: ${stages[stage]}. Synthetic observations transform into patterns.`}>
           <div className={styles.visualTop}><span><i /> THE SIGNAL FIELD</span><span>FIG. 001 / SYNTHETIC DATA</span></div>
           <div className={styles.rawData} aria-hidden="true"><span>OBSERVATION MATRIX</span><div>0.742 &nbsp; 0.186 &nbsp; 0.903 &nbsp; 0.451<br />0.328 &nbsp; 0.867 &nbsp; 0.214 &nbsp; 0.692<br />0.519 &nbsp; 0.043 &nbsp; 0.785 &nbsp; 0.336</div></div>
           <DataField stage={stage} paused={paused} />
