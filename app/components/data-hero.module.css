@@ -7,3 +7,20 @@
 @media(prefers-reduced-motion:reduce){.page *{transition:none!important}}
 
 .embedded{min-height:0}
+
+/* Readable supporting type, with space for enlarged text to wrap. */
+.hero{padding-bottom:85px}
+.copy{padding-bottom:35px}
+.intro{font-size:1.125rem;line-height:1.7;max-width:440px}
+.topline,.kicker,.disciplines,.controlEyebrow,.stepNumber{font-size:.75rem;letter-spacing:.05em}
+.actions{font-size:1rem;flex-wrap:wrap;gap:16px 28px}
+.disciplines{flex-wrap:wrap;gap:10px 12px}
+.bottomline{font-size:.75rem;letter-spacing:.025em;align-items:center;flex-wrap:wrap}
+.bottomline a{color:#d5ef99}
+.steps button{font-size:.875rem;min-width:0;line-height:1.5}
+.controlIntro p{font-size:2rem}
+.visualTop,.rawData,.rawData>span,.axisLabel,.chart>div,.chart footer{font-size:.75rem;letter-spacing:.02em}
+.visualTop>span:last-child{font-size:.75rem}
+.chart{width:43%}
+@media(max-width:1100px){.controls{flex-wrap:wrap}.controlIntro{width:calc(100% - 62px);order:0}.pause{order:1}.steps{order:2;flex-basis:100%}.intro{font-size:1.0625rem}.visualTop>span:last-child{display:none}.visualTop,.rawData,.rawData>span,.axisLabel,.chart>div,.chart footer{font-size:.6875rem}}
+@media(max-width:760px){.hero{min-height:0;padding-bottom:0;display:flex;flex-direction:column}.copy{padding-bottom:0}.intro{font-size:1.0625rem;max-width:440px}.topline,.kicker,.disciplines,.controlEyebrow,.stepNumber{font-size:.75rem}.topline>span{flex-wrap:wrap}.actions{font-size:.9375rem;gap:12px 22px}.bottomline{position:relative;inset:auto;margin-top:8px;font-size:.75rem}.bottomline>span:first-child{max-width:none}.visual{position:relative;inset:auto;width:100%;height:470px;margin-top:35px;flex-shrink:0}.visualTop{left:0;right:0;top:16px}.rawData{top:60px;right:2%}.visualTop>span:last-child{display:none}.axisLabel{left:15%;font-size:.625rem}.chart{width:63%;right:3%}.steps button{font-size:.875rem;padding:13px 10px}.controlIntro p{font-size:1.875rem}.previewFooter,.previewFooter a,.previewFooter>span:first-child{font-size:.75rem}}

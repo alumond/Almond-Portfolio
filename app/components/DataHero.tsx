@@ -126,9 +126,9 @@ export function DataHero({ preview = true }: { preview?: boolean }) {
       <section className={styles.hero} aria-labelledby="data-hero-title">
         <div className={styles.topline}><span><i /> DATA SCIENTIST & AI ENGINEER</span><span>NIGERIA ↗ WORKING GLOBALLY</span></div>
         <div className={styles.copy}>
-          <p className={styles.kicker}><span>01 /</span> THE ART OF MAKING SENSE</p>
+          <p className={styles.kicker}><span>01 /</span> ALMOND OWOLABI / PORTFOLIO</p>
           <h1 id="data-hero-title" aria-label="Data into clarity. Ideas into impact.">Data into<br /><em>clarity.</em><br />Ideas into <span className={styles.impact}>impact.</span></h1>
-          <p className={styles.intro}>Behind every better decision is a signal.<br />I build the analytics and AI systems that find it.</p>
+          <p className={styles.intro}>I build analytics and AI systems that turn complex data into better decisions.</p>
           <div className={styles.actions}><Link href="/#work" className={styles.primary}>Explore my work <span>↗</span></Link><Link href="/contact/" className={styles.secondary}>Work with me <span>↗</span></Link></div>
           <div className={styles.disciplines}><span>DATA SCIENCE</span><i /><span>AI ENGINEERING</span><i /><span>M&E INTELLIGENCE</span></div>
         </div>
@@ -139,7 +139,7 @@ export function DataHero({ preview = true }: { preview?: boolean }) {
           <div className={styles.axisLabel} aria-hidden="true">FEATURE SPACE / x₁ × x₂</div>
           <div className={styles.chart} aria-hidden="true"><div><span>SIGNAL EXTRACTION</span><span>f(x)</span></div><svg viewBox="0 0 390 64" fill="none"><path d="M0 52H390M0 26H390" stroke="#345143" strokeDasharray="2 5"/><path d="M0 45L10 53L20 31L30 48L40 39L50 44L60 27L70 41L80 28L90 40L100 19L110 36L120 22L130 32L140 19L150 24L160 10L170 24L180 19L190 31L200 18L210 27L220 10L230 19L240 8L250 16L260 11L270 24L280 9L290 15L300 5L310 15L320 8L330 17L340 6L350 12L360 3L370 10L390 4" stroke="#6b9c82"/><path d="M0 47C40 47 60 39 90 34S140 20 170 22S195 25 225 18S268 18 291 13S350 9 390 5" stroke="#d5ef99" strokeWidth="2"/></svg><footer><span>NOISE</span><span className={styles.chartKey}>UNDERLYING PATTERN</span></footer></div>
         </div>
-        <div className={styles.bottomline}><span>COMPLEXITY IS THE STARTING POINT. <b>CLARITY IS THE WORK.</b></span><span>SCROLL TO EXPLORE ↓</span></div>
+        <div className={styles.bottomline}><span>ANALYTICS FOR BETTER DECISIONS.</span><Link href="/#work">VIEW SELECTED WORK ↓</Link></div>
       </section>
       <section className={styles.controls} aria-label="Explore the data animation">
         <div className={styles.controlIntro}><span className={styles.controlEyebrow}>FROM EVIDENCE TO IMPACT</span><p>Follow the signal.</p></div>

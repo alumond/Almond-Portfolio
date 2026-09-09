@@ -35,7 +35,7 @@ export function AnalyticsShowcase({ embedded = false }: { embedded?: boolean }) 
 
   return <section className={`analytics-section ${embedded?'analytics-embedded':''}`} id={embedded ? undefined : "analytics"} aria-labelledby={headingId}>
     <div className="section-frame">
-      <div className="section-heading"><div><p className="eyebrow">Inside the work / Interactive study</p><h2 id={headingId}>The numbers tell a story.<br /><em>Explore it yourself.</em></h2></div><p>A working slice of my retail command centre. Switch metrics and move through 18 months to see how the commercial picture changes.</p></div>
+      <div className="section-heading"><div><p className="eyebrow">Inside the work / Interactive study</p><h2 id={headingId}>The numbers tell a story.<br /><em>Explore it yourself.</em></h2></div><p>Explore 18 months of retail data. Switch between revenue and profit, then choose a month.</p></div>
       <div className="analytics-console">
         <div className="console-topline"><span><i className="status-dot" /> RETAIL / COMMERCIAL INTELLIGENCE</span><span className="synthetic-badge">Synthetic dataset · 2,160 records</span></div>
         <div className="console-controls"><div className="chart-tabs" role="group" aria-label="Chart metric">{(['revenue','profit'] as Metric[]).map(m=><button type="button" key={m} aria-pressed={metric===m} className={metric===m?'is-active':''} onClick={()=>setMetric(m)}>{names[m]}</button>)}</div><label className="month-select">Period<select value={selected} onChange={e=>setSelected(Number(e.target.value))}>{months.map((m,i)=><option value={i} key={m.month}>{monthLabel(m.month)}</option>)}</select></label></div>
@@ -59,7 +59,7 @@ export function AnalyticsShowcase({ embedded = false }: { embedded?: boolean }) 
         <div className="console-footer"><p>Portfolio demonstration. Figures are synthetic, not client results.</p><a href="/data/retail-chart-data.json" download>Download chart data <span aria-hidden="true">↓</span></a></div>
         <details className="chart-table-disclosure"><summary>View the accessible data table</summary><div className="chart-table-scroll"><table><caption>Monthly synthetic retail performance, NGN</caption><thead><tr><th scope="col">Month</th><th scope="col">Revenue</th><th scope="col">Gross profit</th><th scope="col">Orders</th></tr></thead><tbody>{months.map(m=><tr key={m.month}><th scope="row">{monthLabel(m.month)}</th><td>{m.revenue.toLocaleString('en-GB')}</td><td>{m.profit.toLocaleString('en-GB')}</td><td>{m.orders.toLocaleString('en-GB')}</td></tr>)}</tbody></table></div></details>
       </div>
-      {!embedded&&<div className="analytics-endnote"><span>From a dataset to a decision. That’s the work.</span><Link className="text-link" href="/work/retail-revenue-command-center">Read the full case study <ArrowIcon /></Link></div>}
+      {!embedded&&<div className="analytics-endnote"><span>Explore the analysis behind the dashboard.</span><Link className="text-link" href="/work/retail-revenue-command-center">Read the full case study <ArrowIcon /></Link></div>}
     </div>
   </section>;
 }

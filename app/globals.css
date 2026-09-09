@@ -149,3 +149,22 @@ body{background:#0d1e19;isolation:isolate}.page-transition{position:relative;z-i
 .case-mark-image .case-mark-shade {
   background: linear-gradient(180deg, rgba(7,21,15,.08) 10%, rgba(7,21,15,.72) 55%, rgba(7,21,15,.96));
 }
+
+/* Larger reading text across the homepage. */
+.primary-nav>a{font-size:14px}
+.portfolio-home .section-heading>p,.portfolio-home .project-card-body>p:not(.eyebrow),.portfolio-home .service-row>p,.portfolio-home .about-intro>p:not(.eyebrow),.portfolio-home .resume-feature-copy>p:not(.eyebrow){font-size:16px;line-height:1.75}
+.portfolio-home .section-heading>p{max-width:400px}
+.portfolio-home .eyebrow,.portfolio-home .project-card-body .eyebrow{font-size:12px;letter-spacing:.1em}
+.portfolio-home .filter-bar button,.portfolio-home .project-link,.portfolio-home .text-link,.portfolio-home .button{font-size:14px}
+.portfolio-home .filter-bar button{min-height:44px}
+.portfolio-home .tag-row>span,.portfolio-home .project-count,.portfolio-home .provenance,.portfolio-home .resume-note,.portfolio-home .work-bottom>p{font-size:13px!important;line-height:1.6}
+.portfolio-home .compact-timeline strong{font-size:15px}
+.portfolio-home .compact-timeline span,.portfolio-home .compact-timeline small{font-size:13px}
+.portfolio-home .archive-search,.portfolio-home .archive-row strong{font-size:14px}
+.portfolio-home .archive-row small,.portfolio-home .archive-kind,.portfolio-home .search-count{font-size:13px}
+.portfolio-home .archive-disclosure summary{font-size:16px}
+.portfolio-home .contact-address,.portfolio-home .contact-socials a{font-size:14px}
+.portfolio-home .expertise-strip>span,.portfolio-home .synthetic-badge,.portfolio-home .console-metrics span,.portfolio-home .console-metrics small,.portfolio-home .console-footer p,.portfolio-home .chart-heading>span{font-size:12px}
+.portfolio-home .chart-tabs button,.portfolio-home .month-select select,.portfolio-home .chart-heading h3{font-size:14px}
+.portfolio-home .work-toolbar{flex-wrap:wrap}
+@media(max-width:760px){.primary-nav>a{font-size:14px}.portfolio-home .section-heading>p,.portfolio-home .about-intro>p:not(.eyebrow){max-width:none}.portfolio-home .section-heading{gap:20px}.portfolio-home .filter-bar{flex-wrap:wrap}.portfolio-home .work-bottom{flex-wrap:wrap}.portfolio-home .work-bottom>p{max-width:none}.portfolio-home .work-bottom .text-link{font-size:14px;white-space:normal}.portfolio-home .console-topline>span:first-child{font-size:12px}.portfolio-home .console-controls{flex-wrap:wrap}.portfolio-home .chart-heading{flex-wrap:wrap}.portfolio-home .contact-top{gap:16px;flex-wrap:wrap}}

@@ -42,25 +42,25 @@ export const services = [
   {
     number: "01",
     title: "M&E reporting & intelligence",
-    body: "Turn fragmented operational data into clear reporting, accountable performance, and decisions that can move this week.",
+    body: "Turn operational data into clear reports, performance tracking, and timely decisions.",
     tags: ["M&E intelligence", "KPI systems", "Donor reporting"],
   },
   {
     number: "02",
     title: "Data analytics & dashboards",
-    body: "Design dashboards, data models, and analytical workflows that make complex evidence understandable to technical and non-technical teams.",
+    body: "Build dashboards and data models that help teams understand and use their data.",
     tags: ["Power BI", "Tableau", "SQL", "Python"],
   },
   {
     number: "03",
     title: "Applied machine learning",
-    body: "Build practical predictive systems from clean problem framing to deployable models, with interpretation and operational use in mind.",
+    body: "Develop predictive models with clear interpretation and practical use.",
     tags: ["Segmentation", "Forecasting", "Classification"],
   },
   {
     number: "04",
     title: "AI workflow automation",
-    body: "Connect APIs, language models, databases, and reporting layers into useful automation—not demos that stop at the notebook.",
+    body: "Connect APIs, language models, and databases to automate everyday workflows.",
     tags: ["RAG", "FastAPI", "LLM workflows", "Automation"],
   },
 ];
