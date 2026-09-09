@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./data-hero.module.css";
+import { ProgrammeDecision } from "./ProgrammeDecision";
 
 const stages = ["Raw data", "Find the signal", "Make it matter"];
 
@@ -58,7 +59,7 @@ function DataField({ stage, paused }: { stage: number; paused: boolean }) {
         const peak = 192 * Math.exp(-((x - 70) ** 2 / 21500 + (z + 25) ** 2 / 25000));
         const ridge = 65 * Math.sin(x / 115 + z / 128 + time * .32);
         const noise = Math.sin(x * 1.7 + z * .36) * Math.cos(z * 1.32 + time * .25) * 86;
-        return (peak + ridge) * Math.min(mix, 1) + noise * (1 - Math.min(mix, 1)) + Math.max(mix - 1, 0) * 26 * Math.cos(x / 160);
+        return (peak + ridge) * mix + noise * (1 - mix);
       };
       const line = (points: { x: number; y: number }[], color: string, thickness = .6) => {
         ctx.beginPath(); points.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
@@ -101,7 +102,7 @@ function DataField({ stage, paused }: { stage: number; paused: boolean }) {
       const peak = project(70, -25, field(70, -25));
       line([peak, { x: peak.x, y: peak.y - 55 * scale }, { x: peak.x + 85 * scale, y: peak.y - 55 * scale }], "#93ab7b", .7);
       ctx.fillStyle = "#dcf5b4"; ctx.font = `${11 * scale}px monospace`;
-      ctx.fillText(selected.current === 0 ? "OBSERVATIONS" : selected.current === 1 ? "SIGNAL IDENTIFIED" : "INSIGHT → ACTION", peak.x + 8 * scale, peak.y - 66 * scale);
+      ctx.fillText(selected.current === 0 ? "OBSERVATIONS" : "SIGNAL IDENTIFIED", peak.x + 8 * scale, peak.y - 66 * scale);
       frame = requestAnimationFrame(draw);
     };
     resize(); frame = requestAnimationFrame(draw);
@@ -123,7 +124,7 @@ export function DataHero({ preview = true }: { preview?: boolean }) {
       <nav aria-label="Portfolio navigation"><Link href="/#work">Selected work</Link><Link href="/about/">About</Link><Link href="/contact/" className={styles.contact}>Let’s talk <span>↗</span></Link></nav>
     </header>}
     <Content id={preview ? "main-content" : undefined}>
-      <section className={styles.hero} aria-labelledby="data-hero-title">
+      <section className={`${styles.hero} ${stage === 2 ? styles.appliedHero : ""}`} aria-labelledby="data-hero-title">
         <div className={styles.topline}><span><i /> DATA SCIENTIST & AI ENGINEER</span><span>NIGERIA ↗ WORKING GLOBALLY</span></div>
         <div className={styles.copy}>
           <p className={styles.kicker}><span>01 /</span> ALMOND OWOLABI / PORTFOLIO</p>
@@ -132,19 +133,19 @@ export function DataHero({ preview = true }: { preview?: boolean }) {
           <div className={styles.actions}><Link href="/#work" className={styles.primary}>Explore my work <span>↗</span></Link><Link href="/contact/" className={styles.secondary}>Work with me <span>↗</span></Link></div>
           <div className={styles.disciplines}><span>DATA SCIENCE</span><i /><span>AI ENGINEERING</span><i /><span>M&E INTELLIGENCE</span></div>
         </div>
-        <div className={styles.visual} role="img" aria-label={`Animated illustrative data surface. Stage: ${stages[stage]}. Synthetic observations transform into patterns and insights.`}>
+        {stage === 2 ? <div className={`${styles.visual} ${styles.applicationVisual}`}><ProgrammeDecision /></div> : <div className={styles.visual} role="img" aria-label={`Animated illustrative data surface. Stage: ${stages[stage]}. Synthetic observations transform into patterns.`}>
           <div className={styles.visualTop}><span><i /> THE SIGNAL FIELD</span><span>FIG. 001 / SYNTHETIC DATA</span></div>
           <div className={styles.rawData} aria-hidden="true"><span>OBSERVATION MATRIX</span><div>0.742 &nbsp; 0.186 &nbsp; 0.903 &nbsp; 0.451<br />0.328 &nbsp; 0.867 &nbsp; 0.214 &nbsp; 0.692<br />0.519 &nbsp; 0.043 &nbsp; 0.785 &nbsp; 0.336</div></div>
           <DataField stage={stage} paused={paused} />
           <div className={styles.axisLabel} aria-hidden="true">FEATURE SPACE / x₁ × x₂</div>
           <div className={styles.chart} aria-hidden="true"><div><span>SIGNAL EXTRACTION</span><span>f(x)</span></div><svg viewBox="0 0 390 64" fill="none"><path d="M0 52H390M0 26H390" stroke="#345143" strokeDasharray="2 5"/><path d="M0 45L10 53L20 31L30 48L40 39L50 44L60 27L70 41L80 28L90 40L100 19L110 36L120 22L130 32L140 19L150 24L160 10L170 24L180 19L190 31L200 18L210 27L220 10L230 19L240 8L250 16L260 11L270 24L280 9L290 15L300 5L310 15L320 8L330 17L340 6L350 12L360 3L370 10L390 4" stroke="#6b9c82"/><path d="M0 47C40 47 60 39 90 34S140 20 170 22S195 25 225 18S268 18 291 13S350 9 390 5" stroke="#d5ef99" strokeWidth="2"/></svg><footer><span>NOISE</span><span className={styles.chartKey}>UNDERLYING PATTERN</span></footer></div>
-        </div>
+        </div>}
         <div className={styles.bottomline}><span>ANALYTICS FOR BETTER DECISIONS.</span><Link href="/#work">VIEW SELECTED WORK ↓</Link></div>
       </section>
       <section className={styles.controls} aria-label="Explore the data animation">
         <div className={styles.controlIntro}><span className={styles.controlEyebrow}>FROM EVIDENCE TO IMPACT</span><p>Follow the signal.</p></div>
         <div className={styles.steps}>{stages.map((label, index) => <button key={label} onClick={() => setStage(index)} aria-pressed={stage === index} className={stage === index ? styles.active : ""}><span className={styles.stepNumber}>0{index + 1}</span><span>{label}</span><span className={styles.stepArrow}>↗</span></button>)}</div>
-        <button className={styles.pause} onClick={() => setPaused(!paused)} aria-label={paused ? "Play animation" : "Pause animation"}>{paused ? "▶" : "Ⅱ"}</button>
+        {stage !== 2 && <button className={styles.pause} onClick={() => setPaused(!paused)} aria-label={paused ? "Play animation" : "Pause animation"}>{paused ? "▶" : "Ⅱ"}</button>}
       </section>
     </Content>
     {preview && <footer className={styles.previewFooter}><span>LOCAL DESIGN STUDY <i /> DATA IN MOTION</span><span>Illustrative data · No live metrics</span><Link href="/">Compare current portfolio ↗</Link></footer>}
