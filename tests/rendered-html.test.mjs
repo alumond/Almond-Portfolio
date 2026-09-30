@@ -82,7 +82,7 @@ test("serves portraits, charts, resume download and contact access without an op
 test("SEO metadata identifies each core page and uses stable canonical URLs", async () => {
   for (const path of ["/", "/about", "/services", "/contact"]) {
     const html = await readDist(path);
-    const canonical = `https://almond-owolabi-portfolio.vercel.app${path === "/" ? "/" : `${path}/`}`;
+    const canonical = `https://almondowolabi.dpdns.org${path === "/" ? "/" : `${path}/`}`;
     assert.ok(html.includes(`rel="canonical" href="${canonical}"`), path);
     assert.ok(html.includes(`property="og:url" content="${canonical}"`), path);
   }
@@ -98,4 +98,46 @@ test("SEO metadata identifies each core page and uses stable canonical URLs", as
   const sitemap = await readFile(join(distRoot, "sitemap.xml"), "utf8");
   assert.match(sitemap, /\/about\/<\/loc>/);
   assert.doesNotMatch(sitemap, /<lastmod>[^<]*T/);
+});
+
+test("every sitemap page uses the custom domain and remains crawlable without JavaScript", async () => {
+  const origin = "https://almondowolabi.dpdns.org";
+  const sitemap = await readFile(join(distRoot, "sitemap.xml"), "utf8");
+  const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
+  assert.equal(urls.length, 14);
+  assert.equal(new Set(urls).size, urls.length);
+  for (const url of urls) {
+    assert.equal(new URL(url).origin, origin);
+    const html = await readDist(new URL(url).pathname);
+    assert.ok(html.includes(`rel="canonical" href="${url}"`), url);
+    assert.ok(html.includes(`property="og:url" content="${url}"`), url);
+    assert.doesNotMatch(html, /<meta name="(?:robots|googlebot)"[^>]*content="[^"]*noindex/i, url);
+    assert.doesNotMatch(html, /almond-owolabi-portfolio\.vercel\.app/, url);
+    assert.equal([...html.matchAll(/<h1(?:\s|>)/g)].length, 1, url);
+    for (const match of html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)) {
+      assert.doesNotThrow(() => JSON.parse(match[1]), url);
+    }
+  }
+  const robots = await readFile(join(distRoot, "robots.txt"), "utf8");
+  assert.match(robots, /Allow: \//);
+  assert.ok(robots.includes(`Sitemap: ${origin}/sitemap.xml`));
+  const preview = await readDist("/hero-preview");
+  assert.match(preview, /<meta name="robots" content="noindex, follow"/);
+  assert.match(preview, /<meta name="googlebot" content="noindex, follow"/);
+  assert.ok(!urls.some(url => url.includes("hero-preview")));
+});
+
+test("social preview and domain verification match the current portfolio", async () => {
+  const verification = await readFile(join(distRoot, "google3d35051d7911371b.html"), "utf8");
+  assert.equal(verification.trim(), "google-site-verification: google3d35051d7911371b.html");
+  const home = await readDist();
+  assert.match(home, /content="CDdQYcUsNJuk8nuhO1CuX7l8ycZP78GJwnnTN7wPSrQ"/);
+  assert.match(home, /content="PWu5cQntdLsHoX0humPNhNL4o2AGEYdxKmzKmcvrJi4"/);
+  assert.match(home, /property="og:image" content="https:\/\/almondowolabi\.dpdns\.org\/social-preview\.png"/);
+  assert.match(home, /property="og:image:width" content="1200"/);
+  assert.match(home, /property="og:image:height" content="630"/);
+  const png = await readFile(join(distRoot, "social-preview.png"));
+  assert.equal(png.subarray(1, 4).toString(), "PNG");
+  assert.equal(png.readUInt32BE(16), 1200);
+  assert.equal(png.readUInt32BE(20), 630);
 });

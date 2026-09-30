@@ -1,5 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "buildCommand": "npm run build:vercel"
+  "buildCommand": "npm run build:vercel",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "almond-owolabi-portfolio.vercel.app" }],
+      "destination": "https://almondowolabi.dpdns.org/:path*",
+      "permanent": true
+    }
+  ]
 }

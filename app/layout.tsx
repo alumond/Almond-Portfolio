@@ -3,30 +3,30 @@ import "./globals.css";
 import { profile } from "./data";
 import { DataBackdrop } from "./components/DataBackdrop";
 import { PortfolioMotion } from "./components/PortfolioMotion";
-import { personSchema, personId, websiteId, siteOrigin } from "./seo";
+import { personSchema, personId, websiteId, siteOrigin, siteTitle, siteDescription, socialImage } from "./seo";
 import { StructuredData } from "./components/StructuredData";
 
 const siteUrl = siteOrigin;
 
 export const metadata: Metadata = {
-  title: "Almond Owolabi — Data Scientist & AI Engineer",
-  description:
-    "Almond Owolabi is a data scientist and AI engineer building analytics, machine learning, M&E intelligence, and data products.",
+  title: siteTitle,
+  description: siteDescription,
   icons: {
     icon: [{ url: "/favicon-ao.svg", type: "image/svg+xml" }],
     shortcut: "/favicon-ao.svg",
   },
   metadataBase: new URL(siteUrl),
-  verification: { google: "PWu5cQntdLsHoX0humPNhNL4o2AGEYdxKmzKmcvrJi4" },
+  verification: { google: ["PWu5cQntdLsHoX0humPNhNL4o2AGEYdxKmzKmcvrJi4", "CDdQYcUsNJuk8nuhO1CuX7l8ycZP78GJwnnTN7wPSrQ"] },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
   openGraph: {
     siteName: "Almond Owolabi",
     locale: "en_NG",
     type: "website",
-    title: "Almond Owolabi — Data Scientist & AI Engineer",
-    description: "Data into clarity. Ideas into impact. Analytics, AI engineering, and development impact by Almond Owolabi.",
-    images: [{ url: "/og.png", alt: "Almond Owolabi — Data into clarity. Ideas into impact." }],
+    title: siteTitle,
+    description: siteDescription,
+    images: [socialImage],
   },
-  twitter: { card: "summary_large_image", title: "Almond Owolabi — Data Scientist & AI Engineer", description: "Data into clarity. Ideas into impact.", images: ["/og.png"] },
+  twitter: { card: "summary_large_image", title: siteTitle, description: siteDescription, images: [socialImage] },
 };
 
 export default function RootLayout({

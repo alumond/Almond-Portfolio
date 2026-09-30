@@ -1,4 +1,4 @@
-const fallbackSiteUrl = "https://almond-owolabi-portfolio.vercel.app";
+const fallbackSiteUrl = "https://almondowolabi.dpdns.org";
 
 function normalizeSiteUrl(value: string) {
   const url = value.startsWith("http://") || value.startsWith("https://") ? value : `https://${value}`;
@@ -9,9 +9,6 @@ export function getSiteUrl() {
   const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (configuredUrl) return normalizeSiteUrl(configuredUrl);
 
-  const vercelProductionUrl =
-    process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim() ??
-    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL?.trim();
-
-  return vercelProductionUrl ? normalizeSiteUrl(vercelProductionUrl) : fallbackSiteUrl;
+  // Deployment aliases must never become the canonical identity of the site.
+  return fallbackSiteUrl;
 }

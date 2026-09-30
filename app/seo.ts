@@ -3,7 +3,14 @@ import { profile } from "./data";
 import { getSiteUrl } from "./site-url";
 
 export const siteOrigin = getSiteUrl();
-export const contentUpdatedAt = "2026-09-05";
+export const siteTitle = "Almond Owolabi — Data Scientist & AI Engineer in Nigeria";
+export const siteDescription = "Almond Owolabi is a data scientist and AI engineer in Nigeria. Explore dashboards, machine learning projects, and AI tools that help teams make better decisions.";
+export const socialImage = {
+  url: "/social-preview.png",
+  width: 1200,
+  height: 630,
+  alt: "Almond Owolabi — Data Scientist & AI Engineer. I turn data into better decisions.",
+};
 export const personId = `${siteOrigin}/#person`;
 export const websiteId = `${siteOrigin}/#website`;
 
@@ -17,6 +24,7 @@ export const personSchema = {
   image: `${siteOrigin}${profile.portraitMono}`,
   email: `mailto:${profile.email}`,
   telephone: profile.phone,
+  address: { "@type": "PostalAddress", addressCountry: "NG" },
   sameAs: [profile.github, profile.linkedin],
   knowsAbout: ["Data science", "Data analytics", "Machine learning", "Monitoring and evaluation", "AI engineering", "Power BI", "Python"],
 };
@@ -27,9 +35,9 @@ export function pageMetadata(title: string, description: string, path: string): 
     description,
     alternates: { canonical: path },
     openGraph: {
-      title, description, url: path, type: "website", siteName: profile.name,
-      images: [{ url: "/og.png", alt: "Almond Owolabi — Data Scientist and AI Engineer" }],
+      title, description, url: path, type: "website", siteName: profile.name, locale: "en_NG",
+      images: [socialImage],
     },
-    twitter: { card: "summary_large_image", title, description, images: ["/og.png"] },
+    twitter: { card: "summary_large_image", title, description, images: [socialImage] },
   };
 }
