@@ -8,6 +8,9 @@
 
 .embedded{min-height:0}
 
+/* The intro focuses this heading for screen readers; it is not a control. */
+.copy h1:focus{outline:none}
+
 /* Readable supporting type, with space for enlarged text to wrap. */
 .hero{padding-bottom:85px}
 .copy{padding-bottom:35px}

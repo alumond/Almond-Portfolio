@@ -128,8 +128,8 @@ export function DataHero({ preview = true }: { preview?: boolean }) {
         <div className={styles.topline}><span><i /> DATA SCIENTIST & AI ENGINEER</span><span>NIGERIA ↗ WORKING GLOBALLY</span></div>
         <div className={styles.copy}>
           <p className={styles.kicker}><span>01 /</span> ALMOND OWOLABI / PORTFOLIO</p>
-          <h1 id="data-hero-title" aria-label="Data into clarity. Ideas into impact.">Data into<br /><em>clarity.</em><br />Ideas into <span className={styles.impact}>impact.</span></h1>
-          <p className={styles.intro}>I build analytics and AI systems that turn complex data into better decisions.</p>
+          <h1 id="data-hero-title" aria-label="I turn data into better decisions.">I turn data<br />into better<br /><em>decisions.</em></h1>
+          <p className={styles.intro}>I build dashboards, AI tools, and monitoring systems that help teams understand results and act on them.</p>
           <div className={styles.actions}><Link href="/#work" className={styles.primary}>Explore my work <span>↗</span></Link><Link href="/contact/" className={styles.secondary}>Work with me <span>↗</span></Link></div>
           <div className={styles.disciplines}><span>DATA SCIENCE</span><i /><span>AI ENGINEERING</span><i /><span>M&E INTELLIGENCE</span></div>
         </div>

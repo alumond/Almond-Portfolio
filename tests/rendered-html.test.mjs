@@ -14,7 +14,7 @@ async function readDist(path = "/") {
 test("server-renders the complete portfolio homepage", async () => {
   const html = await readDist();
   assert.match(html, /<title>Almond Owolabi — Data Scientist &amp; AI Engineer in Nigeria<\/title>/i);
-  assert.match(html, /Data into clarity/i);
+  assert.match(html, /I turn data into better decisions/i);
   assert.match(html, /M&amp;E Intelligence Engine/i);
   assert.match(html, /Health Access for Persons with Disabilities/i);
   assert.match(html, /Monitoring-and-Evaluation-Agent/i);
