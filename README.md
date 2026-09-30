@@ -56,4 +56,6 @@ The homepage includes metric and month controls for the retail dataset, animated
 
 Both supplied portraits remain in use. Case studies include expandable dashboard and content galleries and system architecture panels. Motion progressively enhances visible content and respects reduced-motion preferences. Résumé links use the browser download attribute; email links and clipboard copying provide complementary ways to get in touch.
 
+The homepage opens with a 6.4-second motion sequence: a particle globe becomes a wave, then an AO monogram as Almond's name appears. Visitors can pause, enter immediately, skip, or press Escape. The intro plays on a fresh homepage load, skips internal return navigation and direct section links, and can be replayed from the footer. Reduced-motion visitors go directly to the portfolio; replay shows a still introduction. The native dialog keeps keyboard focus within the introduction and restores focus on entry. Without JavaScript, the complete portfolio remains available.
+
 Image components explicitly serve original public assets. The alternate vinext worker also redirects valid local image requests when optional Cloudflare image bindings are absent, preventing the local `env.ASSETS.fetch` crash.
