@@ -47,9 +47,9 @@ The Job Application Agent and other projects remain available through All projec
 - `vercel.json` retains the existing Next.js deployment configuration.
 - `.openai/hosting.json` retains the existing Sites project and declares `out/` as its static output.
 - The canonical origin is `https://almondowolabi.dpdns.org`. `NEXT_PUBLIC_SITE_URL` can explicitly override it; deployment aliases never override it automatically.
-- The previous `almond-owolabi-portfolio.vercel.app` address permanently redirects to the same path on the custom domain via `vercel.json`.
+- The previous `almond-owolabi-portfolio.vercel.app` address uses a **301 redirect** to the custom domain in the Vercel project's Domains settings. Keep that domain attached as a redirect when deploying.
 - Canonicals, social URLs, structured data, robots.txt, and all 14 sitemap entries share this origin. The design study at `/hero-preview/` is marked `noindex` and excluded from the sitemap.
-- Search Console ownership tags for both domains and `public/google3d35051d7911371b.html` are retained. Keep the verification file when deploying. Sitemap modification dates reflect content changes, not each build.
+- Search Console ownership tags for both domains and `public/google3d35051d7911371b.html` are retained. `vercel.json` maps Google's exact `.html` URL to Vercel's extensionless static-file route. Keep the verification file when deploying. Sitemap modification dates reflect content changes, not each build.
 
 Publishing is separate from building. No automatic repository synchronization or deployment is performed by the application.
 

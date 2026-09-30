@@ -2,12 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "buildCommand": "npm run build:vercel",
-  "redirects": [
+  "rewrites": [
     {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "almond-owolabi-portfolio.vercel.app" }],
-      "destination": "https://almondowolabi.dpdns.org/:path*",
-      "permanent": true
+      "source": "/google3d35051d7911371b.html",
+      "destination": "/google3d35051d7911371b/"
     }
   ]
 }
