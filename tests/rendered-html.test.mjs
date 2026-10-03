@@ -20,6 +20,7 @@ test("server-renders the complete portfolio homepage", async () => {
   assert.match(html, /Monitoring-and-Evaluation-Agent/i);
   assert.match(html, /project-retail\.png/i);
   assert.match(html, /project-health-dashboard\.png/i);
+  assert.match(html, /project-me-report\.png/i);
   assert.match(html, /application\/ld\+json/i);
   assert.doesNotMatch(html, /new MutationObserver|setInterval\(remove/i);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|Building your site/i);
@@ -30,6 +31,10 @@ test("server-renders a flagship case study route", async () => {
   assert.match(html, /M&amp;E Intelligence Engine/i);
   assert.match(html, /intelligence backend/i);
   assert.match(html, /github\.com\/alumond\/Monitoring-and-Evaluation-Agent/i);
+  assert.match(html, /project-me-report\.png/i);
+  assert.match(html, /project-me-escalation\.png/i);
+  assert.match(html, /Report intelligence\. Escalation with accountability\./i);
+  assert.match(html, /<dialog/);
 });
 
 test("server-renders the SEO support routes", async () => {
@@ -43,7 +48,8 @@ test("server-renders the SEO support routes", async () => {
 test("renders new original projects and accurate project boundaries", async () => {
   const home = await readDist();
   assert.match(home, /LinkedIn AI Agent/);
-  assert.match(home, /AfriMedQA/);
+  assert.match(home, /Health for All/);
+  assert.match(home, /project-health-for-all\.png/);
   assert.match(home, /aria-pressed="true"/);
   assert.doesNotMatch(home, /portfolio-loader/);
   const retail = await readDist("/work/retail-revenue-command-center");
@@ -51,8 +57,11 @@ test("renders new original projects and accurate project boundaries", async () =
   assert.match(retail, /property="og:image"[^>]+project-retail/);
   const health = await readDist("/work/health-access-for-pwds");
   assert.match(health, /property="og:image"[^>]+project-health-dashboard/);
-  const model = await readDist("/work/afrimedqa-fine-tuning");
-  assert.match(model, /do not serve the fine-tuned Llama adapter/);
+  const model = await readDist("/work/health-for-all");
+  assert.match(model, /Safety before certainty/);
+  assert.match(model, /does not replace clinical diagnosis/);
+  assert.match(model, /property="og:image"[^>]+project-health-for-all/);
+  assert.match(model, /<dialog/);
   const fork = await readDist("/work/rag-api");
   assert.match(fork, /Forked repository/);
   const job = await readDist("/work/job-application-agent");

@@ -194,44 +194,44 @@ export const projects: Project[] = [
   ]
 },
 {
-  "slug": "afrimedqa-fine-tuning",
-  "title": "AfriMedQA Fine-Tuning & Chatbot",
-  "shortTitle": "AfriMedQA",
-  "kind": "Machine learning",
-  "kicker": "Applied language models · 2026",
-  "description": "A Colab-first QLoRA training pipeline, with separate Gemini-powered Streamlit and Telegram interfaces.",
-  "longDescription": "An AfriMedQA model-training workflow that turns a notebook into a reusable fine-tuning pipeline, alongside Gemini-powered conversational demonstrations for web and Telegram.",
+  "slug": "health-for-all",
+  "title": "Health for All",
+  "shortTitle": "Health for All",
+  "kind": "AI systems",
+  "kicker": "Clinical guidance · 2026",
+  "description": "A safety-aware health guidance assistant that turns a symptom description into clear urgency, immediate actions, and warning signs.",
+  "longDescription": "Health for All is a conversational clinical-guidance experience designed for African contexts, with focused and detailed response modes, urgency-led next steps, practical cautions, and transcript export.",
   "stack": [
     "Python",
-    "QLoRA",
-    "Streamlit",
     "Gemini",
+    "Streamlit",
+    "QLoRA",
     "Telegram"
   ],
   "github": "https://github.com/alumond/Activity-1",
   "featured": true,
   "accent": "brick",
   "image": {
-    "src": "/images/project-health-access.jpg",
-    "alt": "Stethoscope and laptop representing the medical question-answering research domain"
+    "src": "/images/project-health-for-all.png",
+    "alt": "Health for All clinical guidance assistant showing urgency, immediate actions, and safety advice"
   },
   "outcomes": [
-    "Data preview & training commands",
-    "LoRA adapter export",
-    "Web & Telegram demonstrations"
+    "Focused & detailed guidance modes",
+    "Urgency-led next steps",
+    "Transcript export & privacy cues"
   ],
   "sections": [
     {
-      "title": "From notebook to pipeline",
-      "body": "The repository separates training from the interface. A Colab-oriented pipeline provides dataset previews, a small training smoke test, and full QLoRA fine-tuning with an exported LoRA adapter."
+      "title": "A clearer front door to health guidance",
+      "body": "Health for All turns a plain-language symptom description into a structured response: an urgency level, what to do now, what to avoid, and the warning signs that should prompt faster care. Users can choose a focused answer or request more detail without losing the core safety message."
     },
     {
-      "title": "Two distinct model paths",
-      "body": "The Streamlit chatbot and Telegram webhook call Gemini directly. They do not serve the fine-tuned Llama adapter. This distinction keeps the training experiment and the deployed demonstration accurately documented."
+      "title": "Safety before certainty",
+      "body": "The experience is deliberately framed as guidance, not diagnosis. It prioritises timely clinical evaluation, avoids presenting model output as medical authority, and keeps privacy cues visible alongside practical advice. That restraint is central to the product—not a disclaimer added at the end."
     },
     {
-      "title": "Designed as a demonstration",
-      "body": "The chatbot is a research and decision-support demonstration, not a clinically validated service. The Telegram integration supports optional recent-message memory with a seven-day expiry when a compatible key-value store is configured."
+      "title": "From AfriMedQA research to Health for All",
+      "body": "The earlier AfriMedQA work remains the research lineage: a Colab-oriented QLoRA pipeline can export a LoRA adapter, while the current web and Telegram demonstrations call Gemini directly. Keeping those paths explicit makes the product architecture easier to assess and the claims easier to trust."
     }
   ]
 },
@@ -289,8 +289,8 @@ export const projects: Project[] = [
     featured: true,
     accent: "brick",
     image: {
-      src: "/images/project-me-intelligence.jpg",
-      alt: "Hands working on a laptop with a detailed spreadsheet open in an office",
+      src: "/images/project-me-report.png",
+      alt: "M&E Intelligence Report showing activity completion, KPI health, risk exposure, budget utilization, and performance against target",
     },
     outcomes: ["Full workbook analysis", "Donor-grade PDF output", "Separate escalation workflow"],
     sections: [
@@ -439,7 +439,7 @@ export const archiveRepos = [
   },
   {
     "name": "Activity-1",
-    "description": "AfriMedQA fine-tuning pipeline & Gemini chatbot",
+    "description": "Health for All clinical guidance assistant, with AfriMedQA fine-tuning research",
     "github": "https://github.com/alumond/Activity-1",
     "fork": false,
     "language": "Jupyter Notebook",

@@ -50,7 +50,7 @@ export default async function CaseStudyPage({ params }: Props) {
       }} />
       <SiteHeader />
       <main id="main-content" className="case-study-page">
-        <section className={`case-hero case-${project.accent} section-frame`}>
+        <section className={`case-hero case-${project.accent} case-project-${project.slug} section-frame`}>
           <Link className="back-link" href="/#work">← Back to selected work</Link>
           <div className="case-hero-grid">
             <div>
@@ -62,9 +62,7 @@ export default async function CaseStudyPage({ params }: Props) {
             </div>
             <div className="case-mark case-mark-image">
               <Image unoptimized src={project.image.src} alt={project.image.alt} fill priority sizes="(max-width: 620px) 70vw, 28vw" />
-              <span className="case-mark-shade" aria-hidden="true" />
-              <span className="case-mark-label">{project.kind}</span>
-              <strong>{project.shortTitle}</strong>
+              {project.slug !== "health-for-all" && project.slug !== "monitoring-and-evaluation-agent" && <><span className="case-mark-shade" aria-hidden="true" /><span className="case-mark-label">{project.kind}</span><strong>{project.shortTitle}</strong></>}
             </div>
           </div>
         </section>
@@ -75,8 +73,10 @@ export default async function CaseStudyPage({ params }: Props) {
         </section>
 
         <SystemWorkflow slug={project.slug} />
+        {project.slug === "monitoring-and-evaluation-agent" && <ProjectGallery title="Report intelligence. Escalation with accountability." images={[{ ...project.image, caption: "Donor-ready M&E report output: actual performance, target achievement, implementation status, risk exposure, issues, and budget utilization in one executive view." }, { src: "/images/project-me-escalation.png", alt: "Critical M&E escalation notice with evidence-based findings and a corrective action plan", caption: "A separate escalation path: severity-labelled findings, actual-versus-target evidence, responsible units, actions, due dates, and a clear management ask." }]} />}
         {project.slug === "retail-revenue-command-center" && <AnalyticsShowcase embedded />}
         {(project.slug === "retail-revenue-command-center" || project.slug === "health-access-for-pwds") && <ProjectGallery title="The dashboard, in detail." images={[{ ...project.image, caption: project.slug === "retail-revenue-command-center" ? "Retail Revenue Leakage Review. Portfolio demonstration using synthetic data." : "Healthcare access dashboard. Respondent-sample diagnostics, not population estimates." }]} />}
+        {project.slug === "health-for-all" && <ProjectGallery title="Clinical guidance, made easier to act on." images={[{ ...project.image, caption: "Health for All. A safety-aware guidance demonstration—not a clinical diagnosis or emergency service." }]} />}
         {project.slug === "linkedin-ai-agent" && <ProjectGallery title="Visuals prepared for the publishing workflow." images={[{ src: "/images/project-linkedin-output.png", alt: "Raw CSV to clean KPI to action content visual", caption: "A prepared content visual connecting data preparation to decisions." }, { src: "/images/project-escalation-story.png", alt: "Dashboard escalation rule content visual", caption: "A second prepared visual: turning dashboard signals into escalation rules." }]} />}
         <section className="case-sections section-frame">
           {project.sections.map((section, index) => <article className="case-section" key={section.title}><span className="section-number">0{index + 1} /</span><div><h2>{section.title}</h2><p>{section.body}</p></div></article>)}

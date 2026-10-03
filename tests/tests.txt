@@ -2,8 +2,8 @@
 
 1. At desktop and mobile sizes, follow Explore my work; verify project filters show the correct category and count.
 2. Open the mobile menu, follow a link, and dismiss with Escape; focus should return to Menu.
-3. Expand the repository archive; search for AfriMedQA and an unmatched phrase; verify results and the empty state.
-4. Open retail, health-access, and AfriMedQA case studies; verify readable imagery, source links, and data-boundary labels.
+3. Expand the repository archive; search for Health for All and an unmatched phrase; verify results and the empty state.
+4. Open retail, health-access, Health for All, and M&E Intelligence Engine case studies; verify readable imagery, source links, and safety/data-boundary labels.
 5. Navigate using a keyboard, including Skip to content, filters, archive disclosure, and contact links.
 
 6. Switch revenue/gross profit and select months using dropdown and range keyboard arrows; confirm KPI labels, bars, and table agree.

@@ -33,7 +33,7 @@ export function PortfolioHome() {
             <Link href={`/work/${p.slug}`} className={`project-card-visual visual-${p.accent}`} aria-label={`Explore ${p.title}`}>
               <Image unoptimized src={p.image.src} alt={p.image.alt} fill sizes={index===0&&filter==='Featured'?'(max-width: 760px) 90vw, 65vw':'(max-width: 760px) 90vw, 45vw'} />
               <div className="visual-meta"><span>{index===0&&filter==='Featured'?'Featured case study':p.kind}</span><span className="round-arrow"><ArrowIcon /></span></div>
-              {p.slug!=='retail-revenue-command-center'&&p.slug!=='health-access-for-pwds'&&p.slug!=='linkedin-ai-agent'&&<span className="visual-title">{p.shortTitle}</span>}
+              {p.slug!=='retail-revenue-command-center'&&p.slug!=='health-access-for-pwds'&&p.slug!=='linkedin-ai-agent'&&p.slug!=='health-for-all'&&p.slug!=='monitoring-and-evaluation-agent'&&<span className="visual-title">{p.shortTitle}</span>}
             </Link>
             <div className="project-card-body"><p className="eyebrow">{p.kicker}</p><h3><Link href={`/work/${p.slug}`}>{p.title}</Link></h3><p>{p.description}</p>{p.provenance&&<p className="provenance">{p.provenance}</p>}<div className="tag-row">{p.stack.slice(0,4).map(t=><span key={t}>{t}</span>)}</div><Link className="project-link" href={`/work/${p.slug}`}>Explore project <ArrowIcon /></Link></div>
           </article>)}

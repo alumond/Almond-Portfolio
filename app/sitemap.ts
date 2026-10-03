@@ -9,6 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Update these only for substantive content changes, not on every deployment.
   return routes.map(route => ({
     url: `${siteOrigin}${route}`,
-    lastModified: route === "/" ? "2026-09-30" : "2026-09-09",
+    lastModified: route === "/" || route === "/work/health-for-all/" || route === "/work/monitoring-and-evaluation-agent/" ? "2026-10-03" : "2026-09-09",
   }));
 }

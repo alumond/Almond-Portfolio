@@ -10,7 +10,7 @@ export const metadata = pageMetadata('Data Analytics, AI & M&E Services | Almond
 const serviceExamples: Record<string, { label: string; href: string }> = {
   "01": { label: "Explore the M&E Intelligence Engine", href: "/work/monitoring-and-evaluation-agent/" },
   "02": { label: "Explore the retail analytics dashboard", href: "/work/retail-revenue-command-center/" },
-  "03": { label: "Explore the AfriMedQA fine-tuning pipeline", href: "/work/afrimedqa-fine-tuning/" },
+  "03": { label: "Explore Health for All", href: "/work/health-for-all/" },
   "04": { label: "Explore the LinkedIn AI Agent", href: "/work/linkedin-ai-agent/" },
 };
 

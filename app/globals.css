@@ -169,6 +169,20 @@ body{background:#0d1e19;isolation:isolate}.page-transition{position:relative;z-i
 .portfolio-home .work-toolbar{flex-wrap:wrap}
 @media(max-width:760px){.primary-nav>a{font-size:14px}.portfolio-home .section-heading>p,.portfolio-home .about-intro>p:not(.eyebrow){max-width:none}.portfolio-home .section-heading{gap:20px}.portfolio-home .filter-bar{flex-wrap:wrap}.portfolio-home .work-bottom{flex-wrap:wrap}.portfolio-home .work-bottom>p{max-width:none}.portfolio-home .work-bottom .text-link{font-size:14px;white-space:normal}.portfolio-home .console-topline>span:first-child{font-size:12px}.portfolio-home .console-controls{flex-wrap:wrap}.portfolio-home .chart-heading{flex-wrap:wrap}.portfolio-home .contact-top{gap:16px;flex-wrap:wrap}}
 
+/* Product screenshots remain legible at card size without photographic filters. */
+.project-health-for-all .project-card-visual{background:#031b14}
+.project-health-for-all .project-card-visual img{object-fit:contain;filter:none}
+.project-health-for-all .project-card-visual::after{display:none}
+.project-health-for-all .visual-meta{inset:14px 14px auto}
+.case-project-health-for-all .case-mark-image{aspect-ratio:1.917;background:#031b14;min-height:0;padding:0;transform:none}
+.case-project-health-for-all .case-mark-image img{filter:none;object-fit:contain}
+.project-monitoring-and-evaluation-agent .project-card-visual{background:#103d6a}
+.project-monitoring-and-evaluation-agent .project-card-visual img{filter:none;object-fit:contain}
+.project-monitoring-and-evaluation-agent .project-card-visual::after{display:none}
+.project-monitoring-and-evaluation-agent .visual-meta{inset:14px 14px auto}
+.case-project-monitoring-and-evaluation-agent .case-mark-image{aspect-ratio:1.696;background:#103d6a;min-height:0;padding:0;transform:none}
+.case-project-monitoring-and-evaluation-agent .case-mark-image img{filter:none;object-fit:contain}
+
 /* The sticky surface spans the viewport; its content retains the page gutters. */
 .site-header {
   position: sticky;

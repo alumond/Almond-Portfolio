@@ -26,11 +26,11 @@ Featured work:
 
 - Retail Revenue & Operations Command Center
 - LinkedIn AI Agent
-- AfriMedQA Fine-Tuning & Chatbot
+- Health for All
 - M&E Intelligence Engine
 - Health Access for Persons with Disabilities
 
-The Job Application Agent and other projects remain available through All projects and the searchable repository archive. Forked repositories carry explicit attribution. Retail figures are synthetic; the AfriMedQA training pipeline is separate from its Gemini-powered chatbot interfaces.
+The Job Application Agent and other projects remain available through All projects and the searchable repository archive. Forked repositories carry explicit attribution. Retail figures are synthetic; Health for All is a clinical-guidance demonstration, and its AfriMedQA training research remains separate from the Gemini-powered interfaces.
 
 ## Project structure
 
