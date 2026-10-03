@@ -1,0 +1,19 @@
+Health for All — offline Telegram helper tests
+Checked: 3 October 2026
+Source: https://github.com/alumond/Activity-1/tree/07a5f58d691df9a7bde652a2d23073545119debf
+Command: python3 -m unittest discover -s tests -v
+Scope: message helpers only. No model API call, message sending, clinical accuracy, or triage-safety evaluation.
+
+test_escapes_telegram_html (test_telegram_bot.TelegramBotTests) ... ok
+test_extracts_chat_id_and_text (test_telegram_bot.TelegramBotTests) ... ok
+test_formats_common_markdown_for_telegram_html (test_telegram_bot.TelegramBotTests) ... ok
+test_ignores_non_text_message (test_telegram_bot.TelegramBotTests) ... ok
+test_prompt_contains_context (test_telegram_bot.TelegramBotTests) ... ok
+test_required_config_does_not_require_kv (test_telegram_bot.TelegramBotTests) ... ok
+test_splits_long_telegram_messages (test_telegram_bot.TelegramBotTests) ... ok
+test_webhook_registration_url_encodes_values (test_telegram_bot.TelegramBotTests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.011s
+
+OK

@@ -29,7 +29,7 @@ test("server-renders the complete portfolio homepage", async () => {
 test("server-renders a flagship case study route", async () => {
   const html = await readDist("/work/monitoring-and-evaluation-agent");
   assert.match(html, /M&amp;E Intelligence Engine/i);
-  assert.match(html, /intelligence backend/i);
+  assert.match(html, /I built this project independently/i);
   assert.match(html, /github\.com\/alumond\/Monitoring-and-Evaluation-Agent/i);
   assert.match(html, /project-me-report\.png/i);
   assert.match(html, /project-me-escalation\.png/i);
@@ -58,7 +58,8 @@ test("renders new original projects and accurate project boundaries", async () =
   const health = await readDist("/work/health-access-for-pwds");
   assert.match(health, /property="og:image"[^>]+project-health-dashboard/);
   const model = await readDist("/work/health-for-all");
-  assert.match(model, /Safety before certainty/);
+  assert.match(model, /8 \/ 8/);
+  assert.match(model, /Creator-reported/);
   assert.match(model, /does not replace clinical diagnosis/);
   assert.match(model, /property="og:image"[^>]+project-health-for-all/);
   assert.match(model, /<dialog/);
@@ -84,7 +85,8 @@ test("serves portraits, charts, resume download and contact access without an op
   assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
   const linkedin = await readDist("/work/linkedin-ai-agent");
   assert.match(linkedin, /<dialog/);
-  assert.match(linkedin, /project-escalation-story.png/);
+  assert.match(linkedin, /project-linkedin-studio.png/);
+  assert.doesNotMatch(linkedin, /project-escalation-story.png/);
 });
 
 

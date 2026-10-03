@@ -1,0 +1,12 @@
+{
+  "source_commit": "141568967e3bb3cbbebdd60b8b7b893c272619cd",
+  "synthetic": true,
+  "records": 2160,
+  "months": 18,
+  "totals_compared": 270,
+  "mismatches": 0,
+  "errors": [],
+  "source_csv_sha256": "e820edaa74bb6d5b537aa8f0537243415af5e443be0b57bff1a92ddb138391b8",
+  "chart_json_sha256": "b3fcd2eac8727382be7726681aa6190e891d204b72aab0ec2bf4f07a57d13987",
+  "scope": "Monthly revenue, profit and orders; category revenue and profit. Not a business-impact evaluation."
+}

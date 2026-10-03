@@ -159,7 +159,7 @@ export const projects: Project[] = [
   "kind": "AI systems",
   "kicker": "Research & content automation · 2026",
   "description": "From sourced research to a reviewable post: an AI publishing workflow with grounding, visual checks, and publication history.",
-  "longDescription": "A Python agent that researches Data and AI topics using Gemini Search grounding, drafts sourced LinkedIn posts, pairs them with topic-specific visuals, and supports staged review and scheduled publishing.",
+  "longDescription": "An independently built publishing workflow with a local LinkedIn Studio review desk, sourced drafts, visual checks, version-specific approval, and tracked publication history.",
   "stack": [
     "Python",
     "Gemini",
@@ -170,8 +170,8 @@ export const projects: Project[] = [
   "featured": true,
   "accent": "blue",
   "image": {
-    "src": "/images/project-linkedin-output.png",
-    "alt": "Example decision-storytelling visual prepared for the LinkedIn AI Agent"
+    "src": "/images/project-linkedin-studio.png",
+    "alt": "LinkedIn Studio review desk showing its publishing workflow and 39 tracked posts"
   },
   "outcomes": [
     "Search-grounded research",
@@ -306,7 +306,7 @@ export const projects: Project[] = [
     kind: "Dashboards",
     kicker: "Inclusive health · 2026",
     description: "An interactive M&E dashboard that turns reported access barriers into a clear prioritisation conversation.",
-    longDescription: "A static web dashboard for exploring healthcare access barriers reported by persons with disabilities in Nigeria, with target-aware KPIs, state rankings, barrier exposure, qualitative themes, and executive action recommendations.",
+    longDescription: "A static web dashboard for exploring healthcare access barriers reported by persons with disabilities in Nigeria, with target-aware KPIs, state rankings, barrier exposure, qualitative themes, and executive action recommendations. The public interactive demo reconstructs records from aggregate profiles.",
     stack: ["HTML", "CSS", "JavaScript", "M&E analytics", "Data quality"],
     github: "https://github.com/alumond/Health-Access-for-PWDs",
     featured: true,
@@ -318,8 +318,8 @@ export const projects: Project[] = [
     outcomes: ["Filterable by state and disability group", "Target-aware KPI cards", "Donor-ready action framing"],
     sections: [
       { title: "The question", body: "Where are access barriers most visible, which groups face the highest exposure, and which service-readiness gaps need attention first? The dashboard is structured around the decisions a programme manager or M&E lead actually needs to make." },
-      { title: "The translation layer", body: "Survey responses are cleaned and normalized into a visual surface that keeps actual values and target performance together. State ranking, facility utilization, response trends, heatmaps, and recommendation themes help a reader move from signal to action." },
-      { title: "The data boundary", body: "Figures are explicitly framed as respondent-sample diagnostics for M&E prioritisation and donor discussion—not population prevalence estimates. This is a small but important choice: useful evidence should come with an honest boundary around what it can prove." },
+      { title: "The translation layer", body: "The public demonstration reconstructs interactive records from aggregate survey profiles and keeps actual values and target performance together. State ranking, facility utilization, response trends, heatmaps, and recommendation themes help a reader move from signal to action." },
+      { title: "The data boundary", body: "The interactive records are reconstructed from aggregate profiles, not original respondent-level observations. Filtered relationships are demonstration outputs and cannot establish population prevalence or actual subgroup associations." },
     ],
   },
   {

@@ -62,3 +62,9 @@ Both supplied portraits remain in use. Case studies include expandable dashboard
 The homepage opens with a 6.4-second motion sequence: a particle globe becomes a wave, then an AO monogram as Almond's name appears. Visitors can pause, enter immediately, skip, or press Escape. The intro plays on a fresh homepage load, skips internal return navigation and direct section links, and can be replayed from the footer. Reduced-motion visitors go directly to the portfolio; replay shows a still introduction. The native dialog keeps keyboard focus within the introduction and restores focus on entry. Without JavaScript, the complete portfolio remains available.
 
 Image components explicitly serve original public assets. The alternate vinext worker also redirects valid local image requests when optional Cloudflare image bindings are absent, preventing the local `env.ASSETS.fetch` crash.
+
+## Evidence-led case studies
+
+The five featured projects use `app/case-studies.ts` and `CaseStudyNarrative` for the problem, independent role, constraints, decisions, working output, evaluation, and limitations. Ownership and usage were confirmed by Almond on 3 October 2026. Creator-reported usage, visible artifacts, source inspection, and executed checks have separate labels. Do not turn scope or capabilities into impact claims.
+
+`public/evidence/` contains the reproducible retail aggregation check, its input hashes and result, and the dated Health for All Telegram helper test result. The retail source snapshot is pinned in the verification script and case study. LinkedIn Studio's screenshot is captured from the running application and shows 39 tracked posts; the count is a dated snapshot. Health Access's public code reconstructs interactive records from aggregate profiles; it is not a raw respondent-level dataset.
