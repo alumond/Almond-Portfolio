@@ -144,11 +144,11 @@ export function DataHero({ preview = true }: { preview?: boolean }) {
         </div>}
         <div className={styles.bottomline}><span>ANALYTICS FOR BETTER DECISIONS.</span><Link href="/#work">VIEW SELECTED WORK ↓</Link></div>
       </section>
-      {preview ? <section className={styles.controls} aria-label="Explore the data animation">
+      <section className={styles.controls} aria-label="Explore the data animation">
         <div className={styles.controlIntro}><span className={styles.controlEyebrow}>FROM EVIDENCE TO IMPACT</span><p>Follow the signal.</p></div>
         <div className={styles.steps}>{stages.map((label, index) => <button key={label} onClick={() => setStage(index)} aria-pressed={stage === index} className={stage === index ? styles.active : ""}><span className={styles.stepNumber}>0{index + 1}</span><span>{label}</span><span className={styles.stepArrow}>↗</span></button>)}</div>
         {stage !== 2 && <button className={styles.pause} onClick={() => setPaused(!paused)} aria-label={paused ? "Play animation" : "Pause animation"}>{paused ? "▶" : "Ⅱ"}</button>}
-      </section> : <div className={styles.motionControl}><button type="button" onClick={() => setPaused(!paused)} aria-pressed={paused}>{paused ? "Resume background motion" : "Pause background motion"}</button></div>}
+      </section>
     </Content>
     {preview && <footer className={styles.previewFooter}><span>LOCAL DESIGN STUDY <i /> DATA IN MOTION</span><span>Illustrative data · No live metrics</span><Link href="/">Compare current portfolio ↗</Link></footer>}
   </div>;

@@ -19,6 +19,8 @@ test("server-renders the complete portfolio homepage", async () => {
   assert.match(html, /Health Access for Persons with Disabilities/i);
   assert.equal((html.match(/<article class="selected-story /g) || []).length, 3);
   assert.match(html, /Stanforte Edge/);
+  assert.match(html, /aria-label="Explore the data animation"/);
+  for (const stage of ["Raw data", "Find the signal", "Make it matter"]) assert.ok(html.includes(stage));
   assert.match(html, /HACEY/);
   assert.match(html, /href="\/archive\/"/);
   assert.doesNotMatch(html, /aria-label="Filter projects"|class="resume-feature |class="archive-table"/);
