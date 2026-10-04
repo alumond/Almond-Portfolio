@@ -2,15 +2,13 @@
 
 import { useEffect, useRef } from "react";
 
-/** A decorative coordinate probe; it never intercepts interaction or replaces focus. */
+/** A quiet dot and ring; it never intercepts interaction or replaces focus. */
 export function AnalystCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
-  const coordinatesRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const cursor = cursorRef.current;
-    const coordinates = coordinatesRef.current;
-    if (!cursor || !coordinates) return;
+    if (!cursor) return;
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;
@@ -32,13 +30,10 @@ export function AnalystCursor() {
       x = event.clientX;
       y = event.clientY;
       cursor.dataset.interactive = String(Boolean(target.closest("a, button, summary, [role=button]")));
-      cursor.dataset.side = x > window.innerWidth - 140 ? "left" : "right";
-      cursor.dataset.vertical = y > window.innerHeight - 50 ? "above" : "below";
       cursor.dataset.visible = "true";
       document.documentElement.classList.add("analyst-cursor-active");
       if (!frame) frame = requestAnimationFrame(() => {
         cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-        coordinates.textContent = `X ${Math.round(x).toString().padStart(4, "0")}  Y ${Math.round(y).toString().padStart(4, "0")}`;
         frame = 0;
       });
     };
@@ -66,7 +61,7 @@ export function AnalystCursor() {
   }, []);
 
   return <div ref={cursorRef} className="analyst-cursor" aria-hidden="true" data-visible="false">
-    <span className="analyst-cursor-reticle"><i /></span>
-    <span ref={coordinatesRef} className="analyst-cursor-coordinates" />
+    <span className="analyst-cursor-ring" />
+    <span className="analyst-cursor-dot" />
   </div>;
 }

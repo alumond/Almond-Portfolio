@@ -75,6 +75,6 @@ The homepage leads with professional positioning and Stanforte Edge/HACEY experi
 
 The cinematic intro runs for 2.4 seconds plus a 0.4-second exit. It remembers a visit in `sessionStorage`, preserves replay/skip/pause, bypasses automatic playback for anchor destinations and reduced-motion preferences, and suspends its frame loop when paused or the tab is hidden. Background hero-canvas optimisation and a wider performance audit remain separate follow-up work.
 
-A desktop coordinate cursor adds a crosshair, hover ring, and viewport X/Y readout. It is decorative, does not intercept input, and falls back to native text/form controls, keyboard navigation, touch handling, and a static reduced-motion crosshair.
+A subtle desktop cursor uses a small sage dot and a faint ring that expands slightly over links and buttons. It is decorative, does not intercept input, and preserves native controls for text/forms, keyboard navigation, touch, and reduced-motion preferences.
 
 The homepage retains the original Raw data / Find the signal / Make it matter hero controls, including the interactive applications in the third view.
