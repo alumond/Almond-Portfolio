@@ -14,11 +14,14 @@ async function readDist(path = "/") {
 test("server-renders the complete portfolio homepage", async () => {
   const html = await readDist();
   assert.match(html, /<title>Almond Owolabi — Data Scientist &amp; AI Engineer in Nigeria<\/title>/i);
-  assert.match(html, /I turn data into better decisions/i);
+  assert.match(html, /AI and data systems for decisions that matter/i);
   assert.match(html, /M&amp;E Intelligence Engine/i);
   assert.match(html, /Health Access for Persons with Disabilities/i);
-  assert.match(html, /Monitoring-and-Evaluation-Agent/i);
-  assert.match(html, /project-retail\.png/i);
+  assert.equal((html.match(/<article class="selected-story /g) || []).length, 3);
+  assert.match(html, /Stanforte Edge/);
+  assert.match(html, /HACEY/);
+  assert.match(html, /href="\/archive\/"/);
+  assert.doesNotMatch(html, /aria-label="Filter projects"|class="resume-feature |class="archive-table"/);
   assert.match(html, /project-health-dashboard\.png/i);
   assert.match(html, /project-me-report\.png/i);
   assert.match(html, /application\/ld\+json/i);
@@ -49,7 +52,10 @@ test("renders new original projects and accurate project boundaries", async () =
   const home = await readDist();
   assert.match(home, /LinkedIn AI Agent/);
   assert.match(home, /Health for All/);
-  assert.match(home, /project-health-for-all\.png/);
+  const archive = await readDist("/archive");
+  assert.match(archive, /Health for All/);
+  assert.match(archive, /Find a repository/);
+  assert.equal((archive.match(/<h3>/g) || []).length, 10);
   assert.match(home, /aria-pressed="true"/);
   assert.doesNotMatch(home, /portfolio-loader/);
   const retail = await readDist("/work/retail-revenue-command-center");
@@ -91,7 +97,7 @@ test("serves portraits, charts, resume download and contact access without an op
 
 
 test("SEO metadata identifies each core page and uses stable canonical URLs", async () => {
-  for (const path of ["/", "/about", "/services", "/contact"]) {
+  for (const path of ["/", "/about", "/services", "/contact", "/archive"]) {
     const html = await readDist(path);
     const canonical = `https://almondowolabi.dpdns.org${path === "/" ? "/" : `${path}/`}`;
     assert.ok(html.includes(`rel="canonical" href="${canonical}"`), path);
@@ -115,7 +121,7 @@ test("every sitemap page uses the custom domain and remains crawlable without Ja
   const origin = "https://almondowolabi.dpdns.org";
   const sitemap = await readFile(join(distRoot, "sitemap.xml"), "utf8");
   const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
-  assert.equal(urls.length, 14);
+  assert.equal(urls.length, 15);
   assert.equal(new Set(urls).size, urls.length);
   for (const url of urls) {
     assert.equal(new URL(url).origin, origin);

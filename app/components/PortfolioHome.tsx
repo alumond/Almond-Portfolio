@@ -1,9 +1,6 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { archiveRepos, experience, githubSnapshot, profile, projects, services } from "../data";
+import { profile, projects, services } from "../data";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 import { ArrowIcon } from "./ArrowIcon";
@@ -13,39 +10,55 @@ import { ResumeLink } from "./ResumeLink";
 import { ContactActions } from "./ContactActions";
 import { PortfolioIntro } from "./PortfolioIntro";
 
-const filters = ["Featured", "All projects", "AI systems", "Analytics", "M&E", "Machine learning", "Dashboards"] as const;
+const selectedWork = [
+  { slug: "monitoring-and-evaluation-agent", focus: "Programme evidence → accountable action", title: "A workbook becomes a report. A finding becomes an action.", summary: "I built an M&E engine that connects project data, performance calculations, reporting, and a separate escalation workflow.", evidence: "Used for project tracking · Report and escalation previews" },
+  { slug: "health-access-for-pwds", focus: "Disability inclusion → analytical judgement", title: "Making barriers to healthcare easier to examine.", summary: "I brought access indicators, disability groups, and service gaps into one dashboard, with explicit limits around what its reconstructed demonstration data can establish.", evidence: "Four filter dimensions · Inspectable calculations" },
+  { slug: "linkedin-ai-agent", focus: "AI automation → a working product", title: "From a sourced idea to a post I can stand behind.", summary: "I built LinkedIn Studio to bring research, drafts, artwork, and review together. Approval stays tied to the exact text and image that will be published.", evidence: "In regular use · 39 posts tracked at the October 2026 capture" },
+];
 
 export function PortfolioHome() {
-  const [filter, setFilter] = useState<(typeof filters)[number]>("Featured");
-  const [query, setQuery] = useState("");
-  const visibleProjects = projects.filter(p => filter === "Featured" ? p.featured : filter === "All projects" || p.kind === filter);
-  const repositories = archiveRepos.filter(r => `${r.name} ${r.description} ${r.language}`.toLowerCase().includes(query.toLowerCase()));
   return <>
     <SiteHeader />
     <main id="main-content" className="portfolio-home">
       <DataHero preview={false} />
-      <div className="expertise-strip section-frame" aria-label="Core tools"><span>THE TOOLKIT</span>{['Python','SQL','Power BI','FastAPI','Gemini','Scikit-learn'].map(x=><strong key={x}>{x}</strong>)}</div>
-      <section className="work-section section-frame" id="work" aria-labelledby="work-title">
-        <div className="section-heading"><div><p className="eyebrow">01 / Selected work</p><h2 id="work-title">Built with purpose.<br /><em>Open to explore.</em></h2></div><p>Dashboards, AI agents, and M&E systems. Explore the problems, decisions, and code behind each build.</p></div>
-        <div className="work-toolbar"><div className="filter-bar" role="group" aria-label="Filter projects">{filters.map(item=><button key={item} type="button" aria-pressed={filter===item} className={filter===item?'is-active':''} onClick={()=>setFilter(item)}>{item}</button>)}</div><span className="project-count" aria-live="polite">{String(visibleProjects.length).padStart(2,'0')} projects</span></div>
-        <div className="project-grid" key={filter}>
-          {visibleProjects.map((p,index)=><article className={`project-card project-${p.slug} ${index===0 && filter==='Featured'?'project-card-flagship':''}`} key={p.slug}>
-            <Link href={`/work/${p.slug}`} className={`project-card-visual visual-${p.accent}`} aria-label={`Explore ${p.title}`}>
-              <Image unoptimized src={p.image.src} alt={p.image.alt} fill sizes={index===0&&filter==='Featured'?'(max-width: 760px) 90vw, 65vw':'(max-width: 760px) 90vw, 45vw'} />
-              <div className="visual-meta"><span>{index===0&&filter==='Featured'?'Featured case study':p.kind}</span><span className="round-arrow"><ArrowIcon /></span></div>
-              {p.slug!=='retail-revenue-command-center'&&p.slug!=='health-access-for-pwds'&&p.slug!=='linkedin-ai-agent'&&p.slug!=='health-for-all'&&p.slug!=='monitoring-and-evaluation-agent'&&<span className="visual-title">{p.shortTitle}</span>}
-            </Link>
-            <div className="project-card-body"><p className="eyebrow">{p.kicker}</p><h3><Link href={`/work/${p.slug}`}>{p.title}</Link></h3><p>{p.description}</p>{p.provenance&&<p className="provenance">{p.provenance}</p>}<div className="tag-row">{p.stack.slice(0,4).map(t=><span key={t}>{t}</span>)}</div><Link className="project-link" href={`/work/${p.slug}`}>Explore project <ArrowIcon /></Link></div>
-          </article>)}
+      <section className="work-section selected-stories section-frame" id="work" aria-labelledby="work-title">
+        <div className="section-heading"><div><p className="eyebrow">01 / Selected work</p><h2 id="work-title">Three problems.<br /><em>Three working systems.</em></h2></div><p>Built independently. Each case study explains the decisions, shows the output, and makes the evidence available to inspect.</p></div>
+        <div className="selected-story-list">
+          {selectedWork.map((story, index) => {
+            const project = projects.find(item => item.slug === story.slug)!;
+            return <article className={`selected-story project-${project.slug}`} key={project.slug}>
+              <Link href={`/work/${project.slug}/`} className="project-card-visual" aria-label={`Read the ${project.title} case study`}>
+                <Image unoptimized src={project.image.src} alt={project.image.alt} fill sizes="(max-width: 760px) 90vw, 50vw" />
+                <span className="story-image-action">View the work <ArrowIcon /></span>
+              </Link>
+              <div className="selected-story-copy">
+                <p className="eyebrow">0{index + 1} / {story.focus}</p>
+                <p className="story-project-name">{project.title}</p>
+                <h3><Link href={`/work/${project.slug}/`}>{story.title}</Link></h3>
+                <p>{story.summary}</p>
+                <p className="story-evidence">{story.evidence}</p>
+                <Link className="text-link" href={`/work/${project.slug}/`}>Read the case study <ArrowIcon /></Link>
+              </div>
+            </article>;
+          })}
         </div>
-        <div className="work-bottom"><p>Explore more projects and source code.</p><a className="text-link" href={profile.github} target="_blank" rel="noreferrer">More on GitHub <ArrowIcon /></a></div>
+        <div className="work-bottom" id="archive"><p>More to explore, including <Link href="/work/health-for-all/">Health for All</Link> and machine learning projects.</p><Link className="text-link" href="/archive/">Browse all projects <ArrowIcon /></Link></div>
       </section>
       <AnalyticsShowcase />
-      <section className="practice-section" id="practice" aria-labelledby="practice-title"><div className="section-frame"><div className="section-heading"><div><p className="eyebrow">02 / How I can help</p><h2 id="practice-title">The right data.<br /><em>A clearer direction.</em></h2></div><p>I turn complex questions into systems your team can use.</p></div><div className="services-list">{services.map(s=><Link className="service-row" href="/services" key={s.number}><span className="service-number">{s.number}</span><h3>{s.title}</h3><p>{s.body}</p><span className="round-arrow"><ArrowIcon /></span></Link>)}</div></div></section>
-      <section className="about-section section-frame" id="about" aria-labelledby="about-title"><div className="about-photo"><Image unoptimized src={profile.portrait} alt="Almond Owolabi working at his laptop" fill sizes="(max-width:760px) 90vw, 35vw"/><span>Lagos / Abuja, Nigeria</span></div><div className="about-intro"><p className="eyebrow">03 / The person behind the work</p><h2 id="about-title">A technical mind.<br /><em>A human perspective.</em></h2><p>I work across disability inclusion, programme evidence, and commercial analytics, helping teams put data to use.</p><div className="compact-timeline">{experience.map(e=><div key={e.company}><span>{e.period}</span><strong>{e.company}<small>{e.role}</small></strong></div>)}</div><Link className="text-link" href="/about">More about me <ArrowIcon /></Link></div></section>
-      <section className="resume-feature section-frame" id="resume" aria-labelledby="resume-title"><div className="resume-card"><div className="resume-card-top"><Image unoptimized src={profile.portraitMono} alt="Almond Owolabi" width={66} height={82}/><span>ALMOND<br/>OWOLABI</span><span className="resume-format">PDF ↗</span></div><p>Data Scientist &amp; AI Engineer</p><div className="resume-card-rule"/><div className="resume-card-details"><span>EXPERIENCE</span><strong>Analytics. Systems.<br/>Development impact.</strong><span>CORE PRACTICE</span><p>Python / SQL / Machine learning<br/>Dashboards / AI workflows / M&amp;E</p></div><a className="resume-preview-link" href={profile.resume} target="_blank" rel="noreferrer">Open résumé <ArrowIcon/></a></div><div className="resume-feature-copy"><p className="eyebrow">The professional picture</p><h2 id="resume-title">My experience.<br/><em>Ready to share.</em></h2><p>My experience, technical skills, and professional background in one PDF.</p><div className="resume-actions"><ResumeLink className="button button-dark"/><a className="text-link" href={profile.resume} target="_blank" rel="noreferrer">Preview PDF <ArrowIcon/></a></div><span className="resume-note">PDF · Download or preview</span></div></section>
-      <section className="archive-section section-frame" id="archive" aria-labelledby="archive-title"><div className="section-heading"><div><p className="eyebrow">04 / The wider collection</p><h2 id="archive-title">Always <em>building.</em></h2></div><p>{githubSnapshot.publicRepos} public repositories. Original builds, collaborations, and studies. Updated September 2026.</p></div><details className="archive-disclosure"><summary><span>Explore the repository archive <b>{githubSnapshot.publicRepos}</b></span><span className="archive-plus" aria-hidden="true">+</span></summary><div className="archive-content"><label className="archive-search">Find a repository<input type="search" placeholder="Search projects, tools, or topics…" value={query} onChange={e=>setQuery(e.target.value)}/></label><p className="search-count" role="status">{repositories.length} repositories</p><div className="archive-table">{repositories.map(r=><a className="archive-row" href={r.github} target="_blank" rel="noreferrer" key={r.name}><span><strong>{r.name}</strong><small>{r.description}</small></span><span className="archive-kind">{r.fork?'Fork / study':r.language}<ArrowIcon /></span></a>)}</div>{repositories.length===0&&<p className="empty-state">No repositories match “{query}”. Try another project name or tool.</p>}</div></details></section>
-      <section className="contact-banner section-frame" id="contact" aria-labelledby="contact-title"><div className="contact-top"><p className="eyebrow">Have something in mind?</p><span><i className="status-dot"/> Let’s talk</span></div><h2 id="contact-title">Good questions.<br /><em>Better possibilities.</em></h2><div className="contact-bottom"><ContactActions /><a className="contact-address" href={`mailto:${profile.email}`}>{profile.email}<ArrowIcon /></a></div><div className="contact-socials"><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowIcon /></a><a href={profile.github} target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a><a href={`tel:${profile.phone.replace(/\s/g, "")}`}>Call Almond <ArrowIcon /></a><ResumeLink /></div></section>
+      <section className="home-practice section-frame" id="practice" aria-labelledby="practice-title">
+        <div className="home-about">
+          <div className="home-about-photo"><Image unoptimized src={profile.portrait} alt="Almond Owolabi working at his laptop" fill sizes="(max-width:760px) 90vw, 32vw" /></div>
+          <div><p className="eyebrow">02 / The person behind the work</p><h2 id="practice-title">Technical depth.<br /><em>A human context.</em></h2><p>My work spans disability inclusion, programme evidence, and commercial analytics. I care about what a team needs to understand, the quality of the evidence, and what happens after the dashboard is delivered.</p><div className="home-about-actions"><Link className="text-link" href="/about/">More about my experience <ArrowIcon /></Link><ResumeLink /></div><p className="home-toolkit">Python · SQL · Power BI · FastAPI · Gemini</p></div>
+        </div>
+        <div className="home-services" aria-label="How I can help">{services.map(service => <Link href="/services/" key={service.number}><span className="eyebrow">{service.number} / How I can help</span><h3>{service.title}<ArrowIcon /></h3><p>{service.body}</p></Link>)}</div>
+      </section>
+      <section className="contact-banner home-contact section-frame" id="contact" aria-labelledby="contact-title">
+        <div className="contact-top"><p className="eyebrow">Let’s work on it</p><span><i className="status-dot" /> Let’s talk</span></div>
+        <h2 id="contact-title">Have a reporting, analytics,<br /> <em>or automation problem?</em></h2>
+        <p className="home-contact-intro">Tell me what your team needs to understand or improve.</p>
+        <div className="contact-bottom"><ContactActions /><a className="contact-address" href={`mailto:${profile.email}`}>{profile.email}<ArrowIcon /></a></div>
+        <div className="contact-socials"><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowIcon /></a><a href={profile.github} target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a><ResumeLink /></div>
+      </section>
     </main><SiteFooter /><PortfolioIntro />
   </>;
 }

@@ -10,7 +10,7 @@ const links = [
   ["Work", "/#work"],
   ["Practice", "/#practice"],
   ["About", "/about"],
-  ["Archive", "/#archive"],
+  ["Archive", "/archive/"],
 ];
 
 export function SiteHeader() {

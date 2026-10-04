@@ -5,10 +5,10 @@ import { siteOrigin } from "./seo";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["/", "/about/", "/services/", "/contact/", ...projects.map(project => `/work/${project.slug}/`)];
+  const routes = ["/", "/about/", "/services/", "/contact/", "/archive/", ...projects.map(project => `/work/${project.slug}/`)];
   // Update these only for substantive content changes, not on every deployment.
   return routes.map(route => ({
     url: `${siteOrigin}${route}`,
-    lastModified: route === "/" || route.startsWith("/work/") ? "2026-10-03" : "2026-09-09",
+    lastModified: route === "/" || route === "/archive/" ? "2026-10-04" : route.startsWith("/work/") ? "2026-10-03" : "2026-09-09",
   }));
 }

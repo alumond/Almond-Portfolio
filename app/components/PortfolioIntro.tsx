@@ -4,10 +4,11 @@ import { useEffect, useRef } from "react";
 import { createIntroArtwork } from "../lib/intro-artwork";
 import styles from "./portfolio-intro.module.css";
 
-// Internal navigation stays immediate. A full page load starts a new sequence.
+// sessionStorage survives reloads; the module flag is a fallback when storage is blocked.
 let hasEnteredPortfolio = false;
-const SEQUENCE_MS = 6400;
-const EXIT_MS = 850;
+const SESSION_KEY = "almond-portfolio-intro-seen";
+const SEQUENCE_MS = 2400;
+const EXIT_MS = 400;
 
 export function PortfolioIntro() {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -40,6 +41,13 @@ export function PortfolioIntro() {
       scrollLocked = false;
     };
 
+    const rememberVisit = () => {
+      hasEnteredPortfolio = true;
+      try { window.sessionStorage.setItem(SESSION_KEY, "true"); } catch { /* Storage can be unavailable in private contexts. */ }
+    };
+    let alreadyVisited = hasEnteredPortfolio;
+    try { alreadyVisited ||= window.sessionStorage.getItem(SESSION_KEY) === "true"; } catch { /* Use the in-memory fallback. */ }
+
     const close = () => {
       cancelAnimationFrame(frame);
       window.clearTimeout(exitTimer);
@@ -60,26 +68,35 @@ export function PortfolioIntro() {
     const finish = () => {
       if (!dialog.open || leaving) return;
       leaving = true;
-      hasEnteredPortfolio = true;
+      rememberVisit();
+      cancelAnimationFrame(frame);
+      frame = 0;
       dialog.dataset.leaving = "true";
       if (preference.matches) close();
       else exitTimer = window.setTimeout(close, EXIT_MS);
     };
 
     const render = (time: number) => {
-      if (!dialog.open) return;
-      if (lastTime && !document.hidden && !paused) elapsed += Math.min(time - lastTime, 64);
+      frame = 0;
+      if (!dialog.open || leaving || paused || document.hidden) return;
+      if (lastTime) elapsed += Math.max(time - lastTime, 0);
       lastTime = time;
-      const scene = elapsed < 1750 ? "question" : elapsed < 3450 ? "pattern" : "identity";
+      const scene = elapsed < 650 ? "question" : elapsed < 1300 ? "pattern" : "identity";
       if (dialog.dataset.scene !== scene) dialog.dataset.scene = scene;
       dialog.style.setProperty("--intro-progress", String(Math.min(elapsed / SEQUENCE_MS, 1)));
-      if (!paused) artwork.draw(elapsed);
+      artwork.draw(Math.min(elapsed / SEQUENCE_MS, 1) * 6400);
       if (elapsed >= SEQUENCE_MS) finish();
-      frame = requestAnimationFrame(render);
+      else frame = requestAnimationFrame(render);
+    };
+
+    const schedule = () => {
+      lastTime = performance.now();
+      if (!frame && dialog.open && !leaving && !paused && !document.hidden && !preference.matches) frame = requestAnimationFrame(render);
     };
 
     const start = () => {
       if (dialog.open) return;
+      rememberVisit();
       previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
       previousOverflow = document.documentElement.style.overflow;
       document.documentElement.style.overflow = "hidden";
@@ -93,24 +110,28 @@ export function PortfolioIntro() {
         pauseRef.current.setAttribute("aria-label", "Pause intro");
         pauseRef.current.setAttribute("aria-pressed", "false");
       }
+      dialog.dataset.paused = "false";
       dialog.dataset.leaving = "false";
       dialog.dataset.scene = preference.matches ? "identity" : "question";
       dialog.style.setProperty("--intro-progress", "0");
       dialog.showModal();
       artwork.resize();
       if (preference.matches) artwork.draw(5400);
-      else frame = requestAnimationFrame(render);
+      else schedule();
     };
 
     const onPreferenceChange = () => {
       if (preference.matches && dialog.open) {
-        hasEnteredPortfolio = true;
+        rememberVisit();
         close();
       }
     };
     const pause = () => {
       if (leaving) return;
       paused = !paused;
+      dialog.dataset.paused = String(paused);
+      if (paused) { cancelAnimationFrame(frame); frame = 0; }
+      else schedule();
       if (pauseRef.current) {
         pauseRef.current.textContent = paused ? "Resume" : "Pause";
         pauseRef.current.setAttribute("aria-label", paused ? "Resume intro" : "Pause intro");
@@ -120,12 +141,19 @@ export function PortfolioIntro() {
     controller.current = { start, finish, pause };
     replay.hidden = false;
     // Anchor links and reduced-motion visits get straight to their destination.
-    if (!hasEnteredPortfolio && !window.location.hash && !preference.matches) start();
+    if (!alreadyVisited && !window.location.hash && !preference.matches) start();
+    else rememberVisit();
+    const onVisibilityChange = () => {
+      if (document.hidden) { cancelAnimationFrame(frame); frame = 0; }
+      else schedule();
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
     preference.addEventListener("change", onPreferenceChange);
     return () => {
       cancelAnimationFrame(frame);
       window.clearTimeout(exitTimer);
       preference.removeEventListener("change", onPreferenceChange);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       artwork.destroy();
       dialog.close();
       unlockScroll();
@@ -156,11 +184,11 @@ export function PortfolioIntro() {
         <div className={styles.copy}>
           <p className={styles.eyebrow}><span /> A DIFFERENT WAY TO SEE</p>
           <div className={styles.titles}>
-            <p className={`${styles.sceneTitle} ${styles.question}`} aria-hidden="true">It starts with<br /><em>a question.</em></p>
-            <p className={`${styles.sceneTitle} ${styles.pattern}`} aria-hidden="true">Then, a<br /><em>new perspective.</em></p>
+            <p className={`${styles.sceneTitle} ${styles.question}`} aria-hidden="true">A question.</p>
+            <p className={`${styles.sceneTitle} ${styles.pattern}`} aria-hidden="true">A pattern.</p>
             <h2 id="intro-title" className={`${styles.sceneTitle} ${styles.identity}`}><span>Almond</span><br /><em>Owolabi.</em></h2>
           </div>
-          <p id="intro-description" className={styles.description}>Data scientist. AI engineer.<br />Curious about what comes next.</p>
+          <p id="intro-description" className={styles.description}>Data scientist. AI engineer.<br />Systems for decisions that matter.</p>
           <button className={styles.enter} type="button" onClick={() => controller.current.finish()}>
             <span>Enter my portfolio</span><span className={styles.enterArrow} aria-hidden="true">↗</span>
           </button>

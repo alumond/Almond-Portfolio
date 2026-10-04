@@ -68,3 +68,11 @@ Image components explicitly serve original public assets. The alternate vinext w
 The five featured projects use `app/case-studies.ts` and `CaseStudyNarrative` for the problem, independent role, constraints, decisions, working output, evaluation, and limitations. Ownership and usage were confirmed by Almond on 3 October 2026. Creator-reported usage, visible artifacts, source inspection, and executed checks have separate labels. Do not turn scope or capabilities into impact claims.
 
 `public/evidence/` contains the reproducible retail aggregation check, its input hashes and result, and the dated Health for All Telegram helper test result. The retail source snapshot is pinned in the verification script and case study. LinkedIn Studio's screenshot is captured from the running application and shows 39 tracked posts; the count is a dated snapshot. Health Access's public code reconstructs interactive records from aggregate profiles; it is not a raw respondent-level dataset.
+
+## Homepage hierarchy (4 October 2026)
+
+The homepage leads with professional positioning and Stanforte Edge/HACEY experience, followed by three selected stories (M&E, Health Access, LinkedIn Studio), the synthetic retail demonstration, a compact about/services section, and a specific contact invitation. The complete case-study and searchable repository collection is at `/archive/`.
+
+The cinematic intro runs for 2.4 seconds plus a 0.4-second exit. It remembers a visit in `sessionStorage`, preserves replay/skip/pause, bypasses automatic playback for anchor destinations and reduced-motion preferences, and suspends its frame loop when paused or the tab is hidden. Background hero-canvas optimisation and a wider performance audit remain separate follow-up work.
+
+A desktop coordinate cursor adds a crosshair, hover ring, and viewport X/Y readout. It is decorative, does not intercept input, and falls back to native text/form controls, keyboard navigation, touch handling, and a static reduced-motion crosshair.

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./data-hero.module.css";
 import { AppliedDataDemo } from "./AppliedDataDemo";
+import { ResumeLink } from "./ResumeLink";
 
 const stages = ["Raw data", "Find the signal", "Make it matter"];
 
@@ -128,8 +129,9 @@ export function DataHero({ preview = true }: { preview?: boolean }) {
         <div className={styles.topline}><span><i /> DATA SCIENTIST & AI ENGINEER</span><span>NIGERIA ↗ WORKING GLOBALLY</span></div>
         <div className={styles.copy}>
           <p className={styles.kicker}><span>01 /</span> ALMOND OWOLABI / PORTFOLIO</p>
-          <h1 id="data-hero-title" aria-label="I turn data into better decisions.">I turn data<br />into better<br /><em>decisions.</em></h1>
-          <p className={styles.intro}>I build dashboards, AI tools, and monitoring systems that help teams understand results and act on them.</p>
+          <h1 id="data-hero-title" aria-label="AI and data systems for decisions that matter.">AI and data systems<br />for decisions<br /><em>that matter.</em></h1>
+          <p className={styles.intro}>I’m Almond Owolabi. I build dashboards, reporting systems, and AI workflows for teams working across business and social impact.</p>
+          <div className={styles.credibility}><span>Experience across business &amp; social impact</span><p><strong>Data Analyst</strong> · Stanforte Edge<br /><strong>Data Scientist</strong> · HACEY</p><ResumeLink label="Download résumé" /></div>
           <div className={styles.actions}><Link href="/#work" className={styles.primary}>Explore my work <span>↗</span></Link><Link href="/contact/" className={styles.secondary}>Work with me <span>↗</span></Link></div>
           <div className={styles.disciplines}><span>DATA SCIENCE</span><i /><span>AI ENGINEERING</span><i /><span>M&E INTELLIGENCE</span></div>
         </div>
@@ -142,11 +144,11 @@ export function DataHero({ preview = true }: { preview?: boolean }) {
         </div>}
         <div className={styles.bottomline}><span>ANALYTICS FOR BETTER DECISIONS.</span><Link href="/#work">VIEW SELECTED WORK ↓</Link></div>
       </section>
-      <section className={styles.controls} aria-label="Explore the data animation">
+      {preview ? <section className={styles.controls} aria-label="Explore the data animation">
         <div className={styles.controlIntro}><span className={styles.controlEyebrow}>FROM EVIDENCE TO IMPACT</span><p>Follow the signal.</p></div>
         <div className={styles.steps}>{stages.map((label, index) => <button key={label} onClick={() => setStage(index)} aria-pressed={stage === index} className={stage === index ? styles.active : ""}><span className={styles.stepNumber}>0{index + 1}</span><span>{label}</span><span className={styles.stepArrow}>↗</span></button>)}</div>
         {stage !== 2 && <button className={styles.pause} onClick={() => setPaused(!paused)} aria-label={paused ? "Play animation" : "Pause animation"}>{paused ? "▶" : "Ⅱ"}</button>}
-      </section>
+      </section> : <div className={styles.motionControl}><button type="button" onClick={() => setPaused(!paused)} aria-pressed={paused}>{paused ? "Resume background motion" : "Pause background motion"}</button></div>}
     </Content>
     {preview && <footer className={styles.previewFooter}><span>LOCAL DESIGN STUDY <i /> DATA IN MOTION</span><span>Illustrative data · No live metrics</span><Link href="/">Compare current portfolio ↗</Link></footer>}
   </div>;

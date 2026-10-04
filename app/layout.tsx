@@ -1,3 +1,4 @@
+import { AnalystCursor } from "./components/AnalystCursor";
 import type { Metadata } from "next";
 import "./globals.css";
 import { profile } from "./data";
@@ -57,6 +58,7 @@ export default function RootLayout({
         <DataBackdrop />
         <PortfolioMotion />
         {children}
+        <AnalystCursor />
       </body>
     </html>
   );

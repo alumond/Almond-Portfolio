@@ -26,12 +26,12 @@ export function GET() {
             stroke="#d5ef99" strokeWidth="1.5" fill="none" />)}
         </svg>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", marginTop: 64, fontSize: 86, lineHeight: 1.12, letterSpacing: "-4px", fontWeight: 700 }}>
-        <span>I turn data into</span>
-        <span style={{ color: "#d5ef99" }}>better decisions.</span>
+      <div style={{ display: "flex", flexDirection: "column", marginTop: 64, fontSize: 72, lineHeight: 1.12, letterSpacing: "-4px", fontWeight: 700 }}>
+        <span>AI and data systems.</span>
+        <span style={{ color: "#d5ef99" }}>Decisions that matter.</span>
       </div>
       <div style={{ display: "flex", marginTop: 25, fontSize: 23, color: "#bdcdb5" }}>
-        Dashboards. AI tools. Monitoring systems.
+        Dashboards, reporting, and AI for business and social impact.
       </div>
       <div style={{ display: "flex", marginTop: "auto", paddingTop: 25, borderTop: "1px solid #536d49", alignItems: "center", justifyContent: "space-between", fontSize: 18 }}>
         <span style={{ color: "#d5ef99", letterSpacing: "3px" }}>BASED IN NIGERIA · WORKING GLOBALLY</span>

@@ -4,12 +4,12 @@ import { getSiteUrl } from "./site-url";
 
 export const siteOrigin = getSiteUrl();
 export const siteTitle = "Almond Owolabi — Data Scientist & AI Engineer in Nigeria";
-export const siteDescription = "Almond Owolabi is a data scientist and AI engineer in Nigeria. Explore dashboards, machine learning projects, and AI tools that help teams make better decisions.";
+export const siteDescription = "Almond Owolabi is a data scientist and AI engineer in Nigeria. He builds dashboards, reporting systems, and AI workflows for business and social impact.";
 export const socialImage = {
   url: "/social-preview.png",
   width: 1200,
   height: 630,
-  alt: "Almond Owolabi — Data Scientist & AI Engineer. I turn data into better decisions.",
+  alt: "Almond Owolabi — Data Scientist & AI Engineer. AI and data systems for decisions that matter.",
 };
 export const personId = `${siteOrigin}/#person`;
 export const websiteId = `${siteOrigin}/#website`;

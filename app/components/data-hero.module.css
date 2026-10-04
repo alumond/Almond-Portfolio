@@ -75,3 +75,18 @@
 .runDemo{display:flex;align-items:center;justify-content:space-between;gap:20px;border:1px solid #d5ef99;border-radius:4px;background:#d5ef99;color:#142516;font-size:14px;line-height:1.5;padding:12px 16px;min-height:46px;width:100%;margin-top:19px}.runDemo:hover{background:#e5ffb4}
 .automationOutput{margin-top:18px;background:#1c3524;border:1px solid #64834b;border-radius:5px;padding:16px}.automationOutput>p{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:16px;color:#e1efce}.automationOutput>p>span{font-size:12px;color:#d5ef99}.automationOutput ul{padding-left:18px;font-size:13px;line-height:1.9;color:#bfd4ab;margin:12px 0 0}.exportActions{display:flex;gap:15px;align-items:center;margin-top:15px}.exportActions .runDemo{margin:0;width:auto;flex:1}.resetDemo{background:none;border:0;color:#c8ddb2;font-size:13px;padding:10px 0;min-height:44px}
 @media(max-width:760px){.demoSwitcher{padding:8px;gap:4px}.demoSwitcher button{font-size:12px}.appBody h2{font-size:30px}.demoResults strong{font-size:36px}.projectMatch{padding:18px}.projectMatch h3{font-size:27px}.goalLabel select{font-size:13px}.sampleTable th,.sampleTable td{padding:8px 4px}.exportActions .runDemo{font-size:13px;gap:8px;padding-inline:10px}}
+
+/* A clear professional introduction, with credibility before the project list. */
+.copy h1{font-size:clamp(46px,4.5vw,72px);line-height:1.03;letter-spacing:-.035em;text-wrap:wrap}
+.copy{width:60%;padding-top:48px}
+.intro{max-width:520px;font-size:17px}
+.credibility{margin-top:24px;pointer-events:auto}
+.credibility>span{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:#a8bc98}
+.credibility p{font-size:14px;line-height:1.8;margin-top:8px;color:#b6c9aa}
+.credibility strong{font-weight:500;color:#e2ecd6}
+.credibility a{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:13px;color:#d5ef99}
+.disciplines{display:none}
+.motionControl{display:flex;justify-content:flex-end;padding:10px 0;border-bottom:1px solid #8aa77d30}
+.motionControl button{background:transparent;border:0;color:#a8bc98;min-height:44px;font-size:12px;padding:0 8px}
+@media(max-width:1100px){.copy{width:64%}.copy h1{font-size:clamp(44px,5.3vw,66px)}.intro{max-width:470px}}
+@media(max-width:760px){.copy{width:100%;padding-top:34px}.copy h1{font-size:clamp(38px,8.8vw,64px)}.intro{font-size:16px;max-width:none}.hero{min-height:0;padding-bottom:0}.visual{position:relative;inset:auto;height:300px;width:100%;margin:10px 0 0}.visualTop{top:20px}.rawData{top:55px}.chart{bottom:12px}.axisLabel{bottom:115px}.bottomline{position:relative;inset:auto}.credibility{margin-top:20px}.actions{margin-top:18px;gap:20px}.topline{font-size:9px}.motionControl{justify-content:flex-start}}
