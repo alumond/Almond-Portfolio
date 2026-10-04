@@ -59,7 +59,7 @@ The homepage includes metric and month controls for the retail dataset, animated
 
 Both supplied portraits remain in use. Case studies include expandable dashboard and content galleries and system architecture panels. Motion progressively enhances visible content and respects reduced-motion preferences. Résumé links use the browser download attribute; email links and clipboard copying provide complementary ways to get in touch.
 
-The homepage opens with a 6.4-second motion sequence: a particle globe becomes a wave, then an AO monogram as Almond's name appears. Visitors can pause, enter immediately, skip, or press Escape. The intro plays on a fresh homepage load, skips internal return navigation and direct section links, and can be replayed from the footer. Reduced-motion visitors go directly to the portfolio; replay shows a still introduction. The native dialog keeps keyboard focus within the introduction and restores focus on entry. Without JavaScript, the complete portfolio remains available.
+The homepage opens with a 2.4-second motion sequence and a 0.4-second exit: a particle globe becomes a wave, then an AO monogram as Almond's name appears. Visitors can pause, enter immediately, skip, or press Escape. The intro plays once per tab session, skips internal return navigation and direct section links, and can be replayed from the footer. Reduced-motion visitors go directly to the portfolio; replay shows a still introduction. The native dialog keeps keyboard focus within the introduction and restores focus on entry. Without JavaScript, the complete portfolio remains available.
 
 Image components explicitly serve original public assets. The alternate vinext worker also redirects valid local image requests when optional Cloudflare image bindings are absent, preventing the local `env.ASSETS.fetch` crash.
 
@@ -74,6 +74,8 @@ The five featured projects use `app/case-studies.ts` and `CaseStudyNarrative` fo
 The homepage leads with professional positioning and Stanforte Edge/HACEY experience, followed by three selected stories (M&E, Health Access, LinkedIn Studio), the synthetic retail demonstration, a compact about/services section, and a specific contact invitation. The complete case-study and searchable repository collection is at `/archive/`.
 
 The cinematic intro runs for 2.4 seconds plus a 0.4-second exit. It remembers a visit in `sessionStorage`, preserves replay/skip/pause, bypasses automatic playback for anchor destinations and reduced-motion preferences, and suspends its frame loop when paused or the tab is hidden. Background hero-canvas optimisation and a wider performance audit remain separate follow-up work.
+
+A small head script selects the intro before the first paint. Its opening scene is already present in the HTML, then hands over to the animated modal as the application hydrates. Return visits, section links, other routes, and reduced-motion users bypass that opening screen. If hydration fails to arrive within six seconds, the portfolio is revealed and a late bundle cannot interrupt it; with JavaScript disabled, no opening screen is applied.
 
 A subtle desktop cursor uses a small sage dot and a faint ring that expands slightly over links and buttons. It is decorative, does not intercept input, and preserves native controls for text/forms, keyboard navigation, touch, and reduced-motion preferences.
 

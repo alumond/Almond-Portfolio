@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { createIntroArtwork } from "../lib/intro-artwork";
+import { INTRO_SESSION_KEY } from "../lib/intro-entry";
 import styles from "./portfolio-intro.module.css";
 
 // sessionStorage survives reloads; the module flag is a fallback when storage is blocked.
 let hasEnteredPortfolio = false;
-const SESSION_KEY = "almond-portfolio-intro-seen";
 const SEQUENCE_MS = 2400;
 const EXIT_MS = 400;
 
@@ -17,7 +17,7 @@ export function PortfolioIntro() {
   const pauseRef = useRef<HTMLButtonElement>(null);
   const controller = useRef({ start: () => {}, finish: () => {}, pause: () => {} });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const dialog = dialogRef.current;
     const canvas = canvasRef.current;
     const replay = replayRef.current;
@@ -43,10 +43,10 @@ export function PortfolioIntro() {
 
     const rememberVisit = () => {
       hasEnteredPortfolio = true;
-      try { window.sessionStorage.setItem(SESSION_KEY, "true"); } catch { /* Storage can be unavailable in private contexts. */ }
+      try { window.sessionStorage.setItem(INTRO_SESSION_KEY, "true"); } catch { /* Storage can be unavailable in private contexts. */ }
     };
     let alreadyVisited = hasEnteredPortfolio;
-    try { alreadyVisited ||= window.sessionStorage.getItem(SESSION_KEY) === "true"; } catch { /* Use the in-memory fallback. */ }
+    try { alreadyVisited ||= window.sessionStorage.getItem(INTRO_SESSION_KEY) === "true"; } catch { /* Use the in-memory fallback. */ }
 
     const close = () => {
       cancelAnimationFrame(frame);
@@ -140,9 +140,12 @@ export function PortfolioIntro() {
     };
     controller.current = { start, finish, pause };
     replay.hidden = false;
-    // Anchor links and reduced-motion visits get straight to their destination.
-    if (!alreadyVisited && !window.location.hash && !preference.matches) start();
+    // Hand the server-rendered opening scene to the modal without exposing the
+    // homepage between them. A failed/late bundle must never re-cover the page.
+    const entryTimedOut = document.documentElement.dataset.portfolioEntry === "bypassed";
+    if (!alreadyVisited && !window.location.hash && !preference.matches && !entryTimedOut) start();
     else rememberVisit();
+    delete document.documentElement.dataset.portfolioEntry;
     const onVisibilityChange = () => {
       if (document.hidden) { cancelAnimationFrame(frame); frame = 0; }
       else schedule();

@@ -6,6 +6,7 @@ import { DataBackdrop } from "./components/DataBackdrop";
 import { PortfolioMotion } from "./components/PortfolioMotion";
 import { personSchema, personId, websiteId, siteOrigin, siteTitle, siteDescription, socialImage } from "./seo";
 import { StructuredData } from "./components/StructuredData";
+import { introEntryScript } from "./lib/intro-entry";
 
 const siteUrl = siteOrigin;
 
@@ -49,7 +50,10 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script id="portfolio-intro-entry" dangerouslySetInnerHTML={{ __html: introEntryScript }} />
+      </head>
       <body
         className="antialiased"
       >
